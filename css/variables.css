@@ -1,0 +1,92 @@
+/* ========================================
+   Theme Variables — Calm & Grounding
+   ======================================== */
+
+:root {
+  /* --- Primary Palette --- */
+  --color-bg-primary:       #F5F0E8;
+  --color-bg-secondary:     #EDE6D6;
+  --color-bg-tertiary:      #E2D9C8;
+  --color-bg-accent:        #D4C9B4;
+  --color-bg-dark:          #2C2418;
+  --color-text-primary:     #2C2418;
+  --color-text-secondary:   #5C4E3C;
+  --color-text-muted:       #8A7D6B;
+  --color-text-on-dark:     #F5F0E8;
+  --color-brand:            #6B4C3B;
+  --color-brand-hover:      #5A3D2E;
+
+  /* --- Accent Colors (Palette A) --- */
+  --color-accent-1:         #995D81;   /* mauve-plum */
+  --color-accent-2:         #6689A1;   /* steel blue */
+  --color-accent-3:         #D8DC6A;   /* lime-olive */
+  --color-accent-4:         #EB8258;   /* burnt orange */
+  --color-accent-5:         #F6F740;   /* electric yellow */
+
+  /* --- CTA Colors --- */
+  --color-cta-bg:           #995D81;
+  --color-cta-text:         #FFFFFF;
+  --color-cta-hover-bg:     #824E6D;
+  --color-cta-secondary-bg: transparent;
+  --color-cta-secondary-border: #995D81;
+  --color-cta-secondary-text: #995D81;
+
+  /* --- Borders --- */
+  --color-border:           #D4C9B4;
+  --color-border-light:     #E8E0D0;
+
+  /* --- Typography --- */
+  --font-primary:           'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-secondary:         Georgia, 'Times New Roman', serif;
+  --font-accent:            Georgia, 'Times New Roman', serif;
+  --font-weight-heading:    300;
+  --font-weight-body:       400;
+  --font-weight-bold:       600;
+  --letter-spacing-heading: 0.02em;
+  --letter-spacing-body:    0.01em;
+  --line-height-heading:    1.2;
+  --line-height-body:       1.7;
+
+  /* --- Type Scale (mobile-first) --- */
+  --text-xs:    0.75rem;
+  --text-sm:    0.875rem;
+  --text-base:  1rem;
+  --text-lg:    1.125rem;
+  --text-xl:    1.375rem;
+  --text-2xl:   1.75rem;
+  --text-3xl:   2.25rem;
+  --text-4xl:   3rem;
+  --text-5xl:   3.75rem;
+
+  /* --- Spacing --- */
+  --space-xs:   0.25rem;
+  --space-sm:   0.5rem;
+  --space-md:   1rem;
+  --space-lg:   1.5rem;
+  --space-xl:   2rem;
+  --space-2xl:  3rem;
+  --space-3xl:  4rem;
+  --space-4xl:  6rem;
+  --space-5xl:  8rem;
+  --section-padding: 5rem 1.5rem;
+
+  /* --- Shape & Motion --- */
+  --border-radius-sm:    4px;
+  --border-radius-md:    8px;
+  --border-radius-lg:    16px;
+  --border-radius-pill:  9999px;
+  --border-radius-card:  8px;
+
+  --shadow-sm:   0 1px 3px rgba(44, 36, 24, 0.06);
+  --shadow-md:   0 4px 12px rgba(44, 36, 24, 0.08);
+  --shadow-lg:   0 8px 30px rgba(44, 36, 24, 0.10);
+
+  --transition-speed:       0.4s;
+  --transition-speed-fast:  0.2s;
+  --transition-easing:      cubic-bezier(0.25, 0.1, 0.25, 1);
+  --animation-distance:     30px;
+
+  /* --- Decorative --- */
+  --grain-opacity:          0.04;
+  --decorative-border-style: solid;
+}

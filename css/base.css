@@ -1,0 +1,120 @@
+/* ========================================
+   Base Styles — Typography & Globals
+   ======================================== */
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-body);
+  font-size: var(--text-base);
+  line-height: var(--line-height-body);
+  letter-spacing: var(--letter-spacing-body);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* --- Headings --- */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-heading);
+  letter-spacing: var(--letter-spacing-heading);
+  line-height: var(--line-height-heading);
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+h5 { font-size: var(--text-lg); }
+h6 { font-size: var(--text-base); }
+
+@media (min-width: 768px) {
+  h1 { font-size: var(--text-5xl); }
+  h2 { font-size: var(--text-4xl); }
+  h3 { font-size: var(--text-3xl); }
+}
+
+/* --- Body text --- */
+p {
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-md);
+}
+
+p:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Links --- */
+a {
+  transition: color var(--transition-speed-fast) ease;
+}
+
+a:hover {
+  color: var(--color-cta-bg);
+}
+
+/* --- Selection --- */
+::selection {
+  background-color: var(--color-accent-1);
+  color: #FFFFFF;
+}
+
+/* --- Focus styles --- */
+:focus-visible {
+  outline: 3px solid var(--color-accent-1);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --- Section labels --- */
+.section-label {
+  font-family: var(--font-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent-1);
+  margin-bottom: var(--space-md);
+}
+
+/* --- Section headings --- */
+.section-heading {
+  margin-bottom: var(--space-lg);
+}
+
+/* --- Section subtext --- */
+.section-subtext {
+  font-family: var(--font-secondary);
+  font-size: var(--text-lg);
+  line-height: var(--line-height-body);
+  color: var(--color-text-secondary);
+  max-width: 640px;
+}
+
+/* --- Serif accent --- */
+.text-accent {
+  font-family: var(--font-secondary);
+  font-style: italic;
+}
+
+/* --- Strong/emphasis --- */
+strong, b {
+  font-weight: var(--font-weight-bold);
+}
+
+em, i {
+  font-style: italic;
+}
+
+/* --- Horizontal rule --- */
+hr {
+  border: none;
+  height: 1px;
+  background-color: var(--color-border-light);
+  margin: var(--space-3xl) 0;
+}

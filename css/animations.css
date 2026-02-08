@@ -1,0 +1,178 @@
+/* ========================================
+   Animations — Keyframes & Scroll Reveals
+   ======================================== */
+
+/* ---- Scroll Reveal System ---- */
+
+/* With JS: hide elements for scroll reveal animation */
+.js-loaded .reveal {
+  opacity: 0;
+  transform: translateY(var(--animation-distance));
+  transition:
+    opacity var(--transition-speed) var(--transition-easing),
+    transform var(--transition-speed) var(--transition-easing);
+}
+
+/* Without JS: content is fully visible (no animation, no hiding) */
+
+.js-loaded .reveal--fade-in {
+  transform: none;
+}
+
+.js-loaded .reveal--slide-left {
+  transform: translateX(calc(var(--animation-distance) * -1));
+}
+
+.js-loaded .reveal--slide-right {
+  transform: translateX(var(--animation-distance));
+}
+
+.js-loaded .reveal--scale {
+  transform: scale(0.92);
+}
+
+.js-loaded .reveal.revealed {
+  opacity: 1;
+  transform: translateY(0) translateX(0) scale(1);
+}
+
+/* ---- Stagger delays (only with JS) ---- */
+.js-loaded .reveal-delay-1 { transition-delay: 0.1s; }
+.js-loaded .reveal-delay-2 { transition-delay: 0.2s; }
+.js-loaded .reveal-delay-3 { transition-delay: 0.3s; }
+.js-loaded .reveal-delay-4 { transition-delay: 0.4s; }
+.js-loaded .reveal-delay-5 { transition-delay: 0.5s; }
+.js-loaded .reveal-delay-6 { transition-delay: 0.6s; }
+.js-loaded .reveal-delay-7 { transition-delay: 0.7s; }
+.js-loaded .reveal-delay-8 { transition-delay: 0.8s; }
+.js-loaded .reveal-delay-9 { transition-delay: 0.9s; }
+.js-loaded .reveal-delay-10 { transition-delay: 1.0s; }
+
+/* ---- Hero word animation ---- */
+
+.hero-word {
+  display: inline-block;
+}
+
+.js-loaded .hero-word {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroWordIn 0.6s var(--transition-easing) forwards;
+}
+
+@keyframes heroWordIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Continuous animations ---- */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Decorative shape animations */
+@keyframes driftLeft {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(-10px) translateY(-5px); }
+  75% { transform: translateX(5px) translateY(5px); }
+}
+
+@keyframes driftRight {
+  0%, 100% { transform: translateX(0) translateY(0); }
+  25% { transform: translateX(10px) translateY(5px); }
+  75% { transform: translateX(-5px) translateY(-5px); }
+}
+
+/* ---- Button pulse ---- */
+@keyframes gentlePulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(153, 93, 129, 0.3); }
+  50% { box-shadow: 0 0 0 12px rgba(153, 93, 129, 0); }
+}
+
+/* ---- Stat count up effect (CSS) ---- */
+@keyframes countFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Accordion icon ---- */
+@keyframes accordionOpen {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(45deg); }
+}
+
+/* ---- Quote card cascade ---- */
+@keyframes cascadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ---- Decorative shape base ---- */
+.deco-shape {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.deco-circle {
+  border-radius: 50%;
+}
+
+/* ---- Reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .js-loaded .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .js-loaded .hero-word {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+}
