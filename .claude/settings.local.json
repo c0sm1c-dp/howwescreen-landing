@@ -21,11 +21,7 @@
       "Bash(node -e:*)",
       "Bash(python3:*)",
       "Bash(ssh-keyscan:*)",
-      "Bash(~/.ssh/known_hosts)",
-      "WebFetch(domain:app.kit.com)",
-      "WebFetch(domain:app.convertkit.com)",
-      "WebFetch(domain:developers.convertkit.com)",
-      "WebFetch(domain:developers.kit.com)"
+      "Bash(~/.ssh/known_hosts)"
     ]
   }
 }
