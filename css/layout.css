@@ -4,9 +4,9 @@
 
 .container {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--space-lg);
+  padding: 0 var(--section-padding-x);
 }
 
 .container--narrow {

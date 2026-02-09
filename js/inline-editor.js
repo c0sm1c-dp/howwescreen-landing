@@ -13,6 +13,21 @@
   'use strict';
 
   // =====================================================================
+  // AUTH GUARD — refuse to activate if not authenticated
+  // =====================================================================
+
+  var AUTH_KEY = 'hws-editor-auth';
+  if (sessionStorage.getItem(AUTH_KEY) !== '1') {
+    console.warn('[HWSEditor] Not authenticated. Editor will not load.');
+    window.HWSEditor = {
+      toggle: function() { console.warn('[HWSEditor] Auth required.'); },
+      isActive: function() { return false; },
+      getMode: function() { return 'off'; }
+    };
+    return;
+  }
+
+  // =====================================================================
   // STATE
   // =====================================================================
 
@@ -71,7 +86,13 @@
     { key: 'design.transitionSpeed', label: 'Transition Speed', type: 'range', min: 0.1, max: 1.0, unit: 's', step: 0.05 },
     { type: 'heading', label: 'Typography' },
     { key: 'design.fontHeadingWeight', label: 'Heading Weight', type: 'range', min: 100, max: 900, unit: '', step: 100 },
-    { key: 'design.fontBodyWeight', label: 'Body Weight', type: 'range', min: 300, max: 700, unit: '', step: 100 }
+    { key: 'design.fontBodyWeight', label: 'Body Weight', type: 'range', min: 300, max: 700, unit: '', step: 100 },
+    { type: 'heading', label: 'Layout & Sizing' },
+    { key: 'design.containerMax', label: 'Page Width', type: 'range', min: 800, max: 1600, unit: 'px', step: 50 },
+    { key: 'design.sectionPaddingX', label: 'Side Padding', type: 'range', min: 0.5, max: 4, unit: 'rem', step: 0.25 },
+    { key: 'design.cardPadding', label: 'Card Padding', type: 'range', min: 0.5, max: 4, unit: 'rem', step: 0.25 },
+    { key: 'design.gridGap', label: 'Grid Gap', type: 'range', min: 0.5, max: 4, unit: 'rem', step: 0.25 },
+    { key: 'design.cardBorderWidth', label: 'Card Border Width', type: 'range', min: 0, max: 4, unit: 'px' }
   ];
 
   // =====================================================================

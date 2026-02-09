@@ -30,9 +30,17 @@ function applyDesignToken(key, value) {
 
   const unit = HWS_DESIGN_UNITS[key] || '';
 
-  // Special handling for section padding
+  // Special handling for section padding (combines Y with X)
   if (key === 'design.sectionPaddingY') {
-    document.documentElement.style.setProperty('--section-padding', value + 'rem 1.5rem');
+    var xPad = getComputedStyle(document.documentElement).getPropertyValue('--section-padding-x').trim() || '1.5rem';
+    document.documentElement.style.setProperty('--section-padding', value + 'rem ' + xPad);
+    return;
+  }
+  if (key === 'design.sectionPaddingX') {
+    document.documentElement.style.setProperty(cssVar, value + unit);
+    // Also update the compound --section-padding
+    var yPad = getComputedStyle(document.documentElement).getPropertyValue('--section-padding').trim().split(' ')[0] || '5rem';
+    document.documentElement.style.setProperty('--section-padding', yPad + ' ' + value + 'rem');
     return;
   }
 

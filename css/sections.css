@@ -155,7 +155,7 @@
 .problem__stats {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
+  gap: var(--grid-gap);
   max-width: 800px;
   margin: 0 auto;
 }
@@ -188,7 +188,7 @@
 .voices__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-md);
+  gap: var(--grid-gap);
 }
 
 @media (min-width: 480px) {
@@ -240,7 +240,7 @@
 .solution__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-xl);
+  gap: var(--grid-gap);
 }
 
 @media (min-width: 768px) {
@@ -380,7 +380,7 @@
 .pricing__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-lg);
+  gap: var(--grid-gap);
   max-width: 960px;
   margin: 0 auto;
   align-items: start;

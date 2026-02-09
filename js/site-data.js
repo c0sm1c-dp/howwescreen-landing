@@ -40,6 +40,11 @@ const HWS_DEFAULTS = {
   'design.sectionPaddingY':  '5',
   'design.animationDistance': '30',
   'design.transitionSpeed':  '0.4',
+  'design.containerMax':     '1200',
+  'design.cardPadding':      '1.5',
+  'design.gridGap':          '1.5',
+  'design.sectionPaddingX':  '1.5',
+  'design.cardBorderWidth':  '1',
 
   // ======================== NAVIGATION ========================
 
@@ -288,6 +293,13 @@ const HWS_DESIGN_MAP = {
   'design.colorAccent5':      '--color-accent-5',
   'design.colorBorder':       '--color-border',
   'design.colorBorderLight':  '--color-border-light',
+  // Layout
+  'design.containerMax':      '--container-max',
+  'design.cardPadding':       '--card-padding',
+  'design.gridGap':           '--grid-gap',
+  'design.sectionPaddingX':   '--section-padding-x',
+  'design.cardBorderWidth':   '--card-border-width',
+  // Typography
   'design.fontHeadingWeight': '--font-weight-heading',
   'design.fontBodyWeight':    '--font-weight-body',
   'design.borderRadiusSm':   '--border-radius-sm',
@@ -307,6 +319,11 @@ const HWS_DESIGN_UNITS = {
   'design.sectionPaddingY':  'rem',
   'design.animationDistance': 'px',
   'design.transitionSpeed':  's',
+  'design.containerMax':     'px',
+  'design.cardPadding':      'rem',
+  'design.gridGap':          'rem',
+  'design.sectionPaddingX':  'rem',
+  'design.cardBorderWidth':  'px',
 };
 
 // ---- LOCALSTORAGE API ----

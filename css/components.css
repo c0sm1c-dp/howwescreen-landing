@@ -77,9 +77,9 @@
 
 .card {
   background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-border-light);
+  border: var(--card-border-width) solid var(--color-border-light);
   border-radius: var(--border-radius-card);
-  padding: var(--space-xl);
+  padding: var(--card-padding);
   transition: all var(--transition-speed) var(--transition-easing);
 }
 

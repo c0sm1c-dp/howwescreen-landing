@@ -15,7 +15,9 @@
       "WebFetch(domain:kb.porkbun.com)",
       "Bash(node --check:*)",
       "Bash(printf:*)",
-      "Bash(shasum:*)"
+      "Bash(shasum:*)",
+      "WebFetch(domain:howwescreen.org)",
+      "Bash(curl:*)"
     ]
   }
 }
