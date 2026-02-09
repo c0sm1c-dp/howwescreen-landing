@@ -11,7 +11,8 @@
       "Bash(git remote set-url:*)",
       "Bash(gh auth:*)",
       "Bash(ssh:*)",
-      "Bash(git credential-osxkeychain:*)"
+      "Bash(git credential-osxkeychain:*)",
+      "WebFetch(domain:kb.porkbun.com)"
     ]
   }
 }
