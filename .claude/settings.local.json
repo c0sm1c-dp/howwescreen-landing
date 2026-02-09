@@ -13,7 +13,9 @@
       "Bash(ssh:*)",
       "Bash(git credential-osxkeychain:*)",
       "WebFetch(domain:kb.porkbun.com)",
-      "Bash(node --check:*)"
+      "Bash(node --check:*)",
+      "Bash(printf:*)",
+      "Bash(shasum:*)"
     ]
   }
 }
