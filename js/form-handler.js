@@ -1,6 +1,6 @@
 /**
- * Form Handler — ConvertKit form submission with UX states
- * Progressive enhancement: falls back to native form POST if JS fails
+ * Form Handler — ConvertKit (Kit) form submission with UX states
+ * Posts to Kit's JSON API for reliable cross-origin submission
  */
 
 function initFormHandlers() {
@@ -39,11 +39,23 @@ function setupForm(formId, successId, errorId) {
     const timeout = setTimeout(() => controller.abort(), 10000);
 
     try {
-      const formData = new FormData(form);
+      // Build JSON payload for Kit's API
+      const payload = {
+        email_address: emailInput.value,
+      };
+
+      // Include first name if present (detox form)
+      const nameInput = form.querySelector('input[name="fields[first_name]"]');
+      if (nameInput && nameInput.value) {
+        payload.first_name = nameInput.value;
+      }
+
       const response = await fetch(form.action, {
         method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' },
+        body: JSON.stringify(payload),
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
         signal: controller.signal,
       });
 
