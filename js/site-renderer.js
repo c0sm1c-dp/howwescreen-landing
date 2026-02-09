@@ -90,7 +90,6 @@ function applyImageOverride(key, value) {
       const img = document.createElement('img');
       img.src = value;
       img.alt = 'Logo';
-      img.style.height = svg.getAttribute('height') ? svg.getAttribute('height') + 'px' : '36px';
       img.style.width = 'auto';
       img.setAttribute('data-hws-img', 'true');
       el.insertBefore(img, svg);

@@ -45,6 +45,18 @@ const HWS_DEFAULTS = {
   'design.gridGap':          '1.5',
   'design.sectionPaddingX':  '1.5',
   'design.cardBorderWidth':  '1',
+  'design.logoHeight':       '36',
+  'design.footerLogoHeight': '32',
+  'design.btnPaddingY':      '0.875',
+  'design.btnPaddingX':      '2',
+  'design.btnFontSize':      '1',
+  'design.textBase':         '1',
+  'design.textLg':           '1.125',
+  'design.textXl':           '1.375',
+  'design.text2xl':          '1.75',
+  'design.text3xl':          '2.25',
+  'design.text4xl':          '3',
+  'design.text5xl':          '3.75',
 
   // ======================== NAVIGATION ========================
 
@@ -299,6 +311,20 @@ const HWS_DESIGN_MAP = {
   'design.gridGap':           '--grid-gap',
   'design.sectionPaddingX':   '--section-padding-x',
   'design.cardBorderWidth':   '--card-border-width',
+  // Element Sizing
+  'design.logoHeight':        '--logo-height',
+  'design.footerLogoHeight':  '--footer-logo-height',
+  'design.btnPaddingY':       '--btn-padding-y',
+  'design.btnPaddingX':       '--btn-padding-x',
+  'design.btnFontSize':       '--btn-font-size',
+  // Type Scale
+  'design.textBase':          '--text-base',
+  'design.textLg':            '--text-lg',
+  'design.textXl':            '--text-xl',
+  'design.text2xl':           '--text-2xl',
+  'design.text3xl':           '--text-3xl',
+  'design.text4xl':           '--text-4xl',
+  'design.text5xl':           '--text-5xl',
   // Typography
   'design.fontHeadingWeight': '--font-weight-heading',
   'design.fontBodyWeight':    '--font-weight-body',
@@ -324,6 +350,18 @@ const HWS_DESIGN_UNITS = {
   'design.gridGap':          'rem',
   'design.sectionPaddingX':  'rem',
   'design.cardBorderWidth':  'px',
+  'design.logoHeight':       'px',
+  'design.footerLogoHeight': 'px',
+  'design.btnPaddingY':      'rem',
+  'design.btnPaddingX':      'rem',
+  'design.btnFontSize':      'rem',
+  'design.textBase':         'rem',
+  'design.textLg':           'rem',
+  'design.textXl':           'rem',
+  'design.text2xl':          'rem',
+  'design.text3xl':          'rem',
+  'design.text4xl':          'rem',
+  'design.text5xl':          'rem',
 };
 
 // ---- LOCALSTORAGE API ----

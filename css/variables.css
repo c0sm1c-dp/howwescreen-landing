@@ -93,6 +93,13 @@
   --section-padding-x:      1.5rem;
   --card-border-width:      1px;
 
+  /* --- Element Sizing --- */
+  --logo-height:            36px;
+  --footer-logo-height:     32px;
+  --btn-padding-y:          0.875rem;
+  --btn-padding-x:          2rem;
+  --btn-font-size:          1rem;
+
   /* --- Decorative --- */
   --grain-opacity:          0.04;
   --decorative-border-style: solid;

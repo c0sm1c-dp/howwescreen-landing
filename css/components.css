@@ -9,9 +9,9 @@
   align-items: center;
   justify-content: center;
   gap: var(--space-sm);
-  padding: 0.875rem 2rem;
+  padding: var(--btn-padding-y) var(--btn-padding-x);
   font-family: var(--font-primary);
-  font-size: var(--text-base);
+  font-size: var(--btn-font-size);
   font-weight: var(--font-weight-bold);
   letter-spacing: 0.02em;
   border-radius: var(--border-radius-pill);
@@ -370,8 +370,9 @@
   flex-shrink: 0;
 }
 
-.nav__logo svg {
-  height: 36px;
+.nav__logo svg,
+.nav__logo img[data-hws-img] {
+  height: var(--logo-height);
   width: auto;
 }
 

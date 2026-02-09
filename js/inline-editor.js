@@ -92,7 +92,21 @@
     { key: 'design.sectionPaddingX', label: 'Side Padding', type: 'range', min: 0.5, max: 4, unit: 'rem', step: 0.25 },
     { key: 'design.cardPadding', label: 'Card Padding', type: 'range', min: 0.5, max: 4, unit: 'rem', step: 0.25 },
     { key: 'design.gridGap', label: 'Grid Gap', type: 'range', min: 0.5, max: 4, unit: 'rem', step: 0.25 },
-    { key: 'design.cardBorderWidth', label: 'Card Border Width', type: 'range', min: 0, max: 4, unit: 'px' }
+    { key: 'design.cardBorderWidth', label: 'Card Border Width', type: 'range', min: 0, max: 4, unit: 'px' },
+    { type: 'heading', label: 'Logo & Button Sizing' },
+    { key: 'design.logoHeight', label: 'Nav Logo Height', type: 'range', min: 20, max: 80, unit: 'px' },
+    { key: 'design.footerLogoHeight', label: 'Footer Logo Height', type: 'range', min: 16, max: 64, unit: 'px' },
+    { key: 'design.btnPaddingY', label: 'Button Height (pad Y)', type: 'range', min: 0.4, max: 2, unit: 'rem', step: 0.05 },
+    { key: 'design.btnPaddingX', label: 'Button Width (pad X)', type: 'range', min: 1, max: 5, unit: 'rem', step: 0.25 },
+    { key: 'design.btnFontSize', label: 'Button Font Size', type: 'range', min: 0.75, max: 1.5, unit: 'rem', step: 0.05 },
+    { type: 'heading', label: 'Type Scale' },
+    { key: 'design.textBase', label: 'Base Text (body)', type: 'range', min: 0.75, max: 1.5, unit: 'rem', step: 0.05 },
+    { key: 'design.textLg', label: 'Large Text', type: 'range', min: 0.9, max: 1.75, unit: 'rem', step: 0.05 },
+    { key: 'design.textXl', label: 'XL Text', type: 'range', min: 1, max: 2.5, unit: 'rem', step: 0.05 },
+    { key: 'design.text2xl', label: '2XL Text', type: 'range', min: 1.25, max: 3, unit: 'rem', step: 0.05 },
+    { key: 'design.text3xl', label: '3XL Text (h3)', type: 'range', min: 1.5, max: 4, unit: 'rem', step: 0.05 },
+    { key: 'design.text4xl', label: '4XL Text (h2/h1)', type: 'range', min: 2, max: 5, unit: 'rem', step: 0.05 },
+    { key: 'design.text5xl', label: '5XL Text (hero)', type: 'range', min: 2.5, max: 7, unit: 'rem', step: 0.05 }
   ];
 
   // =====================================================================

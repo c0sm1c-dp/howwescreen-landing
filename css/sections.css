@@ -452,8 +452,9 @@
   opacity: 1;
 }
 
-.footer__logo svg {
-  height: 32px;
+.footer__logo svg,
+.footer__logo img[data-hws-img] {
+  height: var(--footer-logo-height);
   width: auto;
 }
 
