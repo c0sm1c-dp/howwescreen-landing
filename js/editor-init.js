@@ -146,6 +146,13 @@
     });
   }
 
+  function loadScript(src, callback) {
+    var script = document.createElement('script');
+    script.src = src;
+    script.onload = callback || function() {};
+    document.body.appendChild(script);
+  }
+
   function loadAndToggle() {
     if (editorLoaded) {
       if (window.HWSEditor) window.HWSEditor.toggle();
@@ -158,13 +165,14 @@
     link.href = 'css/inline-editor.css';
     document.head.appendChild(link);
 
-    // Inject JS
-    var script = document.createElement('script');
-    script.src = 'js/inline-editor.js';
-    script.onload = function() {
-      editorLoaded = true;
-      if (window.HWSEditor) window.HWSEditor.toggle();
-    };
-    document.body.appendChild(script);
+    // Load scripts sequentially: core → toolbar → sections
+    loadScript('js/inline-editor.js', function() {
+      loadScript('js/editor-toolbar.js', function() {
+        loadScript('js/editor-sections.js', function() {
+          editorLoaded = true;
+          if (window.HWSEditor) window.HWSEditor.toggle();
+        });
+      });
+    });
   }
 })();

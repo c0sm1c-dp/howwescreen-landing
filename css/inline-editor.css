@@ -1682,3 +1682,258 @@ textarea.hws-editor-input {
     display: none !important;
   }
 }
+
+/* ========================================
+   FORMATTING TOOLBAR (editor-toolbar.js)
+   ======================================== */
+
+.hws-fmt-toolbar {
+  position: absolute;
+  z-index: 100006;
+  display: none;               /* shown via JS */
+  align-items: center;
+  gap: 2px;
+  padding: 6px 8px;
+  background: var(--hws-editor-dark, #1a1a2e);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), 0 1px 4px rgba(0, 0, 0, 0.12);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  user-select: none;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.hws-fmt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  padding: 0;
+  line-height: 1;
+  font-family: inherit;
+}
+
+.hws-fmt-btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.hws-fmt-btn.hws-fmt-active {
+  background: var(--hws-editor-brand, #995D81);
+  color: #fff;
+}
+
+.hws-fmt-btn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.hws-fmt-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+.hws-fmt-sep {
+  display: inline-block;
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 4px;
+}
+
+/* Color icon underline accent */
+.hws-fmt-color-icon {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  border-bottom: 3px solid var(--hws-editor-brand, #995D81);
+  padding-bottom: 1px;
+}
+
+/* ---- Link Popover ---- */
+
+.hws-fmt-link-popover {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  background: var(--hws-editor-dark, #1a1a2e);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.hws-fmt-link-input {
+  width: 200px;
+  padding: 6px 10px;
+  font-size: 13px;
+  font-family: inherit;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  outline: none;
+}
+
+.hws-fmt-link-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.hws-fmt-link-input:focus {
+  border-color: var(--hws-editor-brand, #995D81);
+}
+
+.hws-fmt-link-apply,
+.hws-fmt-link-remove {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.hws-fmt-link-apply {
+  background: var(--hws-editor-brand, #995D81);
+  color: #fff;
+}
+
+.hws-fmt-link-apply:hover {
+  background: var(--hws-editor-brand-hover, #824E6D);
+}
+
+.hws-fmt-link-remove {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.hws-fmt-link-remove:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* ---- Color Picker ---- */
+
+.hws-fmt-color-picker {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 6px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+  padding: 10px;
+  background: var(--hws-editor-dark, #1a1a2e);
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.hws-fmt-swatch {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.15s, border-color 0.15s;
+  padding: 0;
+}
+
+.hws-fmt-swatch:hover {
+  transform: scale(1.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+
+/* ========================================
+   SECTION HOVER CONTROLS (editor-sections.js)
+   ======================================== */
+
+/* Section hover outline */
+[data-hws-edit-mode] .hws-section-hover {
+  outline: 2px dashed var(--hws-editor-brand, #995D81) !important;
+  outline-offset: -2px;
+  position: relative;
+}
+
+/* Section bar */
+.hws-section-bar {
+  position: absolute;
+  z-index: 100005;
+  display: none;               /* shown via JS */
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: var(--hws-editor-dark, #1a1a2e);
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  user-select: none;
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.hws-section-bar__name {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.9);
+  margin-right: 4px;
+}
+
+.hws-section-bar__actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.hws-section-bar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  padding: 0 6px;
+  font-family: inherit;
+}
+
+.hws-section-bar__btn:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+.hws-section-bar__btn:disabled {
+  opacity: 0.25;
+  cursor: default;
+}
+
+.hws-section-bar__btn:disabled:hover {
+  background: transparent;
+}
+
+.hws-section-bar__btn--hide {
+  font-size: 12px;
+}

@@ -43,6 +43,14 @@
   var _panelTab = 'element';    // 'element' | 'design' | 'actions'
   var _toastTimeout = null;
 
+  // Lifecycle hooks — arrays of callbacks, set by plugin modules
+  var _hooks = {
+    onStartEditing: [],   // fn(el, key)
+    onStopEditing: [],    // fn(el)
+    onEnterEditMode: [],  // fn()
+    onExitEditMode: []    // fn()
+  };
+
   // Cached DOM references (injected by editor)
   var _toolbar = null;
   var _panel = null;
@@ -301,7 +309,7 @@
     tmp.innerHTML = html;
 
     // Walk all elements and strip disallowed tags
-    var allowed = { EM: true, STRONG: true, A: true, BR: true, B: true, I: true, U: true };
+    var allowed = { EM: true, STRONG: true, A: true, BR: true, B: true, I: true, U: true, SPAN: true };
 
     function walk(node) {
       var children = Array.prototype.slice.call(node.childNodes);
@@ -312,6 +320,24 @@
 
         if (child.nodeType === 1) { // Element node
           var tag = child.tagName;
+
+          // Convert <font> tags (from execCommand) to <span> with style
+          if (tag === 'FONT') {
+            var span = document.createElement('span');
+            var style = '';
+            var sizeMap = { '1': '0.75em', '2': '0.875em', '3': '1em', '4': '1.125em', '5': '1.375em', '6': '1.75em', '7': '2.25em' };
+            if (child.getAttribute('size')) {
+              style += 'font-size:' + (sizeMap[child.getAttribute('size')] || '1em') + ';';
+            }
+            if (child.getAttribute('color')) {
+              style += 'color:' + child.getAttribute('color') + ';';
+            }
+            if (style) span.setAttribute('style', style);
+            while (child.firstChild) span.appendChild(child.firstChild);
+            child.parentNode.replaceChild(span, child);
+            walk(span);
+            continue;
+          }
 
           if (!allowed[tag]) {
             // Unwrap: replace this node with its children
@@ -326,10 +352,11 @@
             walk(parent);
             return;
           } else {
-            // Strip unwanted attributes, keep only href on <a>
+            // Strip unwanted attributes, keep href on <a>, style on <span>
             var attrs = Array.prototype.slice.call(child.attributes);
             for (j = 0; j < attrs.length; j++) {
               if (tag === 'A' && attrs[j].name === 'href') continue;
+              if (tag === 'SPAN' && attrs[j].name === 'style') continue;
               child.removeAttribute(attrs[j].name);
             }
             walk(child);
@@ -939,7 +966,7 @@
         var clone = doc.documentElement.cloneNode(true);
 
         // Remove editor scripts
-        clone.querySelectorAll('script[src*="site-data"], script[src*="site-renderer"], script[src*="editor-init"], script[src*="inline-editor"]').forEach(function(el) {
+        clone.querySelectorAll('script[src*="site-data"], script[src*="site-renderer"], script[src*="editor-init"], script[src*="inline-editor"], script[src*="editor-toolbar"], script[src*="editor-sections"]').forEach(function(el) {
           el.remove();
         });
 
@@ -1018,7 +1045,19 @@
   // =====================================================================
 
   function exportOverrides() {
-    var json = JSON.stringify(_overrides, null, 2);
+    var exportData = {
+      overrides: _overrides,
+      sectionOrder: null,
+      hiddenSections: null
+    };
+    try {
+      var orderRaw = localStorage.getItem('hws-admin-section-order');
+      if (orderRaw) exportData.sectionOrder = JSON.parse(orderRaw);
+      var hiddenRaw = localStorage.getItem('hws-admin-hidden-sections');
+      if (hiddenRaw) exportData.hiddenSections = JSON.parse(hiddenRaw);
+    } catch (e) {}
+
+    var json = JSON.stringify(exportData, null, 2);
     var blob = new Blob([json], { type: 'application/json' });
     var url = URL.createObjectURL(blob);
     var a = document.createElement('a');
@@ -1041,10 +1080,25 @@
         try {
           var imported = JSON.parse(event.target.result);
           pushUndo();
-          _overrides = imported;
+
+          // Support both old format (plain overrides) and new format (with sectionOrder)
+          if (imported.overrides && typeof imported.overrides === 'object') {
+            _overrides = imported.overrides;
+            if (imported.sectionOrder) {
+              localStorage.setItem('hws-admin-section-order', JSON.stringify(imported.sectionOrder));
+            }
+            if (imported.hiddenSections) {
+              localStorage.setItem('hws-admin-hidden-sections', JSON.stringify(imported.hiddenSections));
+            }
+          } else {
+            _overrides = imported;
+          }
+
           hwsSaveOverrides(_overrides);
           resetPageToDefaults();
           initSiteRenderer();
+          if (typeof restoreSectionOrder === 'function') restoreSectionOrder();
+          if (typeof restoreHiddenSections === 'function') restoreHiddenSections();
           updateBadge();
           showToast('Overrides imported');
           if (_panelTab === 'actions') renderActionsTab();
@@ -1062,6 +1116,18 @@
     pushUndo();
     _overrides = {};
     hwsResetOverrides();
+
+    // Clear section order and hidden sections
+    localStorage.removeItem('hws-admin-section-order');
+    localStorage.removeItem('hws-admin-hidden-sections');
+
+    // Restore section visibility and original order (reload cleanest approach)
+    var allSections = document.querySelectorAll('main > .section, main > .section-transition');
+    for (var i = 0; i < allSections.length; i++) {
+      allSections[i].style.display = '';
+      allSections[i].style.transform = '';
+    }
+
     resetPageToDefaults();
     updateBadge();
     showToast('All changes reset');
@@ -1159,6 +1225,9 @@
 
     // Sync panel textarea
     syncPanelFromElement(key, el);
+
+    // Lifecycle hook — notify plugins
+    _hooks.onStartEditing.forEach(function(fn) { fn(el, key); });
   }
 
   function stopEditing() {
@@ -1183,10 +1252,14 @@
       }
     }
 
+    var stoppedEl = _editingEl;
     _editingEl.removeAttribute('contenteditable');
     _editingEl.classList.remove('hws-editor-editing');
     _editingEl = null;
     _mode = 'browse';
+
+    // Lifecycle hook — notify plugins
+    _hooks.onStopEditing.forEach(function(fn) { fn(stoppedEl); });
   }
 
   function syncPanelFromElement(key, el) {
@@ -1397,6 +1470,9 @@
     if (trigger) trigger.style.display = 'none';
 
     showToast('Editor active');
+
+    // Lifecycle hook — notify plugins
+    _hooks.onEnterEditMode.forEach(function(fn) { fn(); });
   }
 
   function exitEditMode() {
@@ -1462,6 +1538,9 @@
     // Show the trigger button again
     var trigger = document.getElementById('hws-edit-trigger');
     if (trigger) trigger.style.display = '';
+
+    // Lifecycle hook — notify plugins
+    _hooks.onExitEditMode.forEach(function(fn) { fn(); });
   }
 
   // =====================================================================
@@ -1488,7 +1567,30 @@
   window.HWSEditor = {
     toggle: toggle,
     isActive: isActive,
-    getMode: getMode
+    getMode: getMode,
+
+    // Internal API for plugin modules (toolbar, sections, etc.)
+    _internal: {
+      showToast: showToast,
+      pushUndo: pushUndo,
+      setOverride: setOverride,
+      getValue: getValue,
+      isRichTextKey: isRichTextKey,
+      sanitizeHTML: sanitizeHTML,
+      getEditingEl: function() { return _editingEl; },
+      getSelectedEl: function() { return _selectedEl; },
+      getSelectedKey: function() { return _selectedKey; },
+      getMode: getMode,
+      startEditing: startEditing,
+      stopEditing: stopEditing,
+      getHwsKey: getHwsKey,
+
+      // Hook setters — plugins register callbacks here
+      onStartEditing: function(fn) { _hooks.onStartEditing.push(fn); },
+      onStopEditing: function(fn) { _hooks.onStopEditing.push(fn); },
+      onEnterEditMode: function(fn) { _hooks.onEnterEditMode.push(fn); },
+      onExitEditMode: function(fn) { _hooks.onExitEditMode.push(fn); }
+    }
   };
 
 })();

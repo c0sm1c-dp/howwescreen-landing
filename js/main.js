@@ -34,6 +34,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initSiteRenderer();
   }
 
+  // Restore section order and hidden state (set by editor)
+  if (typeof restoreSectionOrder === 'function') restoreSectionOrder();
+  if (typeof restoreHiddenSections === 'function') restoreHiddenSections();
+
   initNavScroll();
   initScrollAnimations();
   initMobileMenu();
