@@ -1691,24 +1691,30 @@ textarea.hws-editor-input {
   position: absolute;
   z-index: 100006;
   display: none;               /* shown via JS */
-  align-items: center;
-  gap: 2px;
+  flex-direction: column;
   padding: 6px 8px;
   background: var(--hws-editor-dark, #1a1a2e);
   border-radius: 10px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.28), 0 1px 4px rgba(0, 0, 0, 0.12);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   user-select: none;
-  white-space: nowrap;
   pointer-events: auto;
+  max-width: calc(100vw - 16px);
+}
+
+.hws-fmt-row {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-wrap: wrap;
 }
 
 .hws-fmt-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  width: 30px;
+  height: 30px;
   border: none;
   border-radius: 6px;
   background: transparent;
@@ -1720,6 +1726,7 @@ textarea.hws-editor-input {
   padding: 0;
   line-height: 1;
   font-family: inherit;
+  flex-shrink: 0;
 }
 
 .hws-fmt-btn:hover {
@@ -1747,10 +1754,115 @@ textarea.hws-editor-input {
   width: 1px;
   height: 20px;
   background: rgba(255, 255, 255, 0.15);
-  margin: 0 4px;
+  margin: 0 3px;
+  flex-shrink: 0;
 }
 
-/* Color icon underline accent */
+/* ---- Dropdowns (Font Family, Format) ---- */
+
+.hws-fmt-font-select,
+.hws-fmt-format-select {
+  height: 30px;
+  padding: 0 6px;
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.85);
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4' stroke='rgba(255,255,255,0.5)' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 6px center;
+  padding-right: 20px;
+  flex-shrink: 0;
+}
+
+.hws-fmt-font-select {
+  width: 110px;
+}
+
+.hws-fmt-format-select {
+  width: 100px;
+}
+
+.hws-fmt-font-select:hover,
+.hws-fmt-format-select:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hws-fmt-font-select:focus,
+.hws-fmt-format-select:focus {
+  border-color: var(--hws-editor-brand, #995D81);
+}
+
+.hws-fmt-font-select option,
+.hws-fmt-format-select option {
+  background: #1a1a2e;
+  color: #fff;
+}
+
+/* ---- Font Size Input ---- */
+
+.hws-fmt-size-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  overflow: hidden;
+  height: 30px;
+  flex-shrink: 0;
+}
+
+.hws-fmt-size-input {
+  width: 38px;
+  height: 100%;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 12px;
+  font-family: inherit;
+  font-weight: 600;
+  text-align: center;
+  outline: none;
+  -moz-appearance: textfield;
+  padding: 0;
+}
+
+.hws-fmt-size-input::-webkit-inner-spin-button,
+.hws-fmt-size-input::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hws-fmt-size-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 100%;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 10px;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.15s, color 0.15s;
+}
+
+.hws-fmt-size-arrow:hover {
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+}
+
+/* ---- Color & Highlight Icons ---- */
+
 .hws-fmt-color-icon {
   display: inline-block;
   font-weight: 700;
@@ -1758,6 +1870,15 @@ textarea.hws-editor-input {
   line-height: 1;
   border-bottom: 3px solid var(--hws-editor-brand, #995D81);
   padding-bottom: 1px;
+}
+
+.hws-fmt-highlight-icon {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1;
+  background: linear-gradient(to top, #FFF9C4 40%, transparent 40%);
+  padding: 0 2px;
 }
 
 /* ---- Link Popover ---- */
@@ -1829,21 +1950,25 @@ textarea.hws-editor-input {
   color: #fff;
 }
 
-/* ---- Color Picker ---- */
+/* ---- Color Picker & Highlight Picker ---- */
 
-.hws-fmt-color-picker {
+.hws-fmt-color-picker,
+.hws-fmt-highlight-picker {
   position: absolute;
   top: 100%;
   right: 0;
   margin-top: 6px;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 4px;
   padding: 10px;
   background: var(--hws-editor-dark, #1a1a2e);
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   z-index: 10;
+}
+
+.hws-fmt-swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
 }
 
 .hws-fmt-swatch {
@@ -1854,11 +1979,61 @@ textarea.hws-editor-input {
   cursor: pointer;
   transition: transform 0.15s, border-color 0.15s;
   padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .hws-fmt-swatch:hover {
   transform: scale(1.2);
   border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---- Hex Input Row ---- */
+
+.hws-fmt-hex-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.hws-fmt-hex-input {
+  width: 80px;
+  padding: 4px 8px;
+  font-size: 12px;
+  font-family: monospace;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  outline: none;
+}
+
+.hws-fmt-hex-input::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.hws-fmt-hex-input:focus {
+  border-color: var(--hws-editor-brand, #995D81);
+}
+
+.hws-fmt-hex-apply {
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+  border: none;
+  border-radius: 4px;
+  background: var(--hws-editor-brand, #995D81);
+  color: #fff;
+  cursor: pointer;
+}
+
+.hws-fmt-hex-apply:hover {
+  background: var(--hws-editor-brand-hover, #824E6D);
 }
 
 
@@ -1936,4 +2111,841 @@ textarea.hws-editor-input {
 
 .hws-section-bar__btn--hide {
   font-size: 12px;
+}
+
+/* Section bar separator */
+.hws-section-bar__sep {
+  width: 1px;
+  height: 18px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 3px;
+  flex-shrink: 0;
+}
+
+/* Delete button (red on hover) */
+.hws-section-bar__btn--delete:hover {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+.hws-section-bar__btn--delete:hover svg {
+  stroke: #ef4444;
+}
+
+/* Section bar SVG icons */
+.hws-section-bar__btn svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+/* ---- Section Undo Toast ---- */
+
+.hws-section-undo-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #1a1a2e;
+  color: #e0ddd5;
+  padding: 10px 16px 10px 20px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  z-index: 100010;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+  pointer-events: auto;
+}
+
+.hws-section-undo-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.hws-section-undo-btn {
+  padding: 4px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #995D81;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.hws-section-undo-btn:hover {
+  background: #824E6D;
+}
+
+/* Small clear button (used in section settings panel) */
+.hws-editor-btn--small {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  padding: 0;
+  border: 1px solid var(--hws-editor-border, #e8e8e8);
+  border-radius: var(--hws-editor-radius, 6px);
+  background: var(--hws-editor-white, #fff);
+  color: var(--hws-editor-gray-500, #737373);
+  font-size: 12px;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+}
+
+.hws-editor-btn--small:hover {
+  background: var(--hws-editor-red-light, rgba(239, 68, 68, 0.08));
+  color: var(--hws-editor-red, #ef4444);
+  border-color: var(--hws-editor-red, #ef4444);
+}
+
+
+/* ========================================
+   TOP BAR ENHANCEMENTS (Phase 1B)
+   ======================================== */
+
+/* Site title in center */
+.hws-editor-toolbar__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+/* Device mode button group */
+.hws-editor-toolbar__device-group {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.hws-editor-toolbar__device-group .hws-editor-toolbar__btn {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+}
+
+/* Active device / preview button */
+.hws-editor-toolbar__btn--active {
+  background: var(--hws-editor-brand, #995D81) !important;
+  color: #fff !important;
+}
+
+/* ---- Device Viewport Modes ---- */
+
+main.hws-device-tablet {
+  max-width: 768px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: max-width 0.3s ease;
+  box-shadow: -1px 0 0 rgba(153, 93, 129, 0.3), 1px 0 0 rgba(153, 93, 129, 0.3);
+}
+
+main.hws-device-mobile {
+  max-width: 375px;
+  margin-left: auto;
+  margin-right: auto;
+  transition: max-width 0.3s ease;
+  box-shadow: -1px 0 0 rgba(153, 93, 129, 0.3), 1px 0 0 rgba(153, 93, 129, 0.3);
+}
+
+main.hws-device-desktop {
+  max-width: none;
+  transition: max-width 0.3s ease;
+  box-shadow: none;
+}
+
+/* ---- Preview Mode ---- */
+
+/* In preview mode: hide all editor overlays, outlines, bars, tooltips */
+[data-hws-preview] [data-hws].hws-editor-hoverable,
+[data-hws-preview] [data-hws].hws-editor-selected,
+[data-hws-preview] [data-hws].hws-editor-editing {
+  outline: none !important;
+  background: none !important;
+}
+
+[data-hws-preview] [data-hws]::before {
+  display: none !important;
+}
+
+[data-hws-preview] .hws-section-hover {
+  outline: none !important;
+}
+
+[data-hws-preview] #hws-editor-panel,
+[data-hws-preview] #hws-editor-tooltip,
+[data-hws-preview] #hws-section-bar,
+[data-hws-preview] #hws-fmt-toolbar {
+  display: none !important;
+}
+
+/* Keep only the top toolbar visible in preview */
+[data-hws-preview] #hws-editor-toolbar {
+  display: flex !important;
+}
+
+[data-hws-preview] .hws-resize-handles {
+  display: none !important;
+}
+
+
+/* ========================================
+   RESIZE HANDLES (Phase 4)
+   ======================================== */
+
+.hws-resize-handles {
+  pointer-events: none;
+}
+
+.hws-resize-handle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border: 2px solid var(--hws-editor-brand, #995D81);
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  pointer-events: auto;
+  z-index: 2;
+}
+
+/* Position each handle */
+.hws-resize-handle--nw { top: -5px;  left: -5px; }
+.hws-resize-handle--n  { top: -5px;  left: 50%; transform: translateX(-50%); }
+.hws-resize-handle--ne { top: -5px;  right: -5px; }
+.hws-resize-handle--e  { top: 50%;   right: -5px; transform: translateY(-50%); }
+.hws-resize-handle--se { bottom: -5px; right: -5px; }
+.hws-resize-handle--s  { bottom: -5px; left: 50%; transform: translateX(-50%); }
+.hws-resize-handle--sw { bottom: -5px; left: -5px; }
+.hws-resize-handle--w  { top: 50%;   left: -5px; transform: translateY(-50%); }
+
+.hws-resize-handle:hover {
+  background: var(--hws-editor-brand, #995D81);
+  border-color: #fff;
+}
+
+/* Dimension tooltip */
+.hws-resize-dims {
+  padding: 3px 8px;
+  background: rgba(26, 26, 46, 0.9);
+  color: #e0ddd5;
+  font-size: 11px;
+  font-family: 'SF Mono', 'Consolas', monospace;
+  border-radius: 4px;
+  pointer-events: none;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+
+/* ========================================
+   RIGHT-CLICK CONTEXT MENU (Phase 5A)
+   ======================================== */
+
+.hws-context-menu {
+  position: fixed;
+  z-index: 100010;
+  min-width: 180px;
+  background: var(--hws-editor-dark, #1a1a2e);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 6px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35), 0 2px 8px rgba(0, 0, 0, 0.2);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.hws-context-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.12s;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.hws-context-menu__item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.hws-context-menu__item--danger:hover {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.hws-context-menu__icon {
+  font-size: 14px;
+  width: 18px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.hws-context-menu__sep {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 4px 8px;
+}
+
+
+/* ========================================
+   DRAG-TO-REORDER SECTIONS (Phase 2B)
+   ======================================== */
+
+/* Drag handle in section bar */
+.hws-section-bar__drag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 28px;
+  color: rgba(255, 255, 255, 0.35);
+  cursor: grab;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+.hws-section-bar__drag:hover {
+  color: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.hws-section-bar__drag:active {
+  cursor: grabbing;
+}
+
+.hws-section-bar__drag svg {
+  width: 10px;
+  height: 14px;
+}
+
+/* Section being dragged */
+.hws-section-dragging {
+  opacity: 0.4;
+  outline: 2px dashed var(--hws-editor-brand, #995D81) !important;
+}
+
+/* Drop zones */
+.hws-drop-zone {
+  height: 4px;
+  margin: -2px 0;
+  position: relative;
+  z-index: 10;
+  transition: height 0.2s ease, margin 0.2s ease;
+}
+
+.hws-dragging .hws-drop-zone {
+  height: 24px;
+  margin: -12px 0;
+}
+
+.hws-drop-zone--active {
+  height: 32px !important;
+  margin: -16px 0 !important;
+}
+
+.hws-drop-zone::after {
+  content: '';
+  display: block;
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  top: 50%;
+  height: 3px;
+  border-radius: 2px;
+  background: transparent;
+  transition: background 0.15s;
+  transform: translateY(-50%);
+}
+
+.hws-drop-zone--active::after {
+  background: var(--hws-editor-blue, #3b82f6);
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.4);
+}
+
+
+/* ========================================
+   LAYERS PANEL (Phase 5B)
+   ======================================== */
+
+/* Search input */
+.hws-layers-search {
+  padding: 0 0 10px;
+}
+
+.hws-layers-search__input {
+  width: 100%;
+  padding: 7px 10px;
+  border: 1px solid var(--hws-editor-border, #e8e8e8);
+  border-radius: var(--hws-editor-radius, 6px);
+  font-size: 13px;
+  font-family: var(--hws-editor-font);
+  background: var(--hws-editor-white, #fff);
+  color: var(--hws-editor-text, #1a1a2e);
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.hws-layers-search__input:focus {
+  border-color: var(--hws-editor-brand, #995D81);
+}
+
+.hws-layers-search__input::placeholder {
+  color: var(--hws-editor-gray-400, #a3a3a3);
+}
+
+/* Section group */
+.hws-layers-section {
+  margin-bottom: 2px;
+}
+
+.hws-layers-section__header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 4px;
+  border-radius: var(--hws-editor-radius, 6px);
+  cursor: default;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hws-editor-text, #1a1a2e);
+  transition: background 0.12s;
+}
+
+.hws-layers-section__header:hover {
+  background: var(--hws-editor-gray-100, #f5f5f5);
+}
+
+.hws-layers-section__header--hidden {
+  opacity: 0.45;
+}
+
+/* Collapse toggle */
+.hws-layers-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border: none;
+  background: transparent;
+  color: var(--hws-editor-gray-500, #737373);
+  font-size: 10px;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  font-family: inherit;
+}
+
+/* Section name (clickable for scroll) */
+.hws-layers-section__name {
+  flex: 1;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hws-layers-section__name:hover {
+  color: var(--hws-editor-brand, #995D81);
+}
+
+/* Element count badge */
+.hws-layers-section__count {
+  font-size: 10px;
+  font-weight: 400;
+  color: var(--hws-editor-gray-400, #a3a3a3);
+  background: var(--hws-editor-gray-100, #f5f5f5);
+  padding: 1px 5px;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* Eye icon for section visibility */
+.hws-layers-eye {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: transparent;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background 0.12s;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.hws-layers-eye:hover {
+  background: var(--hws-editor-gray-200, #e8e8e8);
+}
+
+.hws-layers-eye--hidden {
+  opacity: 0.5;
+}
+
+/* Child elements list */
+.hws-layers-children {
+  padding-left: 20px;
+}
+
+.hws-layers-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 6px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.1s;
+  font-size: 12px;
+  color: var(--hws-editor-text-muted, #737373);
+}
+
+.hws-layers-item:hover {
+  background: var(--hws-editor-brand-light, rgba(153, 93, 129, 0.12));
+  color: var(--hws-editor-text, #1a1a2e);
+}
+
+.hws-layers-item__icon {
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: var(--hws-editor-gray-500, #737373);
+  flex-shrink: 0;
+  font-weight: 600;
+}
+
+.hws-layers-item__key {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--hws-editor-font-mono, monospace);
+  font-size: 11px;
+}
+
+/* Override indicator dot */
+.hws-layers-item__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hws-editor-brand, #995D81);
+  flex-shrink: 0;
+}
+
+/* Flash highlight (when scrolled to from layers) */
+.hws-layers-flash {
+  outline: 3px solid var(--hws-editor-brand, #995D81) !important;
+  outline-offset: 2px;
+  transition: outline-color 0.5s ease;
+}
+
+/* Hover highlight (when hovering in layers panel) */
+.hws-layers-highlight {
+  outline: 2px solid var(--hws-editor-blue, #3b82f6) !important;
+  outline-offset: 1px;
+}
+
+
+/* ========================================
+   ADD CONTENT BLOCKS (Phase 3)
+   ======================================== */
+
+/* Insert point ("+" button between sections) */
+.hws-insert-point {
+  display: none;
+  position: relative;
+  height: 24px;
+  margin: -12px 0;
+  z-index: 5;
+}
+
+[data-hws-edit-mode] .hws-insert-point {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hws-insert-point::before {
+  content: '';
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  top: 50%;
+  height: 1px;
+  background: transparent;
+  transition: background 0.2s;
+}
+
+.hws-insert-point:hover::before {
+  background: var(--hws-editor-brand, #995D81);
+}
+
+.hws-insert-btn {
+  position: relative;
+  z-index: 1;
+  width: 28px;
+  height: 28px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  background: transparent;
+  color: transparent;
+  font-size: 18px;
+  font-weight: 400;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  line-height: 1;
+}
+
+.hws-insert-point:hover .hws-insert-btn {
+  border-color: var(--hws-editor-brand, #995D81);
+  background: var(--hws-editor-dark, #1a1a2e);
+  color: #fff;
+}
+
+.hws-insert-btn:hover {
+  transform: scale(1.15);
+  background: var(--hws-editor-brand, #995D81) !important;
+}
+
+/* Block picker popover */
+.hws-block-picker {
+  position: fixed;
+  z-index: 100010;
+  width: 260px;
+  background: var(--hws-editor-dark, #1a1a2e);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.hws-block-picker__header {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 0 4px 10px;
+}
+
+.hws-block-picker__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.hws-block-picker__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 11px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+}
+
+.hws-block-picker__item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.hws-block-picker__icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hws-block-picker__icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.hws-block-picker__label {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* Custom block styling */
+.hws-custom-block {
+  position: relative;
+}
+
+/* Delete button on custom blocks */
+.hws-block-delete {
+  display: none;
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(239, 68, 68, 0.85);
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, transform 0.15s;
+}
+
+[data-hws-blocks-edit] .hws-block-delete {
+  display: flex;
+}
+
+.hws-block-delete:hover {
+  background: #ef4444;
+  transform: scale(1.1);
+}
+
+/* Spacer block styling */
+.hws-custom-spacer {
+  background: transparent;
+}
+
+[data-hws-edit-mode] .hws-custom-spacer {
+  border: 1px dashed var(--hws-editor-gray-300, #d4d4d4);
+}
+
+.hws-spacer-label {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 11px;
+  color: var(--hws-editor-gray-400, #a3a3a3);
+  font-family: var(--hws-editor-font-mono, monospace);
+  pointer-events: none;
+}
+
+[data-hws-edit-mode] .hws-spacer-label {
+  display: block;
+}
+
+/* Preview mode: hide insert points and block controls */
+[data-hws-preview] .hws-insert-point,
+[data-hws-preview] .hws-block-delete,
+[data-hws-preview] .hws-spacer-label {
+  display: none !important;
+}
+
+
+/* ========================================
+   ELEMENT STYLES PANEL (Phase 6)
+   ======================================== */
+
+/* Collapsible style section */
+.hws-elem-style-section {
+  margin-top: 12px;
+  border-top: 1px solid var(--hws-editor-border, #e8e8e8);
+  padding-top: 8px;
+}
+
+.hws-elem-style__header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 4px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hws-editor-text, #1a1a2e);
+  cursor: pointer;
+  border-radius: var(--hws-editor-radius, 6px);
+  transition: background 0.12s;
+  user-select: none;
+}
+
+.hws-elem-style__header:hover {
+  background: var(--hws-editor-gray-100, #f5f5f5);
+}
+
+.hws-elem-style__arrow {
+  display: inline-block;
+  width: 12px;
+  font-size: 10px;
+  color: var(--hws-editor-gray-500, #737373);
+}
+
+.hws-elem-style__body {
+  padding: 8px 0 0;
+}
+
+/* Select dropdown in panel */
+.hws-editor-select {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid var(--hws-editor-border, #e8e8e8);
+  border-radius: var(--hws-editor-radius, 6px);
+  font-size: 13px;
+  font-family: var(--hws-editor-font);
+  background: var(--hws-editor-white, #fff);
+  color: var(--hws-editor-text, #1a1a2e);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='%23737373' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+.hws-editor-select:focus {
+  border-color: var(--hws-editor-brand, #995D81);
+}
+
+/* Checkbox label in panel */
+.hws-editor-panel__field label input[type="checkbox"] {
+  margin-right: 6px;
+  vertical-align: middle;
 }

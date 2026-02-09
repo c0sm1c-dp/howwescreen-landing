@@ -112,9 +112,20 @@
     _bar.innerHTML =
       '<span class="hws-section-bar__name"></span>' +
       '<div class="hws-section-bar__actions">' +
+        '<button type="button" class="hws-section-bar__btn" data-action="editSection" title="Section Settings">' +
+          '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M10.5 1.5l2 2-8 8H2.5v-2l8-8z"/></svg>' +
+        '</button>' +
+        '<button type="button" class="hws-section-bar__btn" data-action="duplicate" title="Duplicate Section">' +
+          '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="4" width="8" height="8" rx="1"/><path d="M4 10H3a1 1 0 01-1-1V3a1 1 0 011-1h6a1 1 0 011 1v1"/></svg>' +
+        '</button>' +
+        '<span class="hws-section-bar__sep"></span>' +
         '<button type="button" class="hws-section-bar__btn" data-action="moveUp" title="Move Up">&#9650;</button>' +
         '<button type="button" class="hws-section-bar__btn" data-action="moveDown" title="Move Down">&#9660;</button>' +
+        '<span class="hws-section-bar__sep"></span>' +
         '<button type="button" class="hws-section-bar__btn hws-section-bar__btn--hide" data-action="toggleHide" title="Hide/Show">&#128065;</button>' +
+        '<button type="button" class="hws-section-bar__btn hws-section-bar__btn--delete" data-action="deleteSection" title="Delete Section">' +
+          '<svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="2,4 12,4"/><path d="M5 4V2.5A.5.5 0 015.5 2h3a.5.5 0 01.5.5V4"/><path d="M3 4l.7 8.1a1 1 0 001 .9h4.6a1 1 0 001-.9L11 4"/></svg>' +
+        '</button>' +
       '</div>';
 
     // Button click handler
@@ -125,9 +136,12 @@
       e.stopPropagation();
 
       var action = btn.getAttribute('data-action');
-      if (action === 'moveUp')       moveSection(_hoveredSection, -1);
-      else if (action === 'moveDown') moveSection(_hoveredSection, 1);
+      if (action === 'moveUp')         moveSection(_hoveredSection, -1);
+      else if (action === 'moveDown')   moveSection(_hoveredSection, 1);
       else if (action === 'toggleHide') toggleSectionVisibility(_hoveredSection);
+      else if (action === 'duplicate')  duplicateSection(_hoveredSection);
+      else if (action === 'deleteSection') deleteSection(_hoveredSection);
+      else if (action === 'editSection')   editSectionSettings(_hoveredSection);
     });
 
     document.body.appendChild(_bar);
@@ -295,6 +309,479 @@
     if (_hoveredSection) showBar(_hoveredSection);
   }
 
+  // ---- Duplicate Section ----
+
+  function duplicateSection(sectionEl) {
+    var id = getSectionId(sectionEl);
+    if (!id) return;
+
+    _animating = true;
+
+    // Generate a new unique ID
+    var copyNum = 1;
+    while (document.getElementById(id + '-copy-' + copyNum)) {
+      copyNum++;
+    }
+    var newId = id + '-copy-' + copyNum;
+
+    // Clone section and its transition sibling
+    var group = getSectionGroup(sectionEl);
+    var mainEl = sectionEl.parentElement;
+    var afterEl = group[group.length - 1].nextSibling;
+
+    var clonedGroup = [];
+    group.forEach(function(el, i) {
+      var clone = el.cloneNode(true);
+
+      // Update IDs on the section clone (first element)
+      if (i === 0) {
+        clone.id = newId;
+        clone.classList.add('section');
+
+        // Re-key all data-hws children with a __copy suffix
+        var hwsChildren = clone.querySelectorAll('[data-hws]');
+        for (var j = 0; j < hwsChildren.length; j++) {
+          var oldKey = hwsChildren[j].getAttribute('data-hws');
+          var newKey = oldKey.replace(id + '.', newId + '.');
+          hwsChildren[j].setAttribute('data-hws', newKey);
+        }
+
+        // Also re-key data-hws-features children
+        var featChildren = clone.querySelectorAll('[data-hws-features]');
+        for (var k = 0; k < featChildren.length; k++) {
+          var oldFeatKey = featChildren[k].getAttribute('data-hws-features');
+          var newFeatKey = oldFeatKey.replace(id + '.', newId + '.');
+          featChildren[k].setAttribute('data-hws-features', newFeatKey);
+        }
+      }
+
+      // Remove any editor state classes
+      clone.classList.remove('hws-section-hover', 'hws-editor-selected');
+
+      clonedGroup.push(clone);
+    });
+
+    // Insert clones after the original group
+    clonedGroup.forEach(function(clone) {
+      mainEl.insertBefore(clone, afterEl);
+    });
+
+    // FLIP animate the new section in
+    var newSection = clonedGroup[0];
+    newSection.style.opacity = '0';
+    newSection.style.transform = 'translateY(-20px)';
+    newSection.offsetHeight; // force reflow
+
+    newSection.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+    newSection.style.opacity = '1';
+    newSection.style.transform = 'translateY(0)';
+
+    // Add the friendly name
+    SECTION_NAMES[newId] = (SECTION_NAMES[id] || id) + ' (Copy)';
+
+    // Copy overrides from original section to new section
+    var overrides = api.getOverrides ? api.getOverrides() : {};
+    var keys = Object.keys(overrides);
+    for (var m = 0; m < keys.length; m++) {
+      if (keys[m].indexOf(id + '.') === 0) {
+        var newOverrideKey = keys[m].replace(id + '.', newId + '.');
+        overrides[newOverrideKey] = overrides[keys[m]];
+      }
+      // Also copy section-level styles (section.SECTIONID.*)
+      if (keys[m].indexOf('section.' + id + '.') === 0) {
+        var newSectionKey = keys[m].replace('section.' + id + '.', 'section.' + newId + '.');
+        overrides[newSectionKey] = overrides[keys[m]];
+      }
+    }
+    if (api.setOverrides) api.setOverrides(overrides);
+
+    setTimeout(function() {
+      newSection.style.transition = '';
+      newSection.style.transform = '';
+      _animating = false;
+
+      // Save new order
+      saveOrder(getCurrentOrder());
+
+      // Show the new section's bar
+      showBar(newSection);
+
+      api.showToast('Section duplicated');
+    }, 380);
+  }
+
+  // ---- Delete Section ----
+
+  var _deletedSection = null;     // { group: [...DOM], afterEl, parentEl, id, timeout }
+
+  function deleteSection(sectionEl) {
+    var id = getSectionId(sectionEl);
+    if (!id) return;
+
+    // Confirm
+    if (!confirm('Delete "' + getSectionName(sectionEl) + '"? You can undo within 10 seconds.')) return;
+
+    var group = getSectionGroup(sectionEl);
+    var mainEl = sectionEl.parentElement;
+    var afterEl = group[group.length - 1].nextSibling;
+
+    // Save for undo
+    if (_deletedSection && _deletedSection.timeout) {
+      clearTimeout(_deletedSection.timeout);
+    }
+
+    _deletedSection = {
+      group: group,
+      afterEl: afterEl,
+      parentEl: mainEl,
+      id: id
+    };
+
+    // Animate out
+    sectionEl.style.transition = 'opacity 0.25s ease, transform 0.25s ease';
+    sectionEl.style.opacity = '0';
+    sectionEl.style.transform = 'scale(0.97)';
+
+    hideBar();
+
+    setTimeout(function() {
+      // Remove from DOM
+      group.forEach(function(el) {
+        if (el.parentNode) el.parentNode.removeChild(el);
+      });
+
+      // Remove from hidden list if present
+      var hidden = getHiddenSections();
+      var hidx = hidden.indexOf(id);
+      if (hidx !== -1) {
+        hidden.splice(hidx, 1);
+        saveHiddenSections(hidden);
+      }
+
+      // Save new order
+      saveOrder(getCurrentOrder());
+
+      // Remove section-level overrides
+      var overrides = api.getOverrides ? api.getOverrides() : {};
+      var toRemove = [];
+      var okeys = Object.keys(overrides);
+      for (var n = 0; n < okeys.length; n++) {
+        if (okeys[n].indexOf(id + '.') === 0 || okeys[n].indexOf('section.' + id + '.') === 0) {
+          toRemove.push(okeys[n]);
+        }
+      }
+      for (var r = 0; r < toRemove.length; r++) {
+        delete overrides[toRemove[r]];
+      }
+      if (api.setOverrides) api.setOverrides(overrides);
+
+      // Show undo toast
+      showUndoToast(id);
+    }, 280);
+  }
+
+  function showUndoToast(sectionId) {
+    // Custom undo toast with clickable "Undo" button
+    var toast = document.createElement('div');
+    toast.className = 'hws-section-undo-toast';
+    toast.innerHTML =
+      '<span>"' + (SECTION_NAMES[sectionId] || sectionId) + '" deleted</span>' +
+      '<button type="button" class="hws-section-undo-btn">Undo</button>';
+
+    document.body.appendChild(toast);
+
+    // Animate in
+    requestAnimationFrame(function() {
+      toast.classList.add('hws-section-undo-toast--visible');
+    });
+
+    var undoBtn = toast.querySelector('.hws-section-undo-btn');
+    var dismissed = false;
+
+    function dismiss() {
+      if (dismissed) return;
+      dismissed = true;
+      toast.classList.remove('hws-section-undo-toast--visible');
+      setTimeout(function() {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 300);
+    }
+
+    undoBtn.addEventListener('click', function() {
+      if (!_deletedSection || _deletedSection.id !== sectionId) return;
+
+      // Re-insert the group
+      var ds = _deletedSection;
+      ds.group.forEach(function(el) {
+        el.style.transition = '';
+        el.style.opacity = '';
+        el.style.transform = '';
+        ds.parentEl.insertBefore(el, ds.afterEl);
+      });
+
+      _deletedSection = null;
+
+      // Save order
+      saveOrder(getCurrentOrder());
+
+      api.showToast('Section restored');
+      dismiss();
+    });
+
+    // Auto-dismiss after 10 seconds
+    _deletedSection.timeout = setTimeout(function() {
+      _deletedSection = null;
+      dismiss();
+    }, 10000);
+  }
+
+  // ---- Edit Section Settings ----
+
+  var SECTION_STYLE_KEY = 'hws-admin-section-styles';
+
+  function getSectionStyles() {
+    try {
+      var raw = localStorage.getItem(SECTION_STYLE_KEY);
+      return raw ? JSON.parse(raw) : {};
+    } catch (e) { return {}; }
+  }
+
+  function saveSectionStyles(styles) {
+    try { localStorage.setItem(SECTION_STYLE_KEY, JSON.stringify(styles)); } catch (e) {}
+  }
+
+  function getSectionStyleValue(sectionId, prop, fallback) {
+    var styles = getSectionStyles();
+    if (styles[sectionId] && styles[sectionId][prop] !== undefined) {
+      return styles[sectionId][prop];
+    }
+    return fallback;
+  }
+
+  function setSectionStyleValue(sectionId, prop, value) {
+    var styles = getSectionStyles();
+    if (!styles[sectionId]) styles[sectionId] = {};
+    styles[sectionId][prop] = value;
+    saveSectionStyles(styles);
+  }
+
+  function applySectionStyle(sectionEl, prop, value) {
+    switch (prop) {
+      case 'bgColor':
+        sectionEl.style.backgroundColor = value || '';
+        break;
+      case 'paddingTop':
+        sectionEl.style.paddingTop = value ? value + 'rem' : '';
+        break;
+      case 'paddingBottom':
+        sectionEl.style.paddingBottom = value ? value + 'rem' : '';
+        break;
+      case 'maxWidth':
+        sectionEl.style.maxWidth = value ? value + 'px' : '';
+        if (value) {
+          sectionEl.style.marginLeft = 'auto';
+          sectionEl.style.marginRight = 'auto';
+        } else {
+          sectionEl.style.marginLeft = '';
+          sectionEl.style.marginRight = '';
+        }
+        break;
+      case 'textColor':
+        sectionEl.style.color = value || '';
+        break;
+    }
+  }
+
+  function editSectionSettings(sectionEl) {
+    var id = getSectionId(sectionEl);
+    if (!id) return;
+
+    // Ensure panel is created
+    api.createPanel();
+
+    api.openPanel('element'); // Open as element tab type
+    api.setPanelTitle('Section: ' + getSectionName(sectionEl));
+
+    var bgColor = getSectionStyleValue(id, 'bgColor', '');
+    var paddingTop = getSectionStyleValue(id, 'paddingTop', '');
+    var paddingBottom = getSectionStyleValue(id, 'paddingBottom', '');
+    var maxWidth = getSectionStyleValue(id, 'maxWidth', '');
+    var textColor = getSectionStyleValue(id, 'textColor', '');
+
+    var html =
+      '<div class="hws-editor-panel__field">' +
+        '<label class="hws-editor-label">Background Color</label>' +
+        '<div class="hws-editor-color-row">' +
+          '<input type="color" class="hws-editor-color-picker" id="hws-sec-bg-color" value="' + (bgColor || '#ffffff') + '">' +
+          '<input type="text" class="hws-editor-color-hex" id="hws-sec-bg-hex" value="' + api.escAttr(bgColor) + '" maxlength="7" placeholder="none">' +
+          '<button type="button" class="hws-editor-btn hws-editor-btn--small" id="hws-sec-bg-clear" title="Clear">✕</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="hws-editor-panel__field">' +
+        '<label class="hws-editor-label">Text Color</label>' +
+        '<div class="hws-editor-color-row">' +
+          '<input type="color" class="hws-editor-color-picker" id="hws-sec-text-color" value="' + (textColor || '#1a1a2e') + '">' +
+          '<input type="text" class="hws-editor-color-hex" id="hws-sec-text-hex" value="' + api.escAttr(textColor) + '" maxlength="7" placeholder="none">' +
+          '<button type="button" class="hws-editor-btn hws-editor-btn--small" id="hws-sec-text-clear" title="Clear">✕</button>' +
+        '</div>' +
+      '</div>' +
+      '<div class="hws-editor-panel__divider"></div>' +
+      '<div class="hws-editor-panel__field hws-editor-panel__field--range">' +
+        '<label class="hws-editor-label">Padding Top</label>' +
+        '<div class="hws-editor-range-row">' +
+          '<input type="range" class="hws-editor-range" id="hws-sec-pad-top" value="' + (paddingTop || 5) + '" min="0" max="12" step="0.5">' +
+          '<span class="hws-editor-range-value" id="hws-sec-pad-top-val">' + (paddingTop || 5) + 'rem</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="hws-editor-panel__field hws-editor-panel__field--range">' +
+        '<label class="hws-editor-label">Padding Bottom</label>' +
+        '<div class="hws-editor-range-row">' +
+          '<input type="range" class="hws-editor-range" id="hws-sec-pad-bottom" value="' + (paddingBottom || 5) + '" min="0" max="12" step="0.5">' +
+          '<span class="hws-editor-range-value" id="hws-sec-pad-bottom-val">' + (paddingBottom || 5) + 'rem</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="hws-editor-panel__divider"></div>' +
+      '<div class="hws-editor-panel__field hws-editor-panel__field--range">' +
+        '<label class="hws-editor-label">Max Width</label>' +
+        '<div class="hws-editor-range-row">' +
+          '<input type="range" class="hws-editor-range" id="hws-sec-max-width" value="' + (maxWidth || 1600) + '" min="600" max="1600" step="50">' +
+          '<span class="hws-editor-range-value" id="hws-sec-max-width-val">' + (maxWidth ? maxWidth + 'px' : 'none') + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="hws-editor-panel__divider"></div>' +
+      '<div class="hws-editor-panel__actions">' +
+        '<button class="hws-editor-btn hws-editor-btn--reset" id="hws-sec-reset-all">Reset Section Styles</button>' +
+      '</div>';
+
+    api.setPanelBody(html);
+
+    // ---- Bind controls ----
+
+    var panel = api.getPanel();
+    if (!panel) return;
+
+    // Background color
+    var bgPicker = panel.querySelector('#hws-sec-bg-color');
+    var bgHex = panel.querySelector('#hws-sec-bg-hex');
+    var bgClear = panel.querySelector('#hws-sec-bg-clear');
+
+    if (bgPicker) {
+      bgPicker.addEventListener('input', function() {
+        bgHex.value = bgPicker.value;
+        setSectionStyleValue(id, 'bgColor', bgPicker.value);
+        applySectionStyle(sectionEl, 'bgColor', bgPicker.value);
+      });
+    }
+    if (bgHex) {
+      bgHex.addEventListener('input', function() {
+        if (/^#[0-9A-Fa-f]{6}$/.test(bgHex.value)) {
+          bgPicker.value = bgHex.value;
+          setSectionStyleValue(id, 'bgColor', bgHex.value);
+          applySectionStyle(sectionEl, 'bgColor', bgHex.value);
+        }
+      });
+    }
+    if (bgClear) {
+      bgClear.addEventListener('click', function() {
+        bgHex.value = '';
+        setSectionStyleValue(id, 'bgColor', '');
+        applySectionStyle(sectionEl, 'bgColor', '');
+      });
+    }
+
+    // Text color
+    var textPicker = panel.querySelector('#hws-sec-text-color');
+    var textHex = panel.querySelector('#hws-sec-text-hex');
+    var textClear = panel.querySelector('#hws-sec-text-clear');
+
+    if (textPicker) {
+      textPicker.addEventListener('input', function() {
+        textHex.value = textPicker.value;
+        setSectionStyleValue(id, 'textColor', textPicker.value);
+        applySectionStyle(sectionEl, 'textColor', textPicker.value);
+      });
+    }
+    if (textHex) {
+      textHex.addEventListener('input', function() {
+        if (/^#[0-9A-Fa-f]{6}$/.test(textHex.value)) {
+          textPicker.value = textHex.value;
+          setSectionStyleValue(id, 'textColor', textHex.value);
+          applySectionStyle(sectionEl, 'textColor', textHex.value);
+        }
+      });
+    }
+    if (textClear) {
+      textClear.addEventListener('click', function() {
+        textHex.value = '';
+        setSectionStyleValue(id, 'textColor', '');
+        applySectionStyle(sectionEl, 'textColor', '');
+      });
+    }
+
+    // Padding Top
+    var padTop = panel.querySelector('#hws-sec-pad-top');
+    var padTopVal = panel.querySelector('#hws-sec-pad-top-val');
+    if (padTop) {
+      padTop.addEventListener('input', function() {
+        padTopVal.textContent = padTop.value + 'rem';
+        setSectionStyleValue(id, 'paddingTop', padTop.value);
+        applySectionStyle(sectionEl, 'paddingTop', padTop.value);
+      });
+    }
+
+    // Padding Bottom
+    var padBottom = panel.querySelector('#hws-sec-pad-bottom');
+    var padBottomVal = panel.querySelector('#hws-sec-pad-bottom-val');
+    if (padBottom) {
+      padBottom.addEventListener('input', function() {
+        padBottomVal.textContent = padBottom.value + 'rem';
+        setSectionStyleValue(id, 'paddingBottom', padBottom.value);
+        applySectionStyle(sectionEl, 'paddingBottom', padBottom.value);
+      });
+    }
+
+    // Max Width
+    var maxW = panel.querySelector('#hws-sec-max-width');
+    var maxWVal = panel.querySelector('#hws-sec-max-width-val');
+    if (maxW) {
+      maxW.addEventListener('input', function() {
+        var val = parseInt(maxW.value);
+        if (val >= 1600) {
+          maxWVal.textContent = 'none';
+          setSectionStyleValue(id, 'maxWidth', '');
+          applySectionStyle(sectionEl, 'maxWidth', '');
+        } else {
+          maxWVal.textContent = val + 'px';
+          setSectionStyleValue(id, 'maxWidth', val);
+          applySectionStyle(sectionEl, 'maxWidth', val);
+        }
+      });
+    }
+
+    // Reset all section styles
+    var resetAll = panel.querySelector('#hws-sec-reset-all');
+    if (resetAll) {
+      resetAll.addEventListener('click', function() {
+        var styles = getSectionStyles();
+        delete styles[id];
+        saveSectionStyles(styles);
+
+        // Clear inline styles
+        sectionEl.style.backgroundColor = '';
+        sectionEl.style.color = '';
+        sectionEl.style.paddingTop = '';
+        sectionEl.style.paddingBottom = '';
+        sectionEl.style.maxWidth = '';
+        sectionEl.style.marginLeft = '';
+        sectionEl.style.marginRight = '';
+
+        // Re-render panel
+        editSectionSettings(sectionEl);
+        api.showToast('Section styles reset');
+      });
+    }
+  }
+
   // ---- Event Handlers ----
 
   function onMouseMove(e) {
@@ -404,6 +891,22 @@
         group.forEach(function(el) {
           el.style.display = 'none';
         });
+      });
+    },
+
+    restoreSectionStyles: function() {
+      var styles = getSectionStyles();
+      if (!styles || Object.keys(styles).length === 0) return;
+
+      Object.keys(styles).forEach(function(sectionId) {
+        var section = document.getElementById(sectionId);
+        if (!section) return;
+        var sectionStyle = styles[sectionId];
+        if (sectionStyle.bgColor) applySectionStyle(section, 'bgColor', sectionStyle.bgColor);
+        if (sectionStyle.textColor) applySectionStyle(section, 'textColor', sectionStyle.textColor);
+        if (sectionStyle.paddingTop) applySectionStyle(section, 'paddingTop', sectionStyle.paddingTop);
+        if (sectionStyle.paddingBottom) applySectionStyle(section, 'paddingBottom', sectionStyle.paddingBottom);
+        if (sectionStyle.maxWidth) applySectionStyle(section, 'maxWidth', sectionStyle.maxWidth);
       });
     }
   };

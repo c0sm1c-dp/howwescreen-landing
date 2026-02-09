@@ -156,3 +156,168 @@ function restoreHiddenSections() {
     });
   } catch (e) {}
 }
+
+// ---- SECTION STYLES (set by editor-sections.js) ----
+
+function restoreSectionStyles() {
+  try {
+    var raw = localStorage.getItem('hws-admin-section-styles');
+    if (!raw) return;
+    var styles = JSON.parse(raw);
+    if (!styles || Object.keys(styles).length === 0) return;
+
+    Object.keys(styles).forEach(function(sectionId) {
+      var section = document.getElementById(sectionId);
+      if (!section) return;
+      var s = styles[sectionId];
+      if (s.bgColor) section.style.backgroundColor = s.bgColor;
+      if (s.textColor) section.style.color = s.textColor;
+      if (s.paddingTop) section.style.paddingTop = s.paddingTop + 'rem';
+      if (s.paddingBottom) section.style.paddingBottom = s.paddingBottom + 'rem';
+      if (s.maxWidth) {
+        section.style.maxWidth = s.maxWidth + 'px';
+        section.style.marginLeft = 'auto';
+        section.style.marginRight = 'auto';
+      }
+    });
+  } catch (e) {}
+}
+
+// ---- ELEMENT SIZES (set by editor-resize.js) ----
+
+function restoreElementSizes() {
+  try {
+    var raw = localStorage.getItem('hws-admin-element-sizes');
+    if (!raw) return;
+    var sizes = JSON.parse(raw);
+    if (!sizes || Object.keys(sizes).length === 0) return;
+
+    Object.keys(sizes).forEach(function(key) {
+      var s = sizes[key];
+      var el = document.querySelector('[data-hws="' + key + '"]');
+      if (!el) return;
+
+      var target = el;
+      if (key.indexOf('img.') === 0) {
+        var img = el.querySelector('img');
+        if (img) target = img;
+      }
+
+      if (s.w) {
+        target.style.width = s.w + 'px';
+        target.style.maxWidth = 'none';
+      }
+      if (s.h) target.style.height = s.h + 'px';
+    });
+  } catch (e) {}
+}
+
+// ---- CUSTOM BLOCKS (set by editor-add-blocks.js) ----
+
+function restoreCustomBlocks() {
+  try {
+    var raw = localStorage.getItem('hws-admin-custom-blocks');
+    if (!raw) return;
+    var blocks = JSON.parse(raw);
+    if (!blocks || blocks.length === 0) return;
+
+    var mainEl = document.querySelector('main');
+    if (!mainEl) return;
+
+    blocks.forEach(function(block) {
+      // Check if already in DOM
+      if (document.getElementById(block.id)) return;
+
+      var temp = document.createElement('div');
+      temp.innerHTML = block.html;
+      var el = temp.firstElementChild;
+      if (el) mainEl.appendChild(el);
+    });
+  } catch (e) {}
+}
+
+// ---- PER-ELEMENT STYLES (set by editor-element-styles.js) ----
+
+function restorePerElementStyles() {
+  try {
+    var raw = localStorage.getItem('hws-admin-element-styles');
+    if (!raw) return;
+    var styles = JSON.parse(raw);
+    if (!styles || Object.keys(styles).length === 0) return;
+
+    Object.keys(styles).forEach(function(key) {
+      var el = document.querySelector('[data-hws="' + key + '"]') ||
+               document.querySelector('[data-hws-features="' + key + '"]');
+      if (!el) return;
+
+      var s = styles[key];
+      var target = el;
+      if (key.indexOf('img.') === 0) {
+        var img = el.querySelector('img');
+        if (img) target = img;
+      }
+
+      // Apply CSS props
+      var propMap = {
+        bgColor: 'backgroundColor', textColor: 'color', fontSize: ['fontSize', 'px'],
+        fontWeight: 'fontWeight', lineHeight: 'lineHeight', letterSpacing: ['letterSpacing', 'px'],
+        textAlign: 'textAlign', paddingTop: ['paddingTop', 'px'], paddingRight: ['paddingRight', 'px'],
+        paddingBottom: ['paddingBottom', 'px'], paddingLeft: ['paddingLeft', 'px'],
+        marginTop: ['marginTop', 'px'], marginBottom: ['marginBottom', 'px'],
+        borderRadius: ['borderRadius', 'px'], borderWidth: ['borderWidth', 'px'],
+        borderColor: 'borderColor', borderStyle: 'borderStyle',
+        maxWidth: ['maxWidth', 'px'],
+        btnBgColor: 'backgroundColor', btnTextColor: 'color',
+        btnBorderRadius: ['borderRadius', 'px'],
+        imgBorderRadius: ['borderRadius', 'px'], imgObjectFit: 'objectFit'
+      };
+
+      Object.keys(s).forEach(function(prop) {
+        if (s[prop] === '' || s[prop] === undefined) return;
+        var val = s[prop];
+
+        // Special cases
+        if (prop === 'opacity' || prop === 'imgOpacity') {
+          target.style.opacity = val / 100;
+          return;
+        }
+        if (prop === 'imgShadow' && val) {
+          target.style.boxShadow = '0 4px ' + val + 'px rgba(0,0,0,0.15)';
+          return;
+        }
+        if (prop === 'btnPaddingY' && val) {
+          target.style.paddingTop = val + 'px';
+          target.style.paddingBottom = val + 'px';
+          return;
+        }
+        if (prop === 'btnPaddingX' && val) {
+          target.style.paddingLeft = val + 'px';
+          target.style.paddingRight = val + 'px';
+          return;
+        }
+        if (prop === 'btnHref' && el.tagName === 'A') {
+          el.href = val;
+          return;
+        }
+        if (prop === 'btnNewTab' && val === 'true' && el.tagName === 'A') {
+          el.target = '_blank';
+          el.rel = 'noopener';
+          return;
+        }
+        if (prop === 'imgAlt' && target.tagName === 'IMG') {
+          target.alt = val;
+          return;
+        }
+
+        var mapping = propMap[prop];
+        if (mapping) {
+          if (Array.isArray(mapping)) {
+            target.style[mapping[0]] = val + mapping[1];
+          } else {
+            target.style[mapping] = val;
+          }
+        }
+      });
+    });
+  } catch (e) {}
+}

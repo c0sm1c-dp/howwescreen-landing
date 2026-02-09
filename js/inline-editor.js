@@ -309,7 +309,12 @@
     tmp.innerHTML = html;
 
     // Walk all elements and strip disallowed tags
-    var allowed = { EM: true, STRONG: true, A: true, BR: true, B: true, I: true, U: true, SPAN: true };
+    var allowed = {
+      EM: true, STRONG: true, A: true, BR: true, B: true, I: true, U: true, SPAN: true,
+      S: true, STRIKE: true, SUB: true, SUP: true,
+      H1: true, H2: true, H3: true, H4: true, P: true, BLOCKQUOTE: true,
+      UL: true, OL: true, LI: true
+    };
 
     function walk(node) {
       var children = Array.prototype.slice.call(node.childNodes);
@@ -417,6 +422,9 @@
   // TOOLBAR
   // =====================================================================
 
+  // Current device viewport mode
+  var _deviceMode = 'desktop';  // 'desktop' | 'tablet' | 'mobile'
+
   function createToolbar() {
     var tb = document.createElement('div');
     tb.id = 'hws-editor-toolbar';
@@ -427,11 +435,31 @@
           '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="3" x2="13" y2="13"/><line x1="13" y1="3" x2="3" y2="13"/></svg>' +
         '</button>' +
         '<span class="hws-editor-toolbar__sep"></span>' +
-        '<button class="hws-editor-toolbar__btn" data-action="undo" title="Undo" disabled>' +
+        '<button class="hws-editor-toolbar__btn" data-action="undo" title="Undo (Ctrl+Z)" disabled>' +
           '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4,7 1,4 4,1"/><path d="M1 4h9a4 4 0 0 1 0 8H8"/></svg>' +
         '</button>' +
-        '<button class="hws-editor-toolbar__btn" data-action="redo" title="Redo" disabled>' +
+        '<button class="hws-editor-toolbar__btn" data-action="redo" title="Redo (Ctrl+Shift+Z)" disabled>' +
           '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="12,7 15,4 12,1"/><path d="M15 4H6a4 4 0 0 0 0 8h2"/></svg>' +
+        '</button>' +
+      '</div>' +
+      '<div class="hws-editor-toolbar__center">' +
+        '<span class="hws-editor-toolbar__title">How We Screen</span>' +
+      '</div>' +
+      '<div class="hws-editor-toolbar__right">' +
+        '<div class="hws-editor-toolbar__device-group">' +
+          '<button class="hws-editor-toolbar__btn hws-editor-toolbar__btn--active" data-action="device-desktop" title="Desktop">' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="1" y="2" width="14" height="10" rx="1"/><line x1="5" y1="14" x2="11" y2="14"/><line x1="8" y1="12" x2="8" y2="14"/></svg>' +
+          '</button>' +
+          '<button class="hws-editor-toolbar__btn" data-action="device-tablet" title="Tablet">' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="1" width="10" height="14" rx="1.5"/><line x1="7" y1="13" x2="9" y2="13"/></svg>' +
+          '</button>' +
+          '<button class="hws-editor-toolbar__btn" data-action="device-mobile" title="Mobile">' +
+            '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="4" y="1" width="8" height="14" rx="1.5"/><line x1="7" y1="13" x2="9" y2="13"/></svg>' +
+          '</button>' +
+        '</div>' +
+        '<span class="hws-editor-toolbar__sep"></span>' +
+        '<button class="hws-editor-toolbar__btn" data-action="preview" title="Preview">' +
+          '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 8s3-5.5 7-5.5S15 8 15 8s-3 5.5-7 5.5S1 8 1 8z"/><circle cx="8" cy="8" r="2.5"/></svg>' +
         '</button>' +
         '<span class="hws-editor-toolbar__sep"></span>' +
         '<button class="hws-editor-toolbar__btn" data-action="design" title="Design Tokens">' +
@@ -440,8 +468,6 @@
         '<button class="hws-editor-toolbar__btn" data-action="actions" title="Actions">' +
           '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="8" cy="8" r="6"/><line x1="8" y1="5" x2="8" y2="8"/><line x1="8" y1="8" x2="10.5" y2="10.5"/></svg>' +
         '</button>' +
-      '</div>' +
-      '<div class="hws-editor-toolbar__right">' +
         '<span class="hws-editor-toolbar__badge" id="hws-editor-badge" style="display:none;">0</span>' +
       '</div>';
 
@@ -470,11 +496,91 @@
         case 'actions':
           openPanel('actions');
           break;
+        case 'preview':
+          togglePreview();
+          break;
+        case 'device-desktop':
+          setDeviceMode('desktop');
+          break;
+        case 'device-tablet':
+          setDeviceMode('tablet');
+          break;
+        case 'device-mobile':
+          setDeviceMode('mobile');
+          break;
       }
     });
 
     updateBadge();
     updateUndoRedoButtons();
+  }
+
+  // ---- Device Mode ----
+
+  function setDeviceMode(mode) {
+    _deviceMode = mode;
+    var main = document.querySelector('main');
+    if (!main) return;
+
+    // Remove old classes
+    main.classList.remove('hws-device-desktop', 'hws-device-tablet', 'hws-device-mobile');
+    main.classList.add('hws-device-' + mode);
+
+    // Update active button
+    if (_toolbar) {
+      var deviceBtns = _toolbar.querySelectorAll('[data-action^="device-"]');
+      for (var i = 0; i < deviceBtns.length; i++) {
+        deviceBtns[i].classList.remove('hws-editor-toolbar__btn--active');
+      }
+      var activeBtn = _toolbar.querySelector('[data-action="device-' + mode + '"]');
+      if (activeBtn) activeBtn.classList.add('hws-editor-toolbar__btn--active');
+    }
+  }
+
+  function resetDeviceMode() {
+    _deviceMode = 'desktop';
+    var main = document.querySelector('main');
+    if (main) {
+      main.classList.remove('hws-device-desktop', 'hws-device-tablet', 'hws-device-mobile');
+    }
+  }
+
+  // ---- Preview Mode ----
+
+  function togglePreview() {
+    if (_mode === 'preview') {
+      exitPreview();
+    } else {
+      enterPreview();
+    }
+  }
+
+  function enterPreview() {
+    if (_mode === 'editing') {
+      stopEditing();
+    }
+    _mode = 'preview';
+    document.documentElement.setAttribute('data-hws-preview', '');
+
+    // Update preview button
+    if (_toolbar) {
+      var previewBtn = _toolbar.querySelector('[data-action="preview"]');
+      if (previewBtn) previewBtn.classList.add('hws-editor-toolbar__btn--active');
+    }
+
+    showToast('Preview mode');
+  }
+
+  function exitPreview() {
+    _mode = 'browse';
+    document.documentElement.removeAttribute('data-hws-preview');
+
+    if (_toolbar) {
+      var previewBtn = _toolbar.querySelector('[data-action="preview"]');
+      if (previewBtn) previewBtn.classList.remove('hws-editor-toolbar__btn--active');
+    }
+
+    showToast('Edit mode');
   }
 
   // =====================================================================
@@ -966,7 +1072,7 @@
         var clone = doc.documentElement.cloneNode(true);
 
         // Remove editor scripts
-        clone.querySelectorAll('script[src*="site-data"], script[src*="site-renderer"], script[src*="editor-init"], script[src*="inline-editor"], script[src*="editor-toolbar"], script[src*="editor-sections"]').forEach(function(el) {
+        clone.querySelectorAll('script[src*="site-data"], script[src*="site-renderer"], script[src*="editor-init"], script[src*="inline-editor"], script[src*="editor-toolbar"], script[src*="editor-sections"], script[src*="editor-drag"], script[src*="editor-add-blocks"], script[src*="editor-resize"], script[src*="editor-context"], script[src*="editor-layers"], script[src*="editor-element-styles"]').forEach(function(el) {
           el.remove();
         });
 
@@ -1048,13 +1154,16 @@
     var exportData = {
       overrides: _overrides,
       sectionOrder: null,
-      hiddenSections: null
+      hiddenSections: null,
+      sectionStyles: null
     };
     try {
       var orderRaw = localStorage.getItem('hws-admin-section-order');
       if (orderRaw) exportData.sectionOrder = JSON.parse(orderRaw);
       var hiddenRaw = localStorage.getItem('hws-admin-hidden-sections');
       if (hiddenRaw) exportData.hiddenSections = JSON.parse(hiddenRaw);
+      var stylesRaw = localStorage.getItem('hws-admin-section-styles');
+      if (stylesRaw) exportData.sectionStyles = JSON.parse(stylesRaw);
     } catch (e) {}
 
     var json = JSON.stringify(exportData, null, 2);
@@ -1090,6 +1199,9 @@
             if (imported.hiddenSections) {
               localStorage.setItem('hws-admin-hidden-sections', JSON.stringify(imported.hiddenSections));
             }
+            if (imported.sectionStyles) {
+              localStorage.setItem('hws-admin-section-styles', JSON.stringify(imported.sectionStyles));
+            }
           } else {
             _overrides = imported;
           }
@@ -1099,6 +1211,7 @@
           initSiteRenderer();
           if (typeof restoreSectionOrder === 'function') restoreSectionOrder();
           if (typeof restoreHiddenSections === 'function') restoreHiddenSections();
+          if (typeof restoreSectionStyles === 'function') restoreSectionStyles();
           updateBadge();
           showToast('Overrides imported');
           if (_panelTab === 'actions') renderActionsTab();
@@ -1117,15 +1230,32 @@
     _overrides = {};
     hwsResetOverrides();
 
-    // Clear section order and hidden sections
+    // Clear section order, hidden sections, section styles, element sizes, and custom blocks
     localStorage.removeItem('hws-admin-section-order');
     localStorage.removeItem('hws-admin-hidden-sections');
+    localStorage.removeItem('hws-admin-section-styles');
+    localStorage.removeItem('hws-admin-element-sizes');
+    localStorage.removeItem('hws-admin-custom-blocks');
+    localStorage.removeItem('hws-admin-element-styles');
 
-    // Restore section visibility and original order (reload cleanest approach)
+    // Remove custom blocks from DOM
+    var customBlocks = document.querySelectorAll('.hws-custom-block');
+    for (var j = 0; j < customBlocks.length; j++) {
+      if (customBlocks[j].parentNode) customBlocks[j].parentNode.removeChild(customBlocks[j]);
+    }
+
+    // Restore section visibility, order, and styles (reload cleanest approach)
     var allSections = document.querySelectorAll('main > .section, main > .section-transition');
     for (var i = 0; i < allSections.length; i++) {
       allSections[i].style.display = '';
       allSections[i].style.transform = '';
+      allSections[i].style.backgroundColor = '';
+      allSections[i].style.color = '';
+      allSections[i].style.paddingTop = '';
+      allSections[i].style.paddingBottom = '';
+      allSections[i].style.maxWidth = '';
+      allSections[i].style.marginLeft = '';
+      allSections[i].style.marginRight = '';
     }
 
     resetPageToDefaults();
@@ -1483,6 +1613,14 @@
       stopEditing();
     }
 
+    // Exit preview if active
+    if (_mode === 'preview') {
+      document.documentElement.removeAttribute('data-hws-preview');
+    }
+
+    // Reset device mode
+    resetDeviceMode();
+
     _mode = 'off';
 
     // Remove edit mode attribute
@@ -1584,6 +1722,19 @@
       startEditing: startEditing,
       stopEditing: stopEditing,
       getHwsKey: getHwsKey,
+
+      // Panel access — for plugins to render custom tabs
+      openPanel: openPanel,
+      closePanel: closePanel,
+      setPanelTitle: setPanelTitle,
+      setPanelBody: setPanelBody,
+      createPanel: function() { if (!_panel) createPanel(); return _panel; },
+      getPanel: function() { return _panel; },
+      escAttr: escAttr,
+      escHtml: escHtml,
+      getOverrides: function() { return _overrides; },
+      setOverrides: function(o) { _overrides = o; hwsSaveOverrides(_overrides); },
+      updateBadge: updateBadge,
 
       // Hook setters — plugins register callbacks here
       onStartEditing: function(fn) { _hooks.onStartEditing.push(fn); },

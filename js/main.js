@@ -34,9 +34,15 @@ document.addEventListener('DOMContentLoaded', () => {
     initSiteRenderer();
   }
 
-  // Restore section order and hidden state (set by editor)
+  // Restore custom blocks first (before order restoration)
+  if (typeof restoreCustomBlocks === 'function') restoreCustomBlocks();
+
+  // Restore section order, hidden state, styles, and element sizes (set by editor)
   if (typeof restoreSectionOrder === 'function') restoreSectionOrder();
   if (typeof restoreHiddenSections === 'function') restoreHiddenSections();
+  if (typeof restoreSectionStyles === 'function') restoreSectionStyles();
+  if (typeof restoreElementSizes === 'function') restoreElementSizes();
+  if (typeof restorePerElementStyles === 'function') restorePerElementStyles();
 
   initNavScroll();
   initScrollAnimations();

@@ -165,12 +165,24 @@
     link.href = 'css/inline-editor.css';
     document.head.appendChild(link);
 
-    // Load scripts sequentially: core → toolbar → sections
+    // Load scripts sequentially: core → plugins (all depend on _internal API)
     loadScript('js/inline-editor.js', function() {
       loadScript('js/editor-toolbar.js', function() {
         loadScript('js/editor-sections.js', function() {
-          editorLoaded = true;
-          if (window.HWSEditor) window.HWSEditor.toggle();
+          loadScript('js/editor-drag-sections.js', function() {
+            loadScript('js/editor-add-blocks.js', function() {
+              loadScript('js/editor-resize.js', function() {
+                loadScript('js/editor-context-menu.js', function() {
+                  loadScript('js/editor-layers.js', function() {
+                    loadScript('js/editor-element-styles.js', function() {
+                      editorLoaded = true;
+                      if (window.HWSEditor) window.HWSEditor.toggle();
+                    });
+                  });
+                });
+              });
+            });
+          });
         });
       });
     });
