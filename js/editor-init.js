@@ -6,7 +6,7 @@
 
 (function() {
   var editorLoaded = false;
-  var HASH = 'd6633801590b520ad4bcb3514efbc6152e09b452ffbbfd0e6c261427620dbafc';
+  var HASH = 'cb2f3ffbc31a452b3d520ab9a860b0fd5e9d9a34a5cb1196910e00c70cb28a1b';
   var AUTH_KEY = 'hws-editor-auth';
   var editorEnabled = window.location.search.indexOf('edit=1') !== -1 ||
                       localStorage.getItem('hws-editor-enabled') === '1';
