@@ -1,6 +1,6 @@
 /**
  * Site Data — Default content, design tokens, and localStorage API
- * Shared by both the live site (via site-renderer.js) and admin panel (via admin.js)
+ * Shared by both the live site (via site-renderer.js) and inline editor (via inline-editor.js)
  */
 
 const HWS_STORAGE_KEY = 'hws-admin';

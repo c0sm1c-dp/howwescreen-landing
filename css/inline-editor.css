@@ -1,0 +1,1684 @@
+/* ========================================
+   Inline Visual Editor — Squarespace-style
+   All styles scoped under [data-hws-edit-mode]
+   ======================================== */
+
+/* ---- EDITOR CUSTOM PROPERTIES ---- */
+
+[data-hws-edit-mode] {
+  --hws-editor-dark:            #1a1a2e;
+  --hws-editor-dark-hover:      #252545;
+  --hws-editor-dark-active:     #2f2f5a;
+  --hws-editor-brand:           #995D81;
+  --hws-editor-brand-hover:     #824E6D;
+  --hws-editor-brand-light:     rgba(153, 93, 129, 0.12);
+  --hws-editor-white:           #ffffff;
+  --hws-editor-gray-50:         #fafafa;
+  --hws-editor-gray-100:        #f5f5f5;
+  --hws-editor-gray-200:        #e8e8e8;
+  --hws-editor-gray-300:        #d4d4d4;
+  --hws-editor-gray-400:        #a3a3a3;
+  --hws-editor-gray-500:        #737373;
+  --hws-editor-gray-600:        #525252;
+  --hws-editor-gray-700:        #404040;
+  --hws-editor-text:            #1a1a2e;
+  --hws-editor-text-muted:      #737373;
+  --hws-editor-text-on-dark:    #e0ddd5;
+  --hws-editor-border:          #e8e8e8;
+  --hws-editor-border-focus:    #995D81;
+  --hws-editor-blue:            #3b82f6;
+  --hws-editor-blue-light:      rgba(59, 130, 246, 0.08);
+  --hws-editor-green:           #22c55e;
+  --hws-editor-green-light:     rgba(34, 197, 94, 0.08);
+  --hws-editor-red:             #ef4444;
+  --hws-editor-red-light:       rgba(239, 68, 68, 0.08);
+  --hws-editor-orange:          #f59e0b;
+  --hws-editor-font:            'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --hws-editor-font-mono:       'SF Mono', 'Consolas', 'Liberation Mono', monospace;
+  --hws-editor-radius:          6px;
+  --hws-editor-radius-lg:       10px;
+  --hws-editor-shadow-sm:       0 1px 3px rgba(0, 0, 0, 0.08);
+  --hws-editor-shadow-md:       0 4px 12px rgba(0, 0, 0, 0.12);
+  --hws-editor-shadow-lg:       0 8px 30px rgba(0, 0, 0, 0.16);
+  --hws-editor-shadow-xl:       0 16px 48px rgba(0, 0, 0, 0.20);
+  --hws-editor-toolbar-h:       40px;
+  --hws-editor-panel-w:         320px;
+  --hws-editor-transition:      0.2s ease;
+  --hws-editor-transition-slow: 0.35s cubic-bezier(0.25, 0.1, 0.25, 1);
+  --hws-editor-z-toolbar:       100000;
+  --hws-editor-z-panel:         99999;
+  --hws-editor-z-tooltip:       100001;
+  --hws-editor-z-toast:         100002;
+  --hws-editor-z-dropdown:      100003;
+  --hws-editor-z-overlay:       99998;
+}
+
+
+/* ========================================
+   1. BODY OFFSET — room for fixed toolbar
+   ======================================== */
+
+[data-hws-edit-mode] body {
+  padding-top: var(--hws-editor-toolbar-h) !important;
+}
+
+
+/* ========================================
+   2. TOP TOOLBAR
+   ======================================== */
+
+.hws-editor-toolbar {
+  display: none;
+}
+
+[data-hws-edit-mode] .hws-editor-toolbar {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--hws-editor-toolbar-h);
+  background: var(--hws-editor-dark);
+  color: var(--hws-editor-text-on-dark);
+  font-family: var(--hws-editor-font);
+  font-size: 13px;
+  z-index: var(--hws-editor-z-toolbar);
+  padding: 0 12px;
+  gap: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Toolbar sections */
+.hws-editor-toolbar__left,
+.hws-editor-toolbar__center,
+.hws-editor-toolbar__right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.hws-editor-toolbar__left {
+  flex-shrink: 0;
+}
+
+.hws-editor-toolbar__center {
+  flex: 1;
+  justify-content: center;
+}
+
+.hws-editor-toolbar__right {
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+/* Toolbar separator */
+.hws-editor-toolbar__sep {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  margin: 0 6px;
+  flex-shrink: 0;
+}
+
+/* Toolbar button base */
+.hws-editor-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 30px;
+  padding: 0 10px;
+  font-family: var(--hws-editor-font);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--hws-editor-text-on-dark);
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background var(--hws-editor-transition);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.hws-editor-toolbar__btn:hover {
+  background: var(--hws-editor-dark-hover);
+}
+
+.hws-editor-toolbar__btn:active {
+  background: var(--hws-editor-dark-active);
+}
+
+.hws-editor-toolbar__btn--active {
+  background: var(--hws-editor-brand);
+  color: #fff;
+}
+
+.hws-editor-toolbar__btn--active:hover {
+  background: var(--hws-editor-brand-hover);
+}
+
+.hws-editor-toolbar__btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Icon-only toolbar buttons */
+.hws-editor-toolbar__btn--icon {
+  width: 30px;
+  padding: 0;
+}
+
+.hws-editor-toolbar__btn--icon svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Exit button — distinct style */
+.hws-editor-toolbar__btn--exit {
+  background: rgba(239, 68, 68, 0.15);
+  color: #fca5a5;
+}
+
+.hws-editor-toolbar__btn--exit:hover {
+  background: rgba(239, 68, 68, 0.25);
+  color: #fecaca;
+}
+
+/* Page title display in toolbar */
+.hws-editor-toolbar__title {
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.6);
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Unsaved changes indicator */
+.hws-editor-toolbar__status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.hws-editor-toolbar__status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hws-editor-green);
+}
+
+.hws-editor-toolbar__status-dot--unsaved {
+  background: var(--hws-editor-orange);
+  animation: hws-editor-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hws-editor-pulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+
+/* ========================================
+   3. ACTIONS DROPDOWN
+   ======================================== */
+
+.hws-editor-dropdown {
+  position: relative;
+  display: inline-flex;
+}
+
+.hws-editor-dropdown__menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  min-width: 200px;
+  background: var(--hws-editor-white);
+  border: 1px solid var(--hws-editor-border);
+  border-radius: var(--hws-editor-radius-lg);
+  box-shadow: var(--hws-editor-shadow-lg);
+  padding: 4px;
+  z-index: var(--hws-editor-z-dropdown);
+  font-family: var(--hws-editor-font);
+}
+
+.hws-editor-dropdown--open .hws-editor-dropdown__menu {
+  display: block;
+  animation: hws-editor-dropdown-in 0.15s ease;
+}
+
+@keyframes hws-editor-dropdown-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.hws-editor-dropdown__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 8px 12px;
+  font-family: var(--hws-editor-font);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--hws-editor-text);
+  background: none;
+  border: none;
+  border-radius: var(--hws-editor-radius);
+  cursor: pointer;
+  transition: background var(--hws-editor-transition);
+  text-align: left;
+}
+
+.hws-editor-dropdown__item:hover {
+  background: var(--hws-editor-gray-100);
+}
+
+.hws-editor-dropdown__item--danger {
+  color: var(--hws-editor-red);
+}
+
+.hws-editor-dropdown__item--danger:hover {
+  background: var(--hws-editor-red-light);
+}
+
+.hws-editor-dropdown__item svg {
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+}
+
+.hws-editor-dropdown__sep {
+  height: 1px;
+  background: var(--hws-editor-border);
+  margin: 4px 0;
+}
+
+.hws-editor-dropdown__label {
+  padding: 6px 12px 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--hws-editor-text-muted);
+}
+
+
+/* ========================================
+   4. RIGHT PROPERTY PANEL
+   ======================================== */
+
+.hws-editor-panel {
+  display: none;
+}
+
+[data-hws-edit-mode] .hws-editor-panel {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: var(--hws-editor-toolbar-h);
+  right: 0;
+  width: var(--hws-editor-panel-w);
+  height: calc(100vh - var(--hws-editor-toolbar-h));
+  background: var(--hws-editor-white);
+  border-left: 1px solid var(--hws-editor-border);
+  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.06);
+  z-index: var(--hws-editor-z-panel);
+  font-family: var(--hws-editor-font);
+  font-size: 13px;
+  color: var(--hws-editor-text);
+  transform: translateX(100%);
+  transition: transform var(--hws-editor-transition-slow);
+  overflow: hidden;
+}
+
+[data-hws-edit-mode] .hws-editor-panel--open {
+  transform: translateX(0);
+}
+
+/* ---- Panel tabs ---- */
+
+.hws-editor-panel__tabs {
+  display: flex;
+  border-bottom: 1px solid var(--hws-editor-border);
+  flex-shrink: 0;
+  background: var(--hws-editor-gray-50);
+}
+
+.hws-editor-panel__tab {
+  flex: 1;
+  padding: 10px 0;
+  font-family: var(--hws-editor-font);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--hws-editor-text-muted);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: color var(--hws-editor-transition), border-color var(--hws-editor-transition);
+  text-align: center;
+}
+
+.hws-editor-panel__tab:hover {
+  color: var(--hws-editor-text);
+}
+
+.hws-editor-panel__tab--active {
+  color: var(--hws-editor-brand);
+  border-bottom-color: var(--hws-editor-brand);
+  font-weight: 600;
+}
+
+/* ---- Panel header (selected element info) ---- */
+
+.hws-editor-panel__header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--hws-editor-border);
+  background: var(--hws-editor-gray-50);
+  flex-shrink: 0;
+}
+
+.hws-editor-panel__element-name {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--hws-editor-brand);
+  margin-bottom: 2px;
+}
+
+.hws-editor-panel__element-key {
+  font-size: 11px;
+  font-family: var(--hws-editor-font-mono);
+  color: var(--hws-editor-text-muted);
+}
+
+/* ---- Panel body (scrollable) ---- */
+
+.hws-editor-panel__body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+}
+
+/* Custom scrollbar for panel */
+.hws-editor-panel__body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.hws-editor-panel__body::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.hws-editor-panel__body::-webkit-scrollbar-thumb {
+  background: var(--hws-editor-gray-300);
+  border-radius: 3px;
+}
+
+.hws-editor-panel__body::-webkit-scrollbar-thumb:hover {
+  background: var(--hws-editor-gray-400);
+}
+
+/* ---- Tab panes ---- */
+
+.hws-editor-panel__pane {
+  display: none;
+  padding: 16px;
+}
+
+.hws-editor-panel__pane--active {
+  display: block;
+}
+
+/* ---- Panel footer ---- */
+
+.hws-editor-panel__footer {
+  padding: 12px 16px;
+  border-top: 1px solid var(--hws-editor-border);
+  background: var(--hws-editor-gray-50);
+  flex-shrink: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.hws-editor-panel__footer .hws-editor-btn {
+  flex: 1;
+}
+
+/* ---- Panel title & close (inside header) ---- */
+
+.hws-editor-panel__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hws-editor-text);
+}
+
+.hws-editor-panel__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: var(--hws-editor-radius);
+  color: var(--hws-editor-text-muted);
+  cursor: pointer;
+  transition: background var(--hws-editor-transition), color var(--hws-editor-transition);
+}
+
+.hws-editor-panel__close:hover {
+  background: var(--hws-editor-gray-200);
+  color: var(--hws-editor-text);
+}
+
+.hws-editor-panel__header {
+  position: relative;
+}
+
+/* ---- Panel content classes used by JS ---- */
+
+.hws-editor-panel__field {
+  padding: 12px 16px;
+}
+
+.hws-editor-panel__field--color,
+.hws-editor-panel__field--range {
+  padding: 8px 16px;
+}
+
+.hws-editor-panel__hint {
+  font-size: 11px;
+  color: var(--hws-editor-text-muted);
+  margin-top: 4px;
+  line-height: 1.4;
+}
+
+.hws-editor-panel__actions {
+  padding: 8px 16px 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.hws-editor-panel__actions-list {
+  padding: 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.hws-editor-panel__empty {
+  padding: 32px 16px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--hws-editor-text-muted);
+}
+
+.hws-editor-panel__info {
+  font-size: 13px;
+  color: var(--hws-editor-text);
+  line-height: 1.5;
+}
+
+.hws-editor-panel__divider {
+  height: 1px;
+  background: var(--hws-editor-border);
+  margin: 8px 16px;
+}
+
+.hws-editor-panel__section-heading {
+  padding: 4px 16px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hws-editor-text-muted);
+}
+
+.hws-editor-panel__default-badge {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--hws-editor-text-muted);
+  background: var(--hws-editor-gray-100);
+  border-radius: 3px;
+  vertical-align: middle;
+  margin-left: 4px;
+}
+
+.hws-editor-panel__img-empty {
+  padding: 24px 16px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--hws-editor-text-muted);
+  border: 2px dashed var(--hws-editor-gray-300);
+  border-radius: var(--hws-editor-radius);
+  margin-bottom: 12px;
+}
+
+
+/* ========================================
+   5. COLLAPSIBLE GROUPS / SECTIONS
+   ======================================== */
+
+.hws-editor-group {
+  border-bottom: 1px solid var(--hws-editor-border);
+}
+
+.hws-editor-group:last-child {
+  border-bottom: none;
+}
+
+.hws-editor-group__heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 12px 16px;
+  font-family: var(--hws-editor-font);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hws-editor-text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--hws-editor-transition);
+}
+
+.hws-editor-group__heading:hover {
+  color: var(--hws-editor-text);
+}
+
+.hws-editor-group__chevron {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  transition: transform var(--hws-editor-transition);
+}
+
+.hws-editor-group--collapsed .hws-editor-group__chevron {
+  transform: rotate(-90deg);
+}
+
+.hws-editor-group__content {
+  padding: 0 16px 16px;
+}
+
+.hws-editor-group--collapsed .hws-editor-group__content {
+  display: none;
+}
+
+
+/* ========================================
+   6. FORM CONTROLS
+   ======================================== */
+
+/* ---- Shared field spacing ---- */
+
+.hws-editor-field {
+  margin-bottom: 14px;
+}
+
+.hws-editor-field:last-child {
+  margin-bottom: 0;
+}
+
+/* ---- Label ---- */
+
+.hws-editor-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--hws-editor-text);
+  margin-bottom: 5px;
+}
+
+.hws-editor-label__hint {
+  font-weight: 400;
+  color: var(--hws-editor-text-muted);
+  margin-left: 4px;
+}
+
+/* ---- Text input ---- */
+
+.hws-editor-input {
+  width: 100%;
+  padding: 7px 10px;
+  font-family: var(--hws-editor-font);
+  font-size: 13px;
+  color: var(--hws-editor-text);
+  background: var(--hws-editor-white);
+  border: 1px solid var(--hws-editor-border);
+  border-radius: var(--hws-editor-radius);
+  transition: border-color var(--hws-editor-transition), box-shadow var(--hws-editor-transition);
+  outline: none;
+}
+
+.hws-editor-input:focus {
+  border-color: var(--hws-editor-brand);
+  box-shadow: 0 0 0 3px var(--hws-editor-brand-light);
+}
+
+.hws-editor-input::placeholder {
+  color: var(--hws-editor-gray-400);
+}
+
+.hws-editor-input--sm {
+  width: 90px;
+}
+
+/* ---- Textarea ---- */
+
+textarea.hws-editor-input {
+  min-height: 72px;
+  resize: vertical;
+  line-height: 1.5;
+  font-size: 12px;
+}
+
+/* ---- Select ---- */
+
+.hws-editor-select {
+  width: 100%;
+  padding: 7px 28px 7px 10px;
+  font-family: var(--hws-editor-font);
+  font-size: 13px;
+  color: var(--hws-editor-text);
+  background: var(--hws-editor-white);
+  border: 1px solid var(--hws-editor-border);
+  border-radius: var(--hws-editor-radius);
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23737373' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  transition: border-color var(--hws-editor-transition), box-shadow var(--hws-editor-transition);
+}
+
+.hws-editor-select:focus {
+  border-color: var(--hws-editor-brand);
+  box-shadow: 0 0 0 3px var(--hws-editor-brand-light);
+}
+
+/* ---- Color picker row ---- */
+
+.hws-editor-color-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.hws-editor-color-picker {
+  width: 34px;
+  height: 34px;
+  padding: 2px;
+  border: 1px solid var(--hws-editor-border);
+  border-radius: var(--hws-editor-radius);
+  cursor: pointer;
+  background: none;
+  flex-shrink: 0;
+}
+
+.hws-editor-color-picker::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+
+.hws-editor-color-picker::-webkit-color-swatch {
+  border: none;
+  border-radius: 3px;
+}
+
+.hws-editor-color-picker::-moz-color-swatch {
+  border: none;
+  border-radius: 3px;
+}
+
+.hws-editor-color-hex {
+  width: 80px;
+  font-family: var(--hws-editor-font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+/* ---- Range slider ---- */
+
+.hws-editor-range-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hws-editor-range {
+  flex: 1;
+  height: 4px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: var(--hws-editor-gray-200);
+  border-radius: 2px;
+  outline: none;
+}
+
+.hws-editor-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--hws-editor-brand);
+  cursor: pointer;
+  border: 2px solid var(--hws-editor-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform var(--hws-editor-transition);
+}
+
+.hws-editor-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+.hws-editor-range::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--hws-editor-brand);
+  cursor: pointer;
+  border: 2px solid var(--hws-editor-white);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.hws-editor-range::-moz-range-track {
+  height: 4px;
+  background: var(--hws-editor-gray-200);
+  border-radius: 2px;
+  border: none;
+}
+
+.hws-editor-range-value {
+  font-size: 11px;
+  font-family: var(--hws-editor-font-mono);
+  color: var(--hws-editor-text-muted);
+  min-width: 40px;
+  text-align: right;
+}
+
+/* ---- Checkbox / Toggle ---- */
+
+.hws-editor-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hws-editor-toggle {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.hws-editor-toggle input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.hws-editor-toggle__track {
+  position: absolute;
+  inset: 0;
+  background: var(--hws-editor-gray-300);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background var(--hws-editor-transition);
+}
+
+.hws-editor-toggle__track::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: var(--hws-editor-white);
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  transition: transform var(--hws-editor-transition);
+}
+
+.hws-editor-toggle input:checked + .hws-editor-toggle__track {
+  background: var(--hws-editor-brand);
+}
+
+.hws-editor-toggle input:checked + .hws-editor-toggle__track::after {
+  transform: translateX(16px);
+}
+
+.hws-editor-toggle input:focus-visible + .hws-editor-toggle__track {
+  box-shadow: 0 0 0 3px var(--hws-editor-brand-light);
+}
+
+/* ---- Image upload area ---- */
+
+.hws-editor-upload {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hws-editor-upload__preview {
+  width: 56px;
+  height: 56px;
+  border: 2px dashed var(--hws-editor-gray-300);
+  border-radius: var(--hws-editor-radius);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--hws-editor-gray-50);
+  flex-shrink: 0;
+  transition: border-color var(--hws-editor-transition);
+}
+
+.hws-editor-upload__preview:hover {
+  border-color: var(--hws-editor-brand);
+}
+
+.hws-editor-upload__preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.hws-editor-upload__preview--empty {
+  color: var(--hws-editor-gray-400);
+  font-size: 18px;
+}
+
+.hws-editor-upload__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hws-editor-upload__dropzone {
+  width: 100%;
+  padding: 24px 16px;
+  border: 2px dashed var(--hws-editor-gray-300);
+  border-radius: var(--hws-editor-radius-lg);
+  background: var(--hws-editor-gray-50);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color var(--hws-editor-transition), background var(--hws-editor-transition);
+}
+
+.hws-editor-upload__dropzone:hover,
+.hws-editor-upload__dropzone--dragover {
+  border-color: var(--hws-editor-brand);
+  background: var(--hws-editor-brand-light);
+}
+
+.hws-editor-upload__dropzone-text {
+  font-size: 12px;
+  color: var(--hws-editor-text-muted);
+  line-height: 1.5;
+}
+
+.hws-editor-upload__dropzone-text strong {
+  color: var(--hws-editor-brand);
+  font-weight: 600;
+}
+
+
+/* ========================================
+   7. BUTTONS (panel/editor context)
+   ======================================== */
+
+.hws-editor-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  font-family: var(--hws-editor-font);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--hws-editor-text);
+  background: var(--hws-editor-white);
+  border: 1px solid var(--hws-editor-border);
+  border-radius: var(--hws-editor-radius);
+  cursor: pointer;
+  transition: all var(--hws-editor-transition);
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.hws-editor-btn:hover {
+  background: var(--hws-editor-gray-100);
+  border-color: var(--hws-editor-gray-300);
+}
+
+.hws-editor-btn:active {
+  background: var(--hws-editor-gray-200);
+}
+
+.hws-editor-btn--primary {
+  background: var(--hws-editor-brand);
+  color: var(--hws-editor-white);
+  border-color: var(--hws-editor-brand);
+}
+
+.hws-editor-btn--primary:hover {
+  background: var(--hws-editor-brand-hover);
+  border-color: var(--hws-editor-brand-hover);
+}
+
+.hws-editor-btn--danger {
+  color: var(--hws-editor-red);
+  border-color: var(--hws-editor-red);
+}
+
+.hws-editor-btn--danger:hover {
+  background: var(--hws-editor-red-light);
+}
+
+.hws-editor-btn--ghost {
+  background: transparent;
+  border-color: transparent;
+  color: var(--hws-editor-text-muted);
+}
+
+.hws-editor-btn--ghost:hover {
+  background: var(--hws-editor-gray-100);
+  color: var(--hws-editor-text);
+}
+
+.hws-editor-btn--sm {
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.hws-editor-btn--full {
+  width: 100%;
+}
+
+.hws-editor-btn--reset {
+  color: var(--hws-editor-text-muted);
+  border-color: var(--hws-editor-gray-300);
+  font-size: 11px;
+}
+
+.hws-editor-btn--reset:hover {
+  background: var(--hws-editor-gray-100);
+  color: var(--hws-editor-text);
+}
+
+.hws-editor-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  stroke-width: 2;
+  fill: none;
+  flex-shrink: 0;
+}
+
+/* Export/reset button row */
+.hws-editor-btn-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+
+/* ========================================
+   8. HOVER OVERLAY — blue dashed outline
+   ======================================== */
+
+[data-hws-edit-mode] [data-hws]:hover {
+  outline: 2px dashed var(--hws-editor-blue) !important;
+  outline-offset: 2px;
+  cursor: pointer;
+}
+
+/* Suppress hover outline when element is already selected or being edited */
+[data-hws-edit-mode] [data-hws].hws-editor-selected:hover,
+[data-hws-edit-mode] [data-hws].hws-editor-editing:hover {
+  outline-color: transparent !important;
+}
+
+
+/* ========================================
+   9. SELECTED OVERLAY — solid blue outline
+   ======================================== */
+
+[data-hws-edit-mode] [data-hws].hws-editor-selected {
+  outline: 2px solid var(--hws-editor-blue) !important;
+  outline-offset: 2px;
+  position: relative;
+}
+
+/* Selected element subtle background tint */
+[data-hws-edit-mode] [data-hws].hws-editor-selected::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--hws-editor-blue-light);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+
+
+/* ========================================
+   10. EDITING OVERLAY — green outline
+   ======================================== */
+
+[data-hws-edit-mode] [data-hws].hws-editor-editing {
+  outline: 2px solid var(--hws-editor-green) !important;
+  outline-offset: 2px;
+}
+
+[data-hws-edit-mode] [data-hws].hws-editor-editing::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  background: var(--hws-editor-green-light);
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Contenteditable caret and selection colors */
+[data-hws-edit-mode] [data-hws][contenteditable="true"] {
+  caret-color: var(--hws-editor-brand);
+  min-height: 1em;
+}
+
+[data-hws-edit-mode] [data-hws][contenteditable="true"]::selection {
+  background: var(--hws-editor-brand-light);
+  color: inherit;
+}
+
+
+/* ========================================
+   11. TOOLTIP — element key label
+   ======================================== */
+
+.hws-editor-tooltip {
+  display: none;
+}
+
+[data-hws-edit-mode] .hws-editor-tooltip {
+  display: block;
+  position: fixed;
+  z-index: var(--hws-editor-z-tooltip);
+  padding: 3px 8px;
+  font-family: var(--hws-editor-font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--hws-editor-white);
+  background: var(--hws-editor-dark);
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(2px);
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  line-height: 1.4;
+}
+
+[data-hws-edit-mode] .hws-editor-tooltip--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* ========================================
+   12. TOAST NOTIFICATION
+   ======================================== */
+
+.hws-editor-toast {
+  display: none;
+}
+
+[data-hws-edit-mode] .hws-editor-toast {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  padding: 10px 20px;
+  background: var(--hws-editor-dark);
+  color: var(--hws-editor-white);
+  border-radius: 8px;
+  font-family: var(--hws-editor-font);
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: var(--hws-editor-shadow-xl);
+  z-index: var(--hws-editor-z-toast);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  max-width: 400px;
+  white-space: nowrap;
+}
+
+[data-hws-edit-mode] .hws-editor-toast--visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+  pointer-events: auto;
+}
+
+.hws-editor-toast__icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.hws-editor-toast__icon--success {
+  color: var(--hws-editor-green);
+}
+
+.hws-editor-toast__icon--error {
+  color: var(--hws-editor-red);
+}
+
+.hws-editor-toast__icon--info {
+  color: var(--hws-editor-blue);
+}
+
+.hws-editor-toast__dismiss {
+  margin-left: 8px;
+  padding: 2px;
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  line-height: 1;
+  font-size: 16px;
+  transition: color var(--hws-editor-transition);
+}
+
+.hws-editor-toast__dismiss:hover {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+
+/* ========================================
+   13. EMPTY STATE / PLACEHOLDER
+   ======================================== */
+
+.hws-editor-empty {
+  padding: 32px 16px;
+  text-align: center;
+}
+
+.hws-editor-empty__icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+  opacity: 0.5;
+}
+
+.hws-editor-empty__title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--hws-editor-text);
+  margin-bottom: 4px;
+}
+
+.hws-editor-empty__desc {
+  font-size: 12px;
+  color: var(--hws-editor-text-muted);
+  line-height: 1.5;
+}
+
+
+/* ========================================
+   14. INLINE ROW HELPERS
+   ======================================== */
+
+.hws-editor-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.hws-editor-row--3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.hws-editor-row--auto {
+  grid-template-columns: auto 1fr;
+}
+
+.hws-editor-inline {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Key-value display */
+.hws-editor-kv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  font-size: 12px;
+}
+
+.hws-editor-kv__key {
+  color: var(--hws-editor-text-muted);
+}
+
+.hws-editor-kv__value {
+  font-weight: 500;
+  color: var(--hws-editor-text);
+  font-family: var(--hws-editor-font-mono);
+  font-size: 11px;
+}
+
+
+/* ========================================
+   15. COLOR SWATCHES (preset row)
+   ======================================== */
+
+.hws-editor-swatches {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.hws-editor-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 4px;
+  border: 1px solid var(--hws-editor-border);
+  cursor: pointer;
+  transition: transform var(--hws-editor-transition), box-shadow var(--hws-editor-transition);
+}
+
+.hws-editor-swatch:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 2px var(--hws-editor-brand-light);
+}
+
+.hws-editor-swatch--active {
+  box-shadow: 0 0 0 2px var(--hws-editor-brand);
+}
+
+
+/* ========================================
+   16. FEATURES LIST EDITOR
+   ======================================== */
+
+.hws-editor-list-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hws-editor-list-editor__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.hws-editor-list-editor__item .hws-editor-input {
+  flex: 1;
+}
+
+.hws-editor-list-editor__remove {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 4px;
+  color: var(--hws-editor-gray-400);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: color var(--hws-editor-transition), background var(--hws-editor-transition);
+}
+
+.hws-editor-list-editor__remove:hover {
+  color: var(--hws-editor-red);
+  background: var(--hws-editor-red-light);
+}
+
+.hws-editor-list-editor__add {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+
+/* ========================================
+   17. DIVIDER & SPACING UTILITIES
+   ======================================== */
+
+.hws-editor-divider {
+  border: none;
+  height: 1px;
+  background: var(--hws-editor-border);
+  margin: 12px 0;
+}
+
+.hws-editor-spacer {
+  height: 8px;
+}
+
+.hws-editor-spacer--lg {
+  height: 16px;
+}
+
+
+/* ========================================
+   18. CONFIRM DIALOG (inline in panel)
+   ======================================== */
+
+.hws-editor-confirm {
+  padding: 16px;
+  background: var(--hws-editor-gray-50);
+  border: 1px solid var(--hws-editor-border);
+  border-radius: var(--hws-editor-radius-lg);
+  margin: 8px 0;
+}
+
+.hws-editor-confirm__message {
+  font-size: 13px;
+  color: var(--hws-editor-text);
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.hws-editor-confirm__actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+
+/* ========================================
+   19. LOADING / SPINNER
+   ======================================== */
+
+.hws-editor-spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--hws-editor-gray-200);
+  border-top-color: var(--hws-editor-brand);
+  border-radius: 50%;
+  animation: hws-editor-spin 0.6s linear infinite;
+}
+
+@keyframes hws-editor-spin {
+  to { transform: rotate(360deg); }
+}
+
+.hws-editor-spinner--sm {
+  width: 12px;
+  height: 12px;
+  border-width: 1.5px;
+}
+
+.hws-editor-spinner--lg {
+  width: 24px;
+  height: 24px;
+  border-width: 3px;
+}
+
+
+/* ========================================
+   20. BADGE / TAG
+   ======================================== */
+
+.hws-editor-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 7px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.hws-editor-badge--info {
+  background: var(--hws-editor-blue-light);
+  color: var(--hws-editor-blue);
+}
+
+.hws-editor-badge--success {
+  background: var(--hws-editor-green-light);
+  color: var(--hws-editor-green);
+}
+
+.hws-editor-badge--warning {
+  background: rgba(245, 158, 11, 0.1);
+  color: var(--hws-editor-orange);
+}
+
+.hws-editor-badge--danger {
+  background: var(--hws-editor-red-light);
+  color: var(--hws-editor-red);
+}
+
+
+/* ========================================
+   21. KEYBOARD SHORTCUT HINT
+   ======================================== */
+
+.hws-editor-kbd {
+  display: inline-block;
+  padding: 1px 5px;
+  font-family: var(--hws-editor-font-mono);
+  font-size: 10px;
+  color: var(--hws-editor-text-muted);
+  background: var(--hws-editor-gray-100);
+  border: 1px solid var(--hws-editor-gray-200);
+  border-radius: 3px;
+  line-height: 1.4;
+}
+
+
+/* ========================================
+   22. RESPONSIVE — panel as bottom sheet
+   ======================================== */
+
+@media (max-width: 767px) {
+  [data-hws-edit-mode] .hws-editor-panel {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 50vh;
+    border-left: none;
+    border-top: 1px solid var(--hws-editor-border);
+    border-radius: var(--hws-editor-radius-lg) var(--hws-editor-radius-lg) 0 0;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.12);
+    transform: translateY(100%);
+  }
+
+  [data-hws-edit-mode] .hws-editor-panel--open {
+    transform: translateY(0);
+  }
+
+  /* Drag handle for bottom sheet */
+  .hws-editor-panel::before {
+    content: '';
+    display: block;
+    width: 36px;
+    height: 4px;
+    background: var(--hws-editor-gray-300);
+    border-radius: 2px;
+    margin: 8px auto 0;
+    flex-shrink: 0;
+  }
+
+  /* Toolbar adjustments */
+  [data-hws-edit-mode] .hws-editor-toolbar {
+    padding: 0 8px;
+    gap: 2px;
+  }
+
+  .hws-editor-toolbar__title {
+    display: none;
+  }
+
+  .hws-editor-toolbar__btn span {
+    display: none;
+  }
+
+  .hws-editor-toolbar__btn--exit span {
+    display: inline;
+  }
+
+  /* Toast adjustments — above bottom sheet */
+  [data-hws-edit-mode] .hws-editor-toast {
+    bottom: calc(50vh + 16px);
+  }
+
+  /* Panel tab font size */
+  .hws-editor-panel__tab {
+    font-size: 11px;
+  }
+}
+
+/* Very small screens */
+@media (max-width: 480px) {
+  [data-hws-edit-mode] .hws-editor-panel {
+    height: 60vh;
+  }
+
+  .hws-editor-toolbar__sep {
+    display: none;
+  }
+
+  .hws-editor-toolbar__btn {
+    height: 28px;
+    padding: 0 6px;
+    font-size: 11px;
+  }
+
+  .hws-editor-toolbar__btn--icon {
+    width: 28px;
+  }
+
+  [data-hws-edit-mode] .hws-editor-toast {
+    bottom: calc(60vh + 12px);
+    max-width: calc(100vw - 32px);
+    font-size: 12px;
+    white-space: normal;
+  }
+}
+
+
+/* ========================================
+   23. REDUCED MOTION
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-hws-edit-mode] .hws-editor-panel {
+    transition: none;
+  }
+
+  [data-hws-edit-mode] .hws-editor-toast {
+    transition: none;
+  }
+
+  .hws-editor-dropdown__menu {
+    animation: none;
+  }
+
+  .hws-editor-tooltip {
+    transition: none;
+  }
+
+  .hws-editor-spinner {
+    animation-duration: 1.5s;
+  }
+
+  .hws-editor-toolbar__status-dot--unsaved {
+    animation: none;
+  }
+
+  .hws-editor-range::-webkit-slider-thumb {
+    transition: none;
+  }
+
+  .hws-editor-swatch:hover {
+    transition: none;
+  }
+}
+
+
+/* ========================================
+   24. PRINT — hide all editor UI
+   ======================================== */
+
+@media print {
+  .hws-editor-toolbar,
+  .hws-editor-panel,
+  .hws-editor-tooltip,
+  .hws-editor-toast {
+    display: none !important;
+  }
+
+  [data-hws-edit-mode] body {
+    padding-top: 0 !important;
+  }
+
+  [data-hws-edit-mode] [data-hws] {
+    outline: none !important;
+  }
+
+  [data-hws-edit-mode] [data-hws]::before {
+    display: none !important;
+  }
+}
