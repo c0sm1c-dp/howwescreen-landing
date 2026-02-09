@@ -23,7 +23,9 @@
       "Bash(ssh-keyscan:*)",
       "Bash(~/.ssh/known_hosts)",
       "Bash(head:*)",
-      "Bash(tail:*)"
+      "Bash(tail:*)",
+      "Bash(ls:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
