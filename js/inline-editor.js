@@ -1155,7 +1155,10 @@
       overrides: _overrides,
       sectionOrder: null,
       hiddenSections: null,
-      sectionStyles: null
+      sectionStyles: null,
+      elementSizes: null,
+      customBlocks: null,
+      elementStyles: null
     };
     try {
       var orderRaw = localStorage.getItem('hws-admin-section-order');
@@ -1164,6 +1167,12 @@
       if (hiddenRaw) exportData.hiddenSections = JSON.parse(hiddenRaw);
       var stylesRaw = localStorage.getItem('hws-admin-section-styles');
       if (stylesRaw) exportData.sectionStyles = JSON.parse(stylesRaw);
+      var sizesRaw = localStorage.getItem('hws-admin-element-sizes');
+      if (sizesRaw) exportData.elementSizes = JSON.parse(sizesRaw);
+      var blocksRaw = localStorage.getItem('hws-admin-custom-blocks');
+      if (blocksRaw) exportData.customBlocks = JSON.parse(blocksRaw);
+      var elStylesRaw = localStorage.getItem('hws-admin-element-styles');
+      if (elStylesRaw) exportData.elementStyles = JSON.parse(elStylesRaw);
     } catch (e) {}
 
     var json = JSON.stringify(exportData, null, 2);
@@ -1202,6 +1211,15 @@
             if (imported.sectionStyles) {
               localStorage.setItem('hws-admin-section-styles', JSON.stringify(imported.sectionStyles));
             }
+            if (imported.elementSizes) {
+              localStorage.setItem('hws-admin-element-sizes', JSON.stringify(imported.elementSizes));
+            }
+            if (imported.customBlocks) {
+              localStorage.setItem('hws-admin-custom-blocks', JSON.stringify(imported.customBlocks));
+            }
+            if (imported.elementStyles) {
+              localStorage.setItem('hws-admin-element-styles', JSON.stringify(imported.elementStyles));
+            }
           } else {
             _overrides = imported;
           }
@@ -1212,6 +1230,9 @@
           if (typeof restoreSectionOrder === 'function') restoreSectionOrder();
           if (typeof restoreHiddenSections === 'function') restoreHiddenSections();
           if (typeof restoreSectionStyles === 'function') restoreSectionStyles();
+          if (typeof restoreElementSizes === 'function') restoreElementSizes();
+          if (typeof restoreCustomBlocks === 'function') restoreCustomBlocks();
+          if (typeof restorePerElementStyles === 'function') restorePerElementStyles();
           updateBadge();
           showToast('Overrides imported');
           if (_panelTab === 'actions') renderActionsTab();

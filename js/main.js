@@ -24,11 +24,8 @@ function initNavScroll() {
   });
 }
 
-// Initialize everything on DOM ready
-document.addEventListener('DOMContentLoaded', () => {
-  // Mark JS as loaded (enables animations in CSS)
-  document.documentElement.classList.add('js-loaded');
-
+// Apply all overrides and initialize the page
+function applyOverridesAndInit() {
   // Apply admin overrides before anything else renders
   if (typeof initSiteRenderer === 'function') {
     initSiteRenderer();
@@ -50,4 +47,17 @@ document.addEventListener('DOMContentLoaded', () => {
   initSmoothScroll();
   initFormHandlers();
   initFAQAccordion();
+}
+
+// Initialize everything on DOM ready
+document.addEventListener('DOMContentLoaded', function() {
+  // Mark JS as loaded (enables animations in CSS)
+  document.documentElement.classList.add('js-loaded');
+
+  // Try to load server-side overrides JSON first, then init
+  if (typeof loadServerOverrides === 'function') {
+    loadServerOverrides().then(applyOverridesAndInit);
+  } else {
+    applyOverridesAndInit();
+  }
 });

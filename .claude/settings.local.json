@@ -21,7 +21,9 @@
       "Bash(node -e:*)",
       "Bash(python3:*)",
       "Bash(ssh-keyscan:*)",
-      "Bash(~/.ssh/known_hosts)"
+      "Bash(~/.ssh/known_hosts)",
+      "Bash(head:*)",
+      "Bash(tail:*)"
     ]
   }
 }

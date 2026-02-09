@@ -1,7 +1,42 @@
 /**
- * Site Renderer — Applies admin overrides from localStorage to the live page
- * Reads from HWS_DEFAULTS + localStorage, updates DOM and CSS custom properties
+ * Site Renderer — Applies admin overrides from localStorage & server JSON to the live page
+ * Reads from HWS_DEFAULTS + hws-overrides.json + localStorage, updates DOM and CSS custom properties
  */
+
+// Fetch overrides JSON from server, seed localStorage if empty, then run all restore functions
+function loadServerOverrides() {
+  return fetch('hws-overrides.json')
+    .then(function(res) {
+      if (!res.ok) throw new Error('No server overrides');
+      return res.json();
+    })
+    .then(function(data) {
+      // Seed each localStorage key from the server JSON only if localStorage is empty for that key
+      var keyMap = {
+        overrides:      'hws-admin',
+        sectionOrder:   'hws-admin-section-order',
+        hiddenSections: 'hws-admin-hidden-sections',
+        sectionStyles:  'hws-admin-section-styles',
+        elementSizes:   'hws-admin-element-sizes',
+        customBlocks:   'hws-admin-custom-blocks',
+        elementStyles:  'hws-admin-element-styles'
+      };
+
+      Object.keys(keyMap).forEach(function(jsonKey) {
+        var storageKey = keyMap[jsonKey];
+        var serverVal = data[jsonKey];
+        if (serverVal === null || serverVal === undefined) return;
+
+        // Only write if localStorage doesn't already have data for this key
+        if (!localStorage.getItem(storageKey)) {
+          localStorage.setItem(storageKey, JSON.stringify(serverVal));
+        }
+      });
+    })
+    .catch(function() {
+      // No server JSON found or fetch failed — that's fine, fall back to localStorage only
+    });
+}
 
 function initSiteRenderer() {
   const overrides = hwsGetOverrides();
