@@ -38,6 +38,54 @@ function loadServerOverrides() {
     });
 }
 
+// Lightweight HTML sanitizer for display — strips dangerous tags/attributes, keeps formatting
+function sanitizeForDisplay(html) {
+  if (!html || typeof html !== 'string') return '';
+  var tmp = document.createElement('div');
+  tmp.innerHTML = html;
+
+  var allowed = {
+    EM:1, STRONG:1, A:1, BR:1, B:1, I:1, U:1, SPAN:1, S:1, STRIKE:1, SUB:1, SUP:1,
+    H1:1, H2:1, H3:1, H4:1, P:1, BLOCKQUOTE:1, UL:1, OL:1, LI:1, DIV:1, IMG:1
+  };
+  var dangerousAttrs = /^on/i;
+  var dangerousHref = /^\s*javascript:/i;
+
+  function walk(node) {
+    var children = Array.prototype.slice.call(node.childNodes);
+    for (var i = 0; i < children.length; i++) {
+      var child = children[i];
+      if (child.nodeType !== 1) continue;
+      var tag = child.tagName;
+
+      if (!allowed[tag]) {
+        // Unwrap: keep children, remove the tag itself
+        var frag = document.createDocumentFragment();
+        while (child.firstChild) frag.appendChild(child.firstChild);
+        child.parentNode.replaceChild(frag, child);
+        walk(node); // Re-walk since structure changed
+        return;
+      }
+
+      // Strip dangerous attributes (onclick, onerror, etc.)
+      var attrs = Array.prototype.slice.call(child.attributes);
+      for (var j = 0; j < attrs.length; j++) {
+        var name = attrs[j].name;
+        if (dangerousAttrs.test(name)) {
+          child.removeAttribute(name);
+        }
+        if (name === 'href' && dangerousHref.test(attrs[j].value)) {
+          child.setAttribute('href', '#');
+        }
+      }
+      walk(child);
+    }
+  }
+
+  walk(tmp);
+  return tmp.innerHTML;
+}
+
 function initSiteRenderer() {
   const overrides = hwsGetOverrides();
   if (!overrides || Object.keys(overrides).length === 0) return;
@@ -99,7 +147,7 @@ function applyTextOverride(key, value) {
   if (key.includes('headline') || key.includes('body') || key.includes('subtext') ||
       key.includes('text') || key.includes('answer') || key.includes('Note') ||
       key.includes('note')) {
-    el.innerHTML = value;
+    el.innerHTML = sanitizeForDisplay(value);
   } else {
     el.textContent = value;
   }
@@ -139,7 +187,7 @@ function applyFeaturesOverride(key, value) {
   if (!el) return;
 
   const features = value.split('\n').filter(f => f.trim());
-  el.innerHTML = features.map(f => '<div class="card__feature-item">' + f.trim() + '</div>').join('');
+  el.innerHTML = features.map(f => '<div class="card__feature-item">' + sanitizeForDisplay(f.trim()) + '</div>').join('');
 }
 
 // ---- SECTION ORDER & VISIBILITY (set by editor-sections.js) ----
@@ -264,7 +312,7 @@ function restoreCustomBlocks() {
       if (document.getElementById(block.id)) return;
 
       var temp = document.createElement('div');
-      temp.innerHTML = block.html;
+      temp.innerHTML = sanitizeForDisplay(block.html);
       var el = temp.firstElementChild;
       if (el) mainEl.appendChild(el);
     });
