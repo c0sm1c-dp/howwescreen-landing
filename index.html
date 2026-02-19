@@ -94,7 +94,7 @@
             <line x1="33" y1="48" x2="35" y2="52"/>
           </g>
         </svg>
-        <span class="nav__logo-text" data-hws="nav.logoText">How We Screen</span>
+        <span class="nav__logo-text" data-hws="nav.logoText" style="display:none">How We Screen</span>
       </a>
 
       <!-- Desktop navigation -->
@@ -543,11 +543,11 @@
         </div>
 
         <div class="pricing__grid">
-          <!-- Tier 1: Free -->
+          <!-- Tier 0: Free -->
           <div class="card card--pricing reveal reveal-delay-1">
             <h3 class="card__plan-name" data-hws="pricing.tier0.name">The Reset</h3>
             <div class="card__price" data-hws="pricing.tier0.price">Free</div>
-            <p class="card__price-note" data-hws="pricing.tier0.priceNote">Always free</p>
+            <p class="card__price-note" data-hws="pricing.tier0.priceNote">3-day program</p>
             <div class="card__features" data-hws-features="pricing.tier0.features">
               <div class="card__feature-item">3-day guided email detox</div>
               <div class="card__feature-item">Daily reflection prompts</div>
@@ -557,29 +557,58 @@
             <a href="#detox" class="btn btn--secondary btn--full" data-hws="pricing.tier0.ctaText">Start Free</a>
           </div>
 
-          <!-- Tier 2: Popular -->
-          <div class="card card--pricing card--featured reveal reveal-delay-2">
-            <span class="card__badge" data-hws="pricing.tier1.badge">Most Popular</span>
-            <h3 class="card__plan-name" data-hws="pricing.tier1.name">The Deep Dive</h3>
-            <div class="card__price" data-hws="pricing.tier1.price">$29</div>
-            <p class="card__price-note" data-hws="pricing.tier1.priceNote">One-time payment</p>
+          <!-- Tier 1: 7-day -->
+          <div class="card card--pricing reveal reveal-delay-2">
+            <span class="card__badge" data-hws="pricing.tier1.badge">New</span>
+            <h3 class="card__plan-name" data-hws="pricing.tier1.name">The Deep Cleanse</h3>
+            <div class="card__price" data-hws="pricing.tier1.price">Coming Soon</div>
+            <p class="card__price-note" data-hws="pricing.tier1.priceNote">7-day program</p>
             <div class="card__features" data-hws-features="pricing.tier1.features">
+              <div class="card__feature-item">7-day guided detox program</div>
+              <div class="card__feature-item">Everything in The Reset</div>
+              <div class="card__feature-item">Extended daily challenges</div>
+              <div class="card__feature-item">Community access</div>
+            </div>
+            <form action="https://app.kit.com/forms/9106015/subscriptions" method="post" class="inline-form card__waitlist-form" data-sv-form="9106015" data-uid="984edb04c3" id="waitlist-7day-form">
+              <label for="waitlist-7day-email" class="visually-hidden">Email address</label>
+              <input type="email" id="waitlist-7day-email" name="email_address" placeholder="Your email" class="input" required autocomplete="email">
+              <button type="submit" class="btn btn--primary btn--full">Join the Waitlist</button>
+            </form>
+            <div class="form-success" id="waitlist-7day-form-success" hidden>
+              <p style="font-size: var(--text-sm);">You&rsquo;re on the list!</p>
+            </div>
+          </div>
+
+          <!-- Tier 2: 14-day -->
+          <div class="card card--pricing reveal reveal-delay-3">
+            <span class="card__badge" data-hws="pricing.tier2.badge">Most Popular</span>
+            <h3 class="card__plan-name" data-hws="pricing.tier2.name">The Deep Dive</h3>
+            <div class="card__price" data-hws="pricing.tier2.price">Coming Soon</div>
+            <p class="card__price-note" data-hws="pricing.tier2.priceNote">14-day program</p>
+            <div class="card__features" data-hws-features="pricing.tier2.features">
               <div class="card__feature-item">14-day guided program</div>
               <div class="card__feature-item">Community access (private group)</div>
               <div class="card__feature-item">Weekly live check-ins</div>
               <div class="card__feature-item">Personalized screen audit</div>
               <div class="card__feature-item">Printable journal kit</div>
             </div>
-            <a href="#detox" class="btn btn--primary btn--full" data-hws="pricing.tier1.ctaText">Join the Waitlist</a>
+            <form action="https://app.kit.com/forms/9106017/subscriptions" method="post" class="inline-form card__waitlist-form" data-sv-form="9106017" data-uid="c7823b4157" id="waitlist-14day-form">
+              <label for="waitlist-14day-email" class="visually-hidden">Email address</label>
+              <input type="email" id="waitlist-14day-email" name="email_address" placeholder="Your email" class="input" required autocomplete="email">
+              <button type="submit" class="btn btn--primary btn--full">Join the Waitlist</button>
+            </form>
+            <div class="form-success" id="waitlist-14day-form-success" hidden>
+              <p style="font-size: var(--text-sm);">You&rsquo;re on the list!</p>
+            </div>
           </div>
 
-          <!-- Tier 3: Premium -->
-          <div class="card card--pricing reveal reveal-delay-3">
-            <span class="card__badge" style="background: var(--color-accent-2);" data-hws="pricing.tier2.badge">Go Deep</span>
-            <h3 class="card__plan-name" data-hws="pricing.tier2.name">The Full Reset</h3>
-            <div class="card__price" data-hws="pricing.tier2.price">$79</div>
-            <p class="card__price-note" data-hws="pricing.tier2.priceNote">One-time payment</p>
-            <div class="card__features" data-hws-features="pricing.tier2.features">
+          <!-- Tier 3: 30-day -->
+          <div class="card card--pricing reveal reveal-delay-4">
+            <span class="card__badge" style="background: var(--color-accent-2);" data-hws="pricing.tier3.badge">Go Deep</span>
+            <h3 class="card__plan-name" data-hws="pricing.tier3.name">The Full Reset</h3>
+            <div class="card__price" data-hws="pricing.tier3.price">Coming Soon</div>
+            <p class="card__price-note" data-hws="pricing.tier3.priceNote">30-day program</p>
+            <div class="card__features" data-hws-features="pricing.tier3.features">
               <div class="card__feature-item">30-day comprehensive program</div>
               <div class="card__feature-item">Everything in The Deep Dive</div>
               <div class="card__feature-item">1-on-1 accountability partner</div>
@@ -587,7 +616,14 @@
               <div class="card__feature-item">Lifetime community access</div>
               <div class="card__feature-item">Early access to new content</div>
             </div>
-            <a href="#detox" class="btn btn--secondary btn--full" data-hws="pricing.tier2.ctaText">Join the Waitlist</a>
+            <form action="https://app.kit.com/forms/9106022/subscriptions" method="post" class="inline-form card__waitlist-form" data-sv-form="9106022" data-uid="15aa75e4f1" id="waitlist-30day-form">
+              <label for="waitlist-30day-email" class="visually-hidden">Email address</label>
+              <input type="email" id="waitlist-30day-email" name="email_address" placeholder="Your email" class="input" required autocomplete="email">
+              <button type="submit" class="btn btn--primary btn--full">Join the Waitlist</button>
+            </form>
+            <div class="form-success" id="waitlist-30day-form-success" hidden>
+              <p style="font-size: var(--text-sm);">You&rsquo;re on the list!</p>
+            </div>
           </div>
         </div>
       </div>
@@ -705,7 +741,6 @@
               <ellipse cx="25" cy="43" rx="8" ry="5" fill="none" stroke-width="1.5"/>
               <circle cx="25" cy="43" r="2.5" fill="currentColor" stroke="none"/>
             </svg>
-            <span>How We Screen</span>
           </div>
           <p class="footer__tagline" data-hws="footer.tagline">Building intentional relationships with technology. One screen at a time.</p>
         </div>
@@ -726,7 +761,7 @@
         <div>
           <p class="footer__heading">Connect</p>
           <div class="footer__links">
-            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="footer__social-link" data-hws="footer.instagramUrl">
+            <a href="https://www.instagram.com/howwescreen" target="_blank" rel="noopener noreferrer" class="footer__social-link" data-hws="footer.instagramUrl">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
                 <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
@@ -734,13 +769,19 @@
               </svg>
               Instagram
             </a>
+            <a href="https://www.tiktok.com/@howwescreen" target="_blank" rel="noopener noreferrer" class="footer__social-link" data-hws="footer.tiktokUrl">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+              </svg>
+              TikTok
+            </a>
           </div>
         </div>
 
         <!-- Newsletter -->
         <div class="footer__newsletter">
           <p class="footer__heading">Weekly Letter</p>
-          <p style="font-size: var(--text-sm); opacity: 0.6; margin-bottom: var(--space-md);" data-hws="footer.newsletterDesc">Screen culture, digital wellness, and taking your life back from the algorithm.</p>
+          <p style="font-size: var(--text-sm); opacity: 0.8; margin-bottom: var(--space-md);" data-hws="footer.newsletterDesc">Screen culture, digital wellness, and taking your life back from the algorithm.</p>
           <form
             action="https://app.kit.com/forms/9073578/subscriptions"
             method="post"

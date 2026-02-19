@@ -178,6 +178,8 @@
   text-align: center;
   padding: var(--space-2xl) var(--space-xl);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .card--pricing.card--featured {
@@ -244,6 +246,23 @@
   color: var(--color-accent-1);
   font-weight: bold;
   flex-shrink: 0;
+}
+
+.card--pricing > a.btn:last-of-type,
+.card__waitlist-form {
+  margin-top: auto;
+}
+
+.card__waitlist-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.card__waitlist-form .input {
+  font-size: var(--text-sm);
+  padding: var(--space-sm) var(--space-md);
+  text-align: center;
 }
 
 /* ---- FORMS ---- */

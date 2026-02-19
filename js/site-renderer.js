@@ -91,11 +91,13 @@ function initSiteRenderer() {
   if (!overrides || Object.keys(overrides).length === 0) return;
 
   Object.entries(overrides).forEach(([key, value]) => {
-    if (value === '' || value === null || value === undefined) return;
+    if (value === null || value === undefined) return;
 
     if (key.startsWith('design.')) {
+      if (value === '') return;
       applyDesignToken(key, value);
     } else if (key.startsWith('img.')) {
+      if (value === '') return;
       applyImageOverride(key, value);
     } else if (key.endsWith('.features')) {
       applyFeaturesOverride(key, value);
