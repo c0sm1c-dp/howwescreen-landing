@@ -481,6 +481,12 @@
 @media (min-width: 1024px) {
   .pricing__grid {
     grid-template-columns: repeat(4, 1fr);
+    max-width: 1200px;
+    gap: var(--space-md);
+  }
+
+  .pricing__grid .card--pricing {
+    padding: var(--space-xl) var(--space-lg);
   }
 }
 
