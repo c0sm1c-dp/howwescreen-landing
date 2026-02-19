@@ -3,7 +3,7 @@
  * Reads from HWS_DEFAULTS + hws-overrides.json + localStorage, updates DOM and CSS custom properties
  */
 
-// Fetch overrides JSON from server, seed localStorage if empty, then run all restore functions
+// Fetch overrides JSON from server, sync localStorage, then run all restore functions
 function loadServerOverrides() {
   return fetch('hws-overrides.json')
     .then(function(res) {
@@ -11,7 +11,7 @@ function loadServerOverrides() {
       return res.json();
     })
     .then(function(data) {
-      // Seed each localStorage key from the server JSON only if localStorage is empty for that key
+      // Sync each localStorage key from the server JSON
       var keyMap = {
         overrides:      'hws-admin',
         sectionOrder:   'hws-admin-section-order',
@@ -22,13 +22,18 @@ function loadServerOverrides() {
         elementStyles:  'hws-admin-element-styles'
       };
 
+      // Regular visitors: always apply server JSON (published state wins)
+      // Admin sessions (editor open): only seed if empty (don't overwrite live edits)
+      var isAdminSession = sessionStorage.getItem('hws-admin-auth');
+
       Object.keys(keyMap).forEach(function(jsonKey) {
         var storageKey = keyMap[jsonKey];
         var serverVal = data[jsonKey];
         if (serverVal === null || serverVal === undefined) return;
 
-        // Only write if localStorage doesn't already have data for this key
-        if (!localStorage.getItem(storageKey)) {
+        if (!isAdminSession) {
+          localStorage.setItem(storageKey, JSON.stringify(serverVal));
+        } else if (!localStorage.getItem(storageKey)) {
           localStorage.setItem(storageKey, JSON.stringify(serverVal));
         }
       });
