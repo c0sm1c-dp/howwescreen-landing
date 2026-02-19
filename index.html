@@ -134,40 +134,58 @@
   <main>
     <!-- ======================== HERO ======================== -->
     <section class="section section--hero" id="hero">
-      <div class="hero__deco">
-        <div class="hero__deco-shape hero__deco-shape--1"></div>
-        <div class="hero__deco-shape hero__deco-shape--2"></div>
-        <div class="hero__deco-shape hero__deco-shape--3"></div>
-        <div class="hero__grain"></div>
-      </div>
-
       <div class="container">
-        <div class="hero__content">
-          <p class="section-label reveal" data-hws="hero.label">A guided digital detox</p>
-          <h1 class="hero__headline" id="hero-headline" data-hws="hero.headline">
-            <span class="hero-word" style="animation-delay: 0.1s">What</span>
-            <span class="hero-word" style="animation-delay: 0.2s">if</span>
-            <span class="hero-word" style="animation-delay: 0.3s">you</span>
-            <span class="hero-word" style="animation-delay: 0.4s">could</span>
-            <span class="hero-word" style="animation-delay: 0.5s">look</span>
-            <span class="hero-word" style="animation-delay: 0.6s">at</span>
-            <span class="hero-word" style="animation-delay: 0.7s">your</span>
-            <span class="hero-word" style="animation-delay: 0.8s">phone</span>
-            <span class="hero-word" style="animation-delay: 0.9s">and</span>
-            <span class="hero-word" style="animation-delay: 1.0s">feel</span>
-            <span class="hero-word" style="animation-delay: 1.1s"><em>nothing?</em></span>
-          </h1>
-          <p class="hero__subtext reveal reveal-delay-5" data-hws="hero.subtext">
-            No guilt. No anxiety. Just you, deciding what deserves your attention.
-            How We Screen is a guided program helping Gen Z and millennials build intentional relationships with technology.
-          </p>
-          <div class="hero__cta-group reveal reveal-delay-6">
-            <a href="#detox" class="btn btn--primary btn--lg" data-hws="hero.ctaPrimary">Start the Free 3-Day Reset</a>
-            <a href="#problem" class="btn btn--ghost" data-hws="hero.ctaSecondary">Learn more</a>
+        <div class="hero-card">
+          <!-- Animated gradient background -->
+          <div class="hero-card__bg">
+            <div class="hero-card__grain"></div>
           </div>
-          <p class="hero__newsletter-note reveal reveal-delay-7" data-hws="hero.newsletterNote">
-            Or just get our weekly letter on screen culture &mdash; no commitment.
-          </p>
+
+          <!-- Content -->
+          <div class="hero-card__content">
+            <!-- Badge pill -->
+            <div class="hero-card__badge reveal" data-hws="hero.label">
+              <span class="hero-card__badge-dot">
+                <span class="hero-card__badge-ping"></span>
+                <span class="hero-card__badge-dot-inner"></span>
+              </span>
+              A guided digital detox
+            </div>
+
+            <!-- Headline -->
+            <h1 class="hero-card__headline" id="hero-headline" data-hws="hero.headline">
+              <span class="hero-word" style="animation-delay: 0.1s">What</span>
+              <span class="hero-word" style="animation-delay: 0.2s">if</span>
+              <span class="hero-word" style="animation-delay: 0.3s">you</span>
+              <span class="hero-word" style="animation-delay: 0.4s">could</span>
+              <span class="hero-word" style="animation-delay: 0.5s">look</span>
+              <span class="hero-word" style="animation-delay: 0.6s">at</span>
+              <span class="hero-word" style="animation-delay: 0.7s">your</span>
+              <span class="hero-word" style="animation-delay: 0.8s">phone</span>
+              <span class="hero-word" style="animation-delay: 0.9s">and</span>
+              <span class="hero-word" style="animation-delay: 1.0s">feel</span>
+              <span class="hero-word" style="animation-delay: 1.1s"><em>nothing?</em></span>
+            </h1>
+
+            <!-- Subtext -->
+            <p class="hero-card__subtext reveal reveal-delay-5" data-hws="hero.subtext">
+              No guilt. No anxiety. Just you, deciding what deserves your attention.
+              How We Screen is a guided program helping Gen Z and millennials build intentional relationships with technology.
+            </p>
+
+            <!-- CTA buttons -->
+            <div class="hero-card__cta-group reveal reveal-delay-6">
+              <a href="#detox" class="btn btn--primary btn--lg hero-card__btn" data-hws="hero.ctaPrimary">
+                Start the Free 3-Day Reset
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              <a href="#problem" class="btn btn--ghost" data-hws="hero.ctaSecondary">Learn more</a>
+            </div>
+
+            <p class="hero-card__note reveal reveal-delay-7" data-hws="hero.newsletterNote">
+              Or just get our weekly letter on screen culture &mdash; no commitment.
+            </p>
+          </div>
         </div>
       </div>
     </section>

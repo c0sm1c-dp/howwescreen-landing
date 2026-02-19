@@ -154,6 +154,18 @@
   border-radius: 50%;
 }
 
+/* ---- Hero card gradient ---- */
+@keyframes hero-gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ---- Hero badge ping ---- */
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
 /* ---- Reduced motion ---- */
 @media (prefers-reduced-motion: reduce) {
   *,
