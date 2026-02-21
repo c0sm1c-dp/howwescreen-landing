@@ -181,13 +181,23 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-              box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.4s ease;
 }
 
-.card--pricing:hover {
-  transform: scale(1.045);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+/* Spotlight hover: when the grid is hovered, shrink + fade all cards… */
+.pricing__grid:hover .card--pricing {
+  transform: scale(0.96);
+  opacity: 0.7;
+}
+
+/* …then amplify the one you're actually hovering on */
+.pricing__grid:hover .card--pricing:hover {
+  transform: scale(1.05);
+  opacity: 1;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+  z-index: 2;
 }
 
 .card--pricing.card--featured {
@@ -264,9 +274,9 @@
 .card__waitlist-form {
   display: flex;
   flex-direction: column !important;
-  align-items: center;
+  align-items: stretch;
   gap: var(--space-sm);
-  max-width: none;
+  max-width: none !important;
   width: 100%;
 }
 
@@ -274,12 +284,14 @@
   font-size: var(--text-sm);
   padding: var(--space-sm) var(--space-md);
   text-align: center;
-  width: 100%;
+  width: 100% !important;
+  flex: none !important;
   box-sizing: border-box;
 }
 
 .card__waitlist-form .btn {
   width: 100%;
+  flex-shrink: 1 !important;
 }
 
 /* ---- FORMS ---- */
