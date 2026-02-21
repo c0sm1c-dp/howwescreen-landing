@@ -253,7 +253,7 @@
 
 .card__waitlist-form {
   display: flex;
-  flex-direction: column;
+  flex-direction: column !important;
   gap: var(--space-sm);
   max-width: none;
 }
