@@ -15,4 +15,14 @@
     <lastmod>2026-02-21</lastmod>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://howwescreen.org/privacy-policy.html</loc>
+    <lastmod>2026-02-22</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://howwescreen.org/terms-of-service.html</loc>
+    <lastmod>2026-02-22</lastmod>
+    <priority>0.3</priority>
+  </url>
 </urlset>
