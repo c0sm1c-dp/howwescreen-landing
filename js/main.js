@@ -47,6 +47,8 @@ function applyOverridesAndInit() {
   initSmoothScroll();
   initFormHandlers();
   initFAQAccordion();
+  if (typeof initShare === 'function') initShare();
+  if (typeof initI18n === 'function') initI18n();
 }
 
 // Initialize everything on DOM ready

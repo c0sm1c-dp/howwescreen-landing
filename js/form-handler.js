@@ -9,6 +9,7 @@ function initFormHandlers() {
   setupForm('waitlist-7day-form', 'waitlist-7day-form-success', null);
   setupForm('waitlist-14day-form', 'waitlist-14day-form-success', null);
   setupForm('waitlist-30day-form', 'waitlist-30day-form-success', null);
+  setupForm('article-detox-form', 'article-detox-form-success', 'article-detox-form-error');
 }
 
 function setupForm(formId, successId, errorId) {
