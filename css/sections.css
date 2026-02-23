@@ -264,64 +264,6 @@
   font-family: var(--font-secondary);
 }
 
-/* ---- VOICES SECTION ---- */
-
-.section--voices {
-  background-color: var(--color-bg-primary);
-}
-
-.voices__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--grid-gap);
-}
-
-/* Mobile: show only first 3 quotes */
-.voices__grid .card--quote:nth-child(n+4) {
-  display: none;
-}
-
-@media (min-width: 768px) {
-  .voices__grid .card--quote:nth-child(n+4) {
-    display: block;
-  }
-}
-
-@media (min-width: 480px) {
-  .voices__grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .voices__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
-  /* Masonry-like effect with varying heights */
-  .voices__grid .card--quote:nth-child(3n + 1) {
-    margin-top: 0;
-  }
-  .voices__grid .card--quote:nth-child(3n + 2) {
-    margin-top: var(--space-xl);
-  }
-  .voices__grid .card--quote:nth-child(3n) {
-    margin-top: var(--space-md);
-  }
-}
-
-/* Avatar colors for variety */
-.card--quote:nth-child(1) .card__avatar  { background: var(--color-accent-1); }
-.card--quote:nth-child(2) .card__avatar  { background: var(--color-accent-2); }
-.card--quote:nth-child(3) .card__avatar  { background: var(--color-accent-4); }
-.card--quote:nth-child(4) .card__avatar  { background: var(--color-accent-3); color: #1a1a2e; }
-.card--quote:nth-child(5) .card__avatar  { background: var(--color-brand); }
-.card--quote:nth-child(6) .card__avatar  { background: var(--color-accent-2); }
-.card--quote:nth-child(7) .card__avatar  { background: var(--color-accent-1); }
-.card--quote:nth-child(8) .card__avatar  { background: var(--color-accent-4); }
-.card--quote:nth-child(9) .card__avatar  { background: var(--color-accent-2); }
-.card--quote:nth-child(10) .card__avatar { background: var(--color-accent-1); }
-
 /* ---- SOLUTION SECTION ---- */
 
 .section--solution {
@@ -420,6 +362,7 @@
 .section--detox {
   background-color: var(--color-bg-primary);
   position: relative;
+  padding: var(--space-4xl) 0;
 }
 
 .detox__layout {
@@ -465,40 +408,6 @@
 
 .section--steps {
   background-color: var(--color-bg-secondary);
-}
-
-/* ---- PRICING SECTION ---- */
-
-.section--pricing {
-  background-color: var(--color-bg-primary);
-}
-
-.pricing__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--grid-gap);
-  max-width: 1100px;
-  margin: 0 auto;
-  align-items: stretch;
-}
-
-@media (min-width: 768px) {
-  .pricing__grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: var(--space-md);
-  }
-}
-
-@media (min-width: 1024px) {
-  .pricing__grid {
-    grid-template-columns: repeat(4, 1fr);
-    max-width: 1200px;
-    gap: var(--space-md);
-  }
-
-  .pricing__grid .card--pricing {
-    padding: var(--space-xl) var(--space-lg);
-  }
 }
 
 /* ---- FAQ SECTION ---- */

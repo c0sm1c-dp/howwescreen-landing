@@ -69,10 +69,8 @@ const HWS_DEFAULTS = {
   'nav.link2Href':  '#solution',
   'nav.link3Label': 'Free Detox',
   'nav.link3Href':  '#detox',
-  'nav.link4Label': 'Programs',
-  'nav.link4Href':  '#pricing',
-  'nav.link5Label': 'FAQ',
-  'nav.link5Href':  '#faq',
+  'nav.link4Label': 'FAQ',
+  'nav.link4Href':  '#faq',
 
   // ======================== HERO ========================
 
@@ -88,11 +86,9 @@ const HWS_DEFAULTS = {
   // ======================== TRANSITIONS ========================
 
   'transition.1': 'You already know something is off. Let\u2019s name it.',
-  'transition.2': 'You\u2019re not alone in feeling this.',
   'transition.3': 'So what do we do about it?',
   'transition.4': 'Start here. It\u2019s free.',
   'transition.5': 'Here\u2019s exactly what happens.',
-  'transition.6': 'Ready to go deeper?',
 
   // ======================== PROBLEM ========================
 
@@ -107,61 +103,6 @@ const HWS_DEFAULTS = {
   'problem.stat2Label':  'Average daily phone unlocks',
   'problem.stat3Number': '57%',
   'problem.stat3Label':  'Of Gen Z say social media harms their mental health',
-
-  // ======================== VOICES ========================
-
-  'voices.label':   'Voices from the Internet',
-  'voices.heading': 'The things we say when we think nobody\u2019s building a website about it',
-
-  'voices.quote0.avatar':   'A',
-  'voices.quote0.username': '@internet_stranger',
-  'voices.quote0.body':     'I deleted Instagram for the third time this month. Reinstalled it an hour later.',
-  'voices.quote0.likes':    '\u2665 2.4k',
-
-  'voices.quote1.avatar':   'M',
-  'voices.quote1.username': '@scroll_survivor',
-  'voices.quote1.body':     'Does anyone else pick up their phone, forget why, then just open TikTok anyway?',
-  'voices.quote1.likes':    '\u2665 18k',
-
-  'voices.quote2.avatar':   'J',
-  'voices.quote2.username': '@recovering_scroller',
-  'voices.quote2.body':     'I spent my entire vacation taking photos of things I never actually looked at.',
-  'voices.quote2.likes':    '\u2665 5.1k',
-
-  'voices.quote3.avatar':   'K',
-  'voices.quote3.username': '@screen_time_criminal',
-  'voices.quote3.body':     'My screen time report feels like a criminal record I can\u2019t expunge.',
-  'voices.quote3.likes':    '\u2665 9.3k',
-
-  'voices.quote4.avatar':   'T',
-  'voices.quote4.username': '@couch_philosopher',
-  'voices.quote4.body':     'I watch reels of people living outside while I sit on my couch.',
-  'voices.quote4.likes':    '\u2665 12k',
-
-  'voices.quote5.avatar':   'R',
-  'voices.quote5.username': '@lunch_stalker',
-  'voices.quote5.body':     'I hate that I know what every person I went to high school with had for lunch.',
-  'voices.quote5.likes':    '\u2665 7.8k',
-
-  'voices.quote6.avatar':   'S',
-  'voices.quote6.username': '@therapy_update',
-  'voices.quote6.body':     'My therapist asked me what I do for fun and I said \u201cscroll.\u201d We both went quiet.',
-  'voices.quote6.likes':    '\u2665 34k',
-
-  'voices.quote7.avatar':   'D',
-  'voices.quote7.username': '@timer_denier',
-  'voices.quote7.body':     'I set a 15-minute timer for TikTok. That was two hours ago.',
-  'voices.quote7.likes':    '\u2665 21k',
-
-  'voices.quote8.avatar':   'L',
-  'voices.quote8.username': '@algorithm_knows',
-  'voices.quote8.body':     'The algorithm knows me better than my best friend and that\u2019s genuinely terrifying.',
-  'voices.quote8.likes':    '\u2665 15k',
-
-  'voices.quote9.avatar':   'P',
-  'voices.quote9.username': '@boredom_seeker',
-  'voices.quote9.body':     'I miss being bored. Just regular, stare-at-the-ceiling bored.',
-  'voices.quote9.likes':    '\u2665 28k',
 
   // ======================== SOLUTION ========================
 
@@ -212,36 +153,7 @@ const HWS_DEFAULTS = {
   'steps.step2.title': 'Notice what changes',
   'steps.step2.text':  'Use our included reflection worksheet to track how your screen habits shift over three days. Most people are surprised.',
   'steps.step3.title': 'Keep going with us',
-  'steps.step3.text':  'After your reset, join the How We Screen community to stay accountable. Or explore our deeper paid programs.',
-
-  // ======================== PRICING ========================
-
-  'pricing.label':   'Programs',
-  'pricing.heading': 'Choose your depth',
-  'pricing.subtext': 'Every journey starts with the free reset. Go further when you\u2019re ready.',
-
-  'pricing.tier0.name':      'The Reset',
-  'pricing.tier0.price':     'Free',
-  'pricing.tier0.priceNote': 'Always free',
-  'pricing.tier0.features':  '3-day guided email detox\nDaily reflection prompts\nScreen Agreement template\nAccess to weekly newsletter',
-  'pricing.tier0.ctaText':   'Start Free',
-  'pricing.tier0.ctaLink':   '#detox',
-
-  'pricing.tier1.name':      'The Deep Dive',
-  'pricing.tier1.price':     '$29',
-  'pricing.tier1.priceNote': 'One-time payment',
-  'pricing.tier1.badge':     'Most Popular',
-  'pricing.tier1.features':  '14-day guided program\nCommunity access (private group)\nWeekly live check-ins\nPersonalized screen audit\nPrintable journal kit',
-  'pricing.tier1.ctaText':   'Join the Waitlist',
-  'pricing.tier1.ctaLink':   '#detox',
-
-  'pricing.tier2.name':      'The Full Reset',
-  'pricing.tier2.price':     '$79',
-  'pricing.tier2.priceNote': 'One-time payment',
-  'pricing.tier2.badge':     'Go Deep',
-  'pricing.tier2.features':  '30-day comprehensive program\nEverything in The Deep Dive\n1-on-1 accountability partner\nMonthly group coaching call\nLifetime community access\nEarly access to new content',
-  'pricing.tier2.ctaText':   'Join the Waitlist',
-  'pricing.tier2.ctaLink':   '#detox',
+  'steps.step3.text':  'After your reset, join the How We Screen community to stay accountable. Or just take what you learned and go live your life.',
 
   // ======================== FAQ ========================
 

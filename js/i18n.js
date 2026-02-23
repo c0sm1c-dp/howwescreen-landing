@@ -9,7 +9,6 @@ const HWS_TRANSLATIONS = {
   'nav.problem':   { en: 'The Problem',    es: 'El Problema' },
   'nav.solution':  { en: 'What We Do',     es: 'Lo Que Hacemos' },
   'nav.detox':     { en: 'Free Detox',     es: 'Detox Gratis' },
-  'nav.programs':  { en: 'Programs',       es: 'Programas' },
   'nav.faq':       { en: 'FAQ',            es: 'Preguntas' },
   'nav.blog':      { en: 'Blog',           es: 'Blog' },
   'nav.cta':       { en: 'Start Your Detox', es: 'Comienza Tu Detox' },
@@ -23,22 +22,19 @@ const HWS_TRANSLATIONS = {
 
   // Transitions
   'transition.1':  { en: 'You already know something is off. Let\u2019s name it.', es: 'Ya sabes que algo no est\u00e1 bien. Vamos a nombrarlo.' },
-  'transition.2':  { en: 'You\u2019re not alone in feeling this.', es: 'No eres la \u00fanica persona que siente esto.' },
   'transition.3':  { en: 'So what do we do about it?', es: '\u00bfY qu\u00e9 hacemos al respecto?' },
   'transition.4':  { en: 'Start here. It\u2019s free.', es: 'Empieza aqu\u00ed. Es gratis.' },
   'transition.5':  { en: 'Here\u2019s exactly what happens.', es: 'Esto es exactamente lo que pasa.' },
-  'transition.6':  { en: 'Ready to go deeper?', es: '\u00bfLista/o para ir m\u00e1s profundo?' },
 
   // Problem section
   'problem.label':   { en: 'The Problem',   es: 'El Problema' },
   'problem.heading': { en: 'The Scroll Trap', es: 'La Trampa del Scroll' },
+  'problem.body1':   { en: 'It starts innocently. A quick check. A notification. And then thirty minutes vanish like they were never yours. You unlock your phone 150 times a day. You watch reels you don\u2019t even like. You know it\u2019s not making you feel good, and you do it anyway.', es: 'Empieza de forma inocente. Una revisi\u00f3n r\u00e1pida. Una notificaci\u00f3n. Y luego treinta minutos desaparecen como si nunca hubieran sido tuyos. Desbloqueas tu tel\u00e9fono 150 veces al d\u00eda. Ves reels que ni siquiera te gustan. Sabes que no te hace sentir bien, y lo haces igual.' },
+  'problem.body2':   { en: 'This isn\u2019t a willpower failure. It\u2019s a design feature. Every app on your phone was built by a team of engineers whose success is measured by how long they keep you staring at glass.', es: 'Esto no es una falta de voluntad. Es una caracter\u00edstica de dise\u00f1o. Cada app en tu tel\u00e9fono fue construida por un equipo de ingenieros cuyo \u00e9xito se mide por cu\u00e1nto tiempo te mantienen mirando una pantalla.' },
+  'problem.body3':   { en: 'You\u2019re not the problem. But you might be ready for a different relationship with your screen.', es: 'T\u00fa no eres el problema. Pero quiz\u00e1s est\u00e9s lista/o para una relaci\u00f3n diferente con tu pantalla.' },
   'problem.stat1Label': { en: 'Average daily screen time for 18\u201329 year olds', es: 'Tiempo de pantalla diario promedio para 18\u201329 a\u00f1os' },
   'problem.stat2Label': { en: 'Average daily phone unlocks', es: 'Desbloqueos diarios promedio del tel\u00e9fono' },
   'problem.stat3Label': { en: 'Of Gen Z say social media harms their mental health', es: 'De la Gen Z dice que las redes sociales da\u00f1an su salud mental' },
-
-  // Voices section
-  'voices.label':   { en: 'Voices from the Internet', es: 'Voces de Internet' },
-  'voices.heading': { en: 'The things we say when we think nobody\u2019s building a website about it', es: 'Lo que decimos cuando creemos que nadie est\u00e1 construyendo un sitio web sobre eso' },
 
   // Solution section
   'solution.label':   { en: 'The Solution',       es: 'La Soluci\u00f3n' },
@@ -67,6 +63,8 @@ const HWS_TRANSLATIONS = {
   'detox.formNote':    { en: 'Free. No spam. Unsubscribe anytime. We respect your inbox the way we want you to respect your screen time.', es: 'Gratis. Sin spam. Cancela cuando quieras. Respetamos tu bandeja de entrada como queremos que respetes tu tiempo de pantalla.' },
   'detox.namePlaceholder': { en: 'What should we call you?', es: '\u00bfC\u00f3mo te llamamos?' },
   'detox.emailPlaceholder': { en: 'you@humanwithascreenname.com', es: 'tu@humanoconpantalla.com' },
+  'detox.formSuccessMsg': { en: 'Welcome in! Check your inbox and confirm your email to start Day 1.', es: '\u00a1Bienvenida/o! Revisa tu bandeja de entrada y confirma tu email para empezar el D\u00eda 1.' },
+  'detox.formErrorMsg':  { en: 'Hmm, that didn\u2019t work. Mind trying again?', es: 'Hmm, eso no funcion\u00f3. \u00bfPuedes intentar de nuevo?' },
 
   // Steps section
   'steps.label':   { en: 'How It Works',  es: 'C\u00f3mo Funciona' },
@@ -78,19 +76,25 @@ const HWS_TRANSLATIONS = {
   'steps.step2.title': { en: 'Notice what changes',  es: 'Nota los cambios' },
   'steps.step2.text':  { en: 'Use our included reflection worksheet to track how your screen habits shift over three days. Most people are surprised.', es: 'Usa nuestra hoja de reflexi\u00f3n para seguir c\u00f3mo cambian tus h\u00e1bitos de pantalla en tres d\u00edas. La mayor\u00eda se sorprende.' },
   'steps.step3.title': { en: 'Keep going with us',   es: 'Sigue con nosotros' },
-  'steps.step3.text':  { en: 'After your reset, join the How We Screen community to stay accountable. Or explore our deeper paid programs.', es: 'Despu\u00e9s de tu reset, \u00fanete a la comunidad de How We Screen para mantenerte firme. O explora nuestros programas de pago.' },
-
-  // Pricing section
-  'pricing.label':   { en: 'Programs',          es: 'Programas' },
-  'pricing.heading': { en: 'Choose your depth',  es: 'Elige tu profundidad' },
-  'pricing.subtext': { en: 'Every journey starts with the free reset. Go further when you\u2019re ready.', es: 'Cada camino empieza con el reset gratis. Avanza cuando est\u00e9s lista/o.' },
-  'pricing.startFree':   { en: 'Start Free',       es: 'Empieza Gratis' },
-  'pricing.joinWaitlist': { en: 'Join the Waitlist', es: '\u00danete a la Lista' },
-  'pricing.emailPlaceholder': { en: 'Your email',  es: 'Tu email' },
+  'steps.step3.text':  { en: 'After your reset, join the How We Screen community to stay accountable. Or just take what you learned and go live your life.', es: 'Despu\u00e9s de tu reset, \u00fanete a la comunidad de How We Screen para mantenerte firme. O simplemente toma lo que aprendiste y vive tu vida.' },
 
   // FAQ section
   'faq.label':   { en: 'FAQ',  es: 'Preguntas Frecuentes' },
   'faq.heading': { en: 'Questions you probably have', es: 'Preguntas que probablemente tienes' },
+  'faq.item0.question': { en: 'Is this just another \u201cput your phone in a drawer\u201d thing?', es: '\u00bfEs esto otro de esos de \u201cguarda tu tel\u00e9fono en un caj\u00f3n\u201d?' },
+  'faq.item0.answer':   { en: 'No. We don\u2019t believe in willpower-based approaches or shame-driven detoxes. The 3-Day Reset teaches you to notice your patterns and make conscious choices. Your phone stays in your pocket.', es: 'No. No creemos en enfoques basados en fuerza de voluntad ni en detoxes impulsados por la verg\u00fcenza. El Reset de 3 D\u00edas te ense\u00f1a a notar tus patrones y tomar decisiones conscientes. Tu tel\u00e9fono se queda en tu bolsillo.' },
+  'faq.item1.question': { en: 'Do I have to delete social media?', es: '\u00bfTengo que borrar mis redes sociales?' },
+  'faq.item1.answer':   { en: 'Absolutely not. We\u2019re not anti-social-media. We\u2019re pro-intentional-use. You might decide to take breaks, set boundaries, or change how you engage \u2014 but that\u2019s your call, not ours.', es: 'Absolutamente no. No estamos en contra de las redes sociales. Estamos a favor del uso intencional. Puedes decidir tomar descansos, poner l\u00edmites, o cambiar c\u00f3mo interact\u00faas \u2014 pero esa es tu decisi\u00f3n, no la nuestra.' },
+  'faq.item2.question': { en: 'Is this backed by research?', es: '\u00bfEsto est\u00e1 respaldado por investigaci\u00f3n?' },
+  'faq.item2.answer':   { en: 'Our programs are informed by behavioral psychology, digital wellness research, and the lived experiences of our community. We\u2019re not doctors, though, so this isn\u2019t medical advice.', es: 'Nuestros programas est\u00e1n informados por psicolog\u00eda conductual, investigaci\u00f3n en bienestar digital, y las experiencias vividas de nuestra comunidad. No somos m\u00e9dicos, as\u00ed que esto no es consejo m\u00e9dico.' },
+  'faq.item3.question': { en: 'What happens after the 3 days?', es: '\u00bfQu\u00e9 pasa despu\u00e9s de los 3 d\u00edas?' },
+  'faq.item3.answer':   { en: 'You\u2019ll have a personal Screen Agreement and a set of new habits to experiment with. From there, you can join our community, try a deeper program, or just take what you learned and go live your life.', es: 'Tendr\u00e1s un Acuerdo de Pantalla personal y un conjunto de nuevos h\u00e1bitos para experimentar. Desde ah\u00ed, puedes unirte a nuestra comunidad, probar un programa m\u00e1s profundo, o simplemente tomar lo que aprendiste y vivir tu vida.' },
+  'faq.item4.question': { en: 'I\u2019m a content creator. Will this ruin my career?', es: 'Soy creador/a de contenido. \u00bfEsto arruinar\u00e1 mi carrera?' },
+  'faq.item4.answer':   { en: 'We designed our programs with creators in mind. It\u2019s not about posting less \u2014 it\u2019s about separating creation from consumption. Many creators find they produce better work with more intentional screen habits.', es: 'Dise\u00f1amos nuestros programas pensando en creadores. No se trata de publicar menos \u2014 se trata de separar la creaci\u00f3n del consumo. Muchos creadores descubren que producen mejor trabajo con h\u00e1bitos de pantalla m\u00e1s intencionales.' },
+  'faq.item5.question': { en: 'Is the community another group chat I\u2019ll feel guilty about not reading?', es: '\u00bfLa comunidad es otro grupo del que me voy a sentir culpable por no leer?' },
+  'faq.item5.answer':   { en: 'We actively designed against that. Our community has no pressure to participate daily. It\u2019s async-first, with weekly prompts and monthly live sessions. No 500-message-thread anxiety.', es: 'Dise\u00f1amos activamente en contra de eso. Nuestra comunidad no tiene presi\u00f3n para participar diariamente. Es as\u00edncrona primero, con prompts semanales y sesiones en vivo mensuales. Sin ansiedad de hilos de 500 mensajes.' },
+  'faq.item6.question': { en: 'How is this different from Screen Time / Digital Wellbeing on my phone?', es: '\u00bfC\u00f3mo es diferente a Tiempo de Pantalla / Bienestar Digital de mi tel\u00e9fono?' },
+  'faq.item6.answer':   { en: 'Those tools show you data. We help you understand what to do with it. A timer that you swipe away doesn\u2019t change your relationship with your phone. A guided program with community support does.', es: 'Esas herramientas te muestran datos. Nosotros te ayudamos a entender qu\u00e9 hacer con ellos. Un temporizador que deslizas no cambia tu relaci\u00f3n con tu tel\u00e9fono. Un programa guiado con apoyo comunitario s\u00ed.' },
 
   // Footer
   'footer.tagline':  { en: 'Building intentional relationships with technology, one screen at a time.', es: 'Construyendo relaciones intencionales con la tecnolog\u00eda, una pantalla a la vez.' },
@@ -100,7 +104,7 @@ const HWS_TRANSLATIONS = {
   'footer.newsletterDesc': { en: 'Screen culture, digital wellness, and taking your life back from the algorithm.', es: 'Cultura de pantallas, bienestar digital, y recuperando tu vida del algoritmo.' },
   'footer.emailPlaceholder': { en: 'Your email address', es: 'Tu correo electr\u00f3nico' },
   'footer.subscribe': { en: 'Subscribe', es: 'Suscr\u00edbete' },
-  'footer.copyright': { en: '\u00a9 2025 How We Screen. All rights reserved.', es: '\u00a9 2025 How We Screen. Todos los derechos reservados.' },
+  'footer.copyright': { en: '\u00a9 2026 How We Screen. All rights reserved.', es: '\u00a9 2026 How We Screen. Todos los derechos reservados.' },
 
   // Share
   'share.copyLink':  { en: 'Copy link',     es: 'Copiar enlace' },

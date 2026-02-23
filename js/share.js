@@ -80,23 +80,34 @@ function setupShareOptions(container) {
           copyLink(btn, url);
           break;
         case 'twitter':
-          openPopup(
+          window.open(
             'https://twitter.com/intent/tweet?text=' +
             encodeURIComponent(text + ' ') +
             '&url=' + encodeURIComponent(url),
-            'Share on X'
+            '_blank'
           );
           break;
-        case 'email':
-          window.location.href =
+        case 'email': {
+          const mailtoUrl =
             'mailto:?subject=' + encodeURIComponent(title) +
             '&body=' + encodeURIComponent(text + '\n\n' + url);
+          // Use anchor click trick for reliable mailto handling
+          const a = document.createElement('a');
+          a.href = mailtoUrl;
+          a.style.display = 'none';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
           break;
+        }
         case 'whatsapp':
-          openPopup(
+          window.open(
             'https://wa.me/?text=' + encodeURIComponent(text + ' ' + url),
-            'Share on WhatsApp'
+            '_blank'
           );
+          break;
+        case 'instagram':
+          copyLink(btn, url, 'Link copied — paste it in your Instagram story or bio!');
           break;
       }
     });
@@ -105,15 +116,18 @@ function setupShareOptions(container) {
 
 /* ---- Helpers ---- */
 
-function copyLink(btn, url) {
-  const originalText = btn.textContent;
+function copyLink(btn, url, customMsg) {
+  const originalHTML = btn.innerHTML;
+  const successText = customMsg || 'Copied!';
   navigator.clipboard.writeText(url).then(() => {
-    btn.textContent = 'Copied!';
+    const svgEl = btn.querySelector('svg');
+    const svgHTML = svgEl ? svgEl.outerHTML : '';
+    btn.innerHTML = svgHTML + ' ' + successText;
     btn.classList.add('share-option--copied');
     setTimeout(() => {
-      btn.textContent = originalText;
+      btn.innerHTML = originalHTML;
       btn.classList.remove('share-option--copied');
-    }, 2000);
+    }, 2500);
   }).catch(() => {
     // Fallback for older browsers
     const input = document.createElement('input');
@@ -122,15 +136,13 @@ function copyLink(btn, url) {
     input.select();
     document.execCommand('copy');
     document.body.removeChild(input);
-    btn.textContent = 'Copied!';
-    setTimeout(() => { btn.textContent = originalText; }, 2000);
+    const svgEl = btn.querySelector('svg');
+    const svgHTML = svgEl ? svgEl.outerHTML : '';
+    btn.innerHTML = svgHTML + ' ' + successText;
+    btn.classList.add('share-option--copied');
+    setTimeout(() => {
+      btn.innerHTML = originalHTML;
+      btn.classList.remove('share-option--copied');
+    }, 2500);
   });
-}
-
-function openPopup(url, title) {
-  const w = 600;
-  const h = 400;
-  const left = (screen.width - w) / 2;
-  const top = (screen.height - h) / 2;
-  window.open(url, title, 'width=' + w + ',height=' + h + ',left=' + left + ',top=' + top + ',toolbar=0,menubar=0');
 }
