@@ -63,12 +63,12 @@ const HWS_DEFAULTS = {
   'nav.logoText':  'How We Screen',
   'nav.ctaText':   'Start Your Detox',
   'nav.ctaLink':   '#detox',
-  'nav.link1Label': 'The Problem',
-  'nav.link1Href':  '#problem',
-  'nav.link2Label': 'What We Do',
-  'nav.link2Href':  '#solution',
-  'nav.link3Label': 'Free Detox',
-  'nav.link3Href':  '#detox',
+  'nav.link1Label': 'Free Detox',
+  'nav.link1Href':  '#detox',
+  'nav.link2Label': 'About',
+  'nav.link2Href':  '#about',
+  'nav.link3Label': 'The Problem',
+  'nav.link3Href':  '#problem',
   'nav.link4Label': 'FAQ',
   'nav.link4Href':  '#faq',
 
@@ -76,7 +76,7 @@ const HWS_DEFAULTS = {
 
   'hero.label':          'A guided digital detox',
   'hero.headline':       'What if you could look at your phone and feel <em>nothing?</em>',
-  'hero.subtext':        'No guilt. No anxiety. Just you, deciding what deserves your attention. How We Screen is a guided program helping Gen Z and millennials build intentional relationships with technology.',
+  'hero.subtext':        'No guilt. No anxiety. Just you, deciding what deserves your attention. How We Screen is a free, guided practice for anyone ready to build space between themselves and the digital noise.',
   'hero.ctaPrimary':     'Start the Free 3-Day Reset',
   'hero.ctaPrimaryLink': '#detox',
   'hero.ctaSecondary':   'Learn more',
@@ -85,24 +85,33 @@ const HWS_DEFAULTS = {
 
   // ======================== TRANSITIONS ========================
 
-  'transition.1': 'You already know something is off. Let\u2019s name it.',
-  'transition.3': 'So what do we do about it?',
-  'transition.4': 'Start here. It\u2019s free.',
+  'transition.1': 'This is our gift to you. Take it.',
+  'transition.2': 'Why does this exist?',
+  'transition.3': 'You already know something is off. Let\u2019s name it.',
+  'transition.4': 'So what do we do about it?',
   'transition.5': 'Here\u2019s exactly what happens.',
 
   // ======================== PROBLEM ========================
 
   'problem.label':    'The Problem',
   'problem.heading':  'The Scroll Trap',
-  'problem.body1':    'It starts innocently. A quick check. A notification. And then thirty minutes vanish like they were never yours. You unlock your phone 150 times a day. You watch reels you don\u2019t even like. You know it\u2019s not making you feel good, and you do it anyway.',
+  'problem.body1':    'It starts innocently. A quick check. A notification. And then thirty minutes vanish like they were never yours. You unlock your phone 96 times a day. You watch reels you don\u2019t even like. You know it\u2019s not making you feel good, and you do it anyway.',
   'problem.body2':    'This isn\u2019t a willpower failure. It\u2019s a design feature. Every app on your phone was built by a team of engineers whose success is measured by how long they keep you staring at glass.',
   'problem.body3':    'You\u2019re not the problem. But you might be ready for a different relationship with your screen.',
-  'problem.stat1Number': '4.5 hrs',
-  'problem.stat1Label':  'Average daily screen time for 18\u201329 year olds',
-  'problem.stat2Number': '150x',
-  'problem.stat2Label':  'Average daily phone unlocks',
-  'problem.stat3Number': '57%',
-  'problem.stat3Label':  'Of Gen Z say social media harms their mental health',
+  'problem.stat1Number': '7 hrs',
+  'problem.stat1Label':  'Average daily screen time for adults',
+  'problem.stat2Number': '96x',
+  'problem.stat2Label':  'Average daily phone checks',
+  'problem.stat3Number': '58%',
+  'problem.stat3Label':  'Of adults say social media harms their mental health',
+
+  // ======================== ABOUT / FOUNDER ========================
+
+  'about.label':   'About',
+  'about.heading': '[Your heading here]',
+  'about.body1':   '[Your story \u2014 why you built this]',
+  'about.body2':   '[Your philosophy \u2014 consciousness, digital distance, the gift]',
+  'about.body3':   '[Your invitation \u2014 take the key, run with it]',
 
   // ======================== SOLUTION ========================
 

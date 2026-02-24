@@ -9,32 +9,34 @@ const HWS_TRANSLATIONS = {
   'nav.problem':   { en: 'The Problem',    es: 'El Problema' },
   'nav.solution':  { en: 'What We Do',     es: 'Lo Que Hacemos' },
   'nav.detox':     { en: 'Free Detox',     es: 'Detox Gratis' },
+  'nav.about':     { en: 'About',          es: 'Acerca de' },
   'nav.faq':       { en: 'FAQ',            es: 'Preguntas' },
   'nav.blog':      { en: 'Blog',           es: 'Blog' },
   'nav.cta':       { en: 'Start Your Detox', es: 'Comienza Tu Detox' },
 
   // Hero
   'hero.badge':     { en: 'A guided digital detox', es: 'Un detox digital guiado' },
-  'hero.subtext':   { en: 'No guilt. No anxiety. Just you, deciding what deserves your attention. How We Screen is a guided program helping Gen Z and millennials build intentional relationships with technology.', es: 'Sin culpa. Sin ansiedad. Solo t\u00fa, decidiendo qu\u00e9 merece tu atenci\u00f3n. How We Screen es un programa guiado que ayuda a Gen Z y millennials a construir relaciones intencionales con la tecnolog\u00eda.' },
+  'hero.subtext':   { en: 'No guilt. No anxiety. Just you, deciding what deserves your attention. How We Screen is a free, guided practice for anyone ready to build space between themselves and the digital noise.', es: 'Sin culpa. Sin ansiedad. Solo t\u00fa, decidiendo qu\u00e9 merece tu atenci\u00f3n. How We Screen es una pr\u00e1ctica gratuita y guiada para cualquiera que est\u00e9 listo/a para crear espacio entre s\u00ed mismo/a y el ruido digital.' },
   'hero.ctaPrimary': { en: 'Start the Free 3-Day Reset', es: 'Comienza el Reset Gratis de 3 D\u00edas' },
   'hero.ctaSecondary': { en: 'Learn more', es: 'Saber m\u00e1s' },
   'hero.note':      { en: 'Or just get our weekly letter on screen culture \u2014 no commitment.', es: 'O solo recibe nuestra carta semanal sobre cultura digital \u2014 sin compromiso.' },
 
   // Transitions
-  'transition.1':  { en: 'You already know something is off. Let\u2019s name it.', es: 'Ya sabes que algo no est\u00e1 bien. Vamos a nombrarlo.' },
-  'transition.3':  { en: 'So what do we do about it?', es: '\u00bfY qu\u00e9 hacemos al respecto?' },
-  'transition.4':  { en: 'Start here. It\u2019s free.', es: 'Empieza aqu\u00ed. Es gratis.' },
+  'transition.1':  { en: 'This is our gift to you. Take it.', es: 'Este es nuestro regalo para ti. T\u00f3malo.' },
+  'transition.2':  { en: 'Why does this exist?', es: '\u00bfPor qu\u00e9 existe esto?' },
+  'transition.3':  { en: 'You already know something is off. Let\u2019s name it.', es: 'Ya sabes que algo no est\u00e1 bien. Vamos a nombrarlo.' },
+  'transition.4':  { en: 'So what do we do about it?', es: '\u00bfY qu\u00e9 hacemos al respecto?' },
   'transition.5':  { en: 'Here\u2019s exactly what happens.', es: 'Esto es exactamente lo que pasa.' },
 
   // Problem section
   'problem.label':   { en: 'The Problem',   es: 'El Problema' },
   'problem.heading': { en: 'The Scroll Trap', es: 'La Trampa del Scroll' },
-  'problem.body1':   { en: 'It starts innocently. A quick check. A notification. And then thirty minutes vanish like they were never yours. You unlock your phone 150 times a day. You watch reels you don\u2019t even like. You know it\u2019s not making you feel good, and you do it anyway.', es: 'Empieza de forma inocente. Una revisi\u00f3n r\u00e1pida. Una notificaci\u00f3n. Y luego treinta minutos desaparecen como si nunca hubieran sido tuyos. Desbloqueas tu tel\u00e9fono 150 veces al d\u00eda. Ves reels que ni siquiera te gustan. Sabes que no te hace sentir bien, y lo haces igual.' },
+  'problem.body1':   { en: 'It starts innocently. A quick check. A notification. And then thirty minutes vanish like they were never yours. You unlock your phone 96 times a day. You watch reels you don\u2019t even like. You know it\u2019s not making you feel good, and you do it anyway.', es: 'Empieza de forma inocente. Una revisi\u00f3n r\u00e1pida. Una notificaci\u00f3n. Y luego treinta minutos desaparecen como si nunca hubieran sido tuyos. Desbloqueas tu tel\u00e9fono 96 veces al d\u00eda. Ves reels que ni siquiera te gustan. Sabes que no te hace sentir bien, y lo haces igual.' },
   'problem.body2':   { en: 'This isn\u2019t a willpower failure. It\u2019s a design feature. Every app on your phone was built by a team of engineers whose success is measured by how long they keep you staring at glass.', es: 'Esto no es una falta de voluntad. Es una caracter\u00edstica de dise\u00f1o. Cada app en tu tel\u00e9fono fue construida por un equipo de ingenieros cuyo \u00e9xito se mide por cu\u00e1nto tiempo te mantienen mirando una pantalla.' },
   'problem.body3':   { en: 'You\u2019re not the problem. But you might be ready for a different relationship with your screen.', es: 'T\u00fa no eres el problema. Pero quiz\u00e1s est\u00e9s lista/o para una relaci\u00f3n diferente con tu pantalla.' },
-  'problem.stat1Label': { en: 'Average daily screen time for 18\u201329 year olds', es: 'Tiempo de pantalla diario promedio para 18\u201329 a\u00f1os' },
-  'problem.stat2Label': { en: 'Average daily phone unlocks', es: 'Desbloqueos diarios promedio del tel\u00e9fono' },
-  'problem.stat3Label': { en: 'Of Gen Z say social media harms their mental health', es: 'De la Gen Z dice que las redes sociales da\u00f1an su salud mental' },
+  'problem.stat1Label': { en: 'Average daily screen time for adults', es: 'Tiempo de pantalla diario promedio para adultos' },
+  'problem.stat2Label': { en: 'Average daily phone checks', es: 'Revisiones diarias promedio del tel\u00e9fono' },
+  'problem.stat3Label': { en: 'Of adults say social media harms their mental health', es: 'De los adultos dicen que las redes sociales da\u00f1an su salud mental' },
 
   // Solution section
   'solution.label':   { en: 'The Solution',       es: 'La Soluci\u00f3n' },
@@ -65,6 +67,13 @@ const HWS_TRANSLATIONS = {
   'detox.emailPlaceholder': { en: 'you@humanwithascreenname.com', es: 'tu@humanoconpantalla.com' },
   'detox.formSuccessMsg': { en: 'Welcome in! Check your inbox and confirm your email to start Day 1.', es: '\u00a1Bienvenida/o! Revisa tu bandeja de entrada y confirma tu email para empezar el D\u00eda 1.' },
   'detox.formErrorMsg':  { en: 'Hmm, that didn\u2019t work. Mind trying again?', es: 'Hmm, eso no funcion\u00f3. \u00bfPuedes intentar de nuevo?' },
+
+  // About / Founder
+  'about.label':   { en: 'About',   es: 'Acerca de' },
+  'about.heading': { en: '[Your heading here]', es: '[Tu t\u00edtulo aqu\u00ed]' },
+  'about.body1':   { en: '[Your story \u2014 why you built this]', es: '[Tu historia \u2014 por qu\u00e9 creaste esto]' },
+  'about.body2':   { en: '[Your philosophy \u2014 consciousness, digital distance, the gift]', es: '[Tu filosof\u00eda \u2014 consciencia, distancia digital, el regalo]' },
+  'about.body3':   { en: '[Your invitation \u2014 take the key, run with it]', es: '[Tu invitaci\u00f3n \u2014 toma la llave, corre con ella]' },
 
   // Steps section
   'steps.label':   { en: 'How It Works',  es: 'C\u00f3mo Funciona' },
