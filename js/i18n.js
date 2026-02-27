@@ -38,11 +38,11 @@ const HWS_TRANSLATIONS = {
   // Detox section
   'detox.label':            { en: 'Our Gift to You',        es: 'Nuestro Regalo Para Ti' },
   'detox.heading':          { en: 'The 3-Day Screen Reset', es: 'El Reset de Pantalla de 3 D\u00edas' },
-  'detox.body':             { en: 'Three days. Three short emails. Zero judgment. We\u2019ll walk you through noticing your patterns, replacing a few habits, and deciding what stays. Think of it as a friend who gets it \u2014 holding your hand through the noise, not asking you to throw your phone in a lake.', es: 'Tres d\u00edas. Tres emails cortos. Cero juicio. Te acompa\u00f1aremos a notar tus patrones, reemplazar algunos h\u00e1bitos, y decidir qu\u00e9 se queda. Pi\u00e9nsalo como un amigo/a que te entiende \u2014 tom\u00e1ndote de la mano entre el ruido, sin pedirte que tires tu tel\u00e9fono al lago.' },
+  'detox.body':             { en: 'We made this for you. Three gentle emails over three days \u2014 each one a small invitation to notice, breathe, and choose differently. No rules. No shame. Just us, walking beside you through the noise, helping you find the quiet that was always yours.', es: 'Hicimos esto para ti. Tres emails suaves en tres d\u00edas \u2014 cada uno una peque\u00f1a invitaci\u00f3n a notar, respirar, y elegir diferente. Sin reglas. Sin verg\u00fcenza. Solo nosotros, caminando a tu lado entre el ruido, ayud\u00e1ndote a encontrar la calma que siempre fue tuya.' },
   'detox.namePlaceholder':  { en: 'Your name',              es: 'Tu nombre' },
   'detox.emailPlaceholder': { en: 'Your email',             es: 'Tu correo' },
   'detox.formButton':       { en: 'Send Me the Reset',      es: 'Env\u00edame el Reset' },
-  'detox.formNote':         { en: 'Free forever. No spam. We respect your inbox the way we want you to respect your screen time.', es: 'Gratis siempre. Sin spam. Respetamos tu bandeja como queremos que respetes tu tiempo de pantalla.' },
+  'detox.formNote':         { en: 'Free, always. Three emails, then we let go. Unless you want to stay.', es: 'Gratis, siempre. Tres emails, y te dejamos ir. A menos que quieras quedarte.' },
   'detox.formSuccess':      { en: 'You\u2019re in. Check your inbox \u2014 Day 1 is on its way.', es: 'Ya est\u00e1s. Revisa tu bandeja \u2014 el D\u00eda 1 va en camino.' },
   'detox.formError':        { en: 'Hmm, that didn\u2019t work. Try again?', es: 'Hmm, eso no funcion\u00f3. \u00bfIntentas de nuevo?' },
 

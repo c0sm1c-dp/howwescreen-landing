@@ -98,8 +98,8 @@ const HWS_DEFAULTS = {
 
   'detox.label':    'Our Gift to You',
   'detox.heading':  'The 3-Day Screen Reset',
-  'detox.body':     'Three days. Three short emails. Zero judgment. We\u2019ll walk you through noticing your patterns, replacing a few habits, and deciding what stays. Think of it as a friend who gets it \u2014 holding your hand through the noise, not asking you to throw your phone in a lake.',
-  'detox.formNote': 'Free forever. No spam. We respect your inbox the way we want you to respect your screen time.',
+  'detox.body':     'We made this for you. Three gentle emails over three days \u2014 each one a small invitation to notice, breathe, and choose differently. No rules. No shame. Just us, walking beside you through the noise, helping you find the quiet that was always yours.',
+  'detox.formNote': 'Free, always. Three emails, then we let go. Unless you want to stay.',
 
   // ======================== FAQ ========================
 
