@@ -5,6 +5,7 @@
 
 function initFormHandlers() {
   setupForm('hero-form', 'hero-form-success', 'hero-form-error');
+  setupForm('detox-form', 'detox-form-success', 'detox-form-error');
   setupForm('footer-form', 'footer-form-success', null);
 }
 

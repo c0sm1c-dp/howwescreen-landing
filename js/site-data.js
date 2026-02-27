@@ -78,6 +78,7 @@ const HWS_DEFAULTS = {
   // ======================== TRANSITIONS ========================
 
   'transition.1': 'You already know something is off.',
+  'transition.2': 'So here \u2014 take this.',
 
   // ======================== PROBLEM ========================
 
@@ -92,6 +93,13 @@ const HWS_DEFAULTS = {
   'problem.stat2Label':  'Average daily phone checks',
   'problem.stat3Number': '58%',
   'problem.stat3Label':  'Of adults say social media harms their mental health',
+
+  // ======================== DETOX ========================
+
+  'detox.label':    'Our Gift to You',
+  'detox.heading':  'The 3-Day Screen Reset',
+  'detox.body':     'Three days. Three short emails. Zero judgment. We\u2019ll walk you through noticing your patterns, replacing a few habits, and deciding what stays. Think of it as a friend who gets it \u2014 holding your hand through the noise, not asking you to throw your phone in a lake.',
+  'detox.formNote': 'Free forever. No spam. We respect your inbox the way we want you to respect your screen time.',
 
   // ======================== FAQ ========================
 

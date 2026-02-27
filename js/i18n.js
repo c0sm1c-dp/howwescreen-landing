@@ -7,6 +7,7 @@
 const HWS_TRANSLATIONS = {
   // Navigation
   'nav.problem':   { en: 'The Problem',    es: 'El Problema' },
+  'nav.detox':     { en: 'Free Reset',     es: 'Reset Gratis' },
   'nav.faq':       { en: 'FAQ',            es: 'Preguntas' },
   'nav.cta':       { en: 'Subscribe',      es: 'Suscr\u00edbete' },
 
@@ -22,6 +23,7 @@ const HWS_TRANSLATIONS = {
 
   // Transitions
   'transition.1':  { en: 'You already know something is off.', es: 'Ya sabes que algo no est\u00e1 bien.' },
+  'transition.2':  { en: 'So here \u2014 take this.', es: 'As\u00ed que toma \u2014 esto es para ti.' },
 
   // Problem section
   'problem.label':   { en: 'The Problem',   es: 'El Problema' },
@@ -32,6 +34,17 @@ const HWS_TRANSLATIONS = {
   'problem.stat1Label': { en: 'Average daily screen time for adults', es: 'Tiempo de pantalla diario promedio para adultos' },
   'problem.stat2Label': { en: 'Average daily phone checks', es: 'Revisiones diarias promedio del tel\u00e9fono' },
   'problem.stat3Label': { en: 'Of adults say social media harms their mental health', es: 'De los adultos dicen que las redes sociales da\u00f1an su salud mental' },
+
+  // Detox section
+  'detox.label':            { en: 'Our Gift to You',        es: 'Nuestro Regalo Para Ti' },
+  'detox.heading':          { en: 'The 3-Day Screen Reset', es: 'El Reset de Pantalla de 3 D\u00edas' },
+  'detox.body':             { en: 'Three days. Three short emails. Zero judgment. We\u2019ll walk you through noticing your patterns, replacing a few habits, and deciding what stays. Think of it as a friend who gets it \u2014 holding your hand through the noise, not asking you to throw your phone in a lake.', es: 'Tres d\u00edas. Tres emails cortos. Cero juicio. Te acompa\u00f1aremos a notar tus patrones, reemplazar algunos h\u00e1bitos, y decidir qu\u00e9 se queda. Pi\u00e9nsalo como un amigo/a que te entiende \u2014 tom\u00e1ndote de la mano entre el ruido, sin pedirte que tires tu tel\u00e9fono al lago.' },
+  'detox.namePlaceholder':  { en: 'Your name',              es: 'Tu nombre' },
+  'detox.emailPlaceholder': { en: 'Your email',             es: 'Tu correo' },
+  'detox.formButton':       { en: 'Send Me the Reset',      es: 'Env\u00edame el Reset' },
+  'detox.formNote':         { en: 'Free forever. No spam. We respect your inbox the way we want you to respect your screen time.', es: 'Gratis siempre. Sin spam. Respetamos tu bandeja como queremos que respetes tu tiempo de pantalla.' },
+  'detox.formSuccess':      { en: 'You\u2019re in. Check your inbox \u2014 Day 1 is on its way.', es: 'Ya est\u00e1s. Revisa tu bandeja \u2014 el D\u00eda 1 va en camino.' },
+  'detox.formError':        { en: 'Hmm, that didn\u2019t work. Try again?', es: 'Hmm, eso no funcion\u00f3. \u00bfIntentas de nuevo?' },
 
   // FAQ section
   'faq.label':   { en: 'FAQ',  es: 'Preguntas Frecuentes' },

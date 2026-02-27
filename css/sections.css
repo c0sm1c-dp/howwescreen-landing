@@ -290,6 +290,51 @@
   font-family: var(--font-secondary);
 }
 
+/* ---- DETOX SECTION ---- */
+
+.section--detox {
+  background: var(--color-bg-primary);
+  text-align: center;
+}
+
+.detox__content {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.detox__body {
+  font-size: var(--text-lg);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-xl);
+}
+
+.detox-form {
+  max-width: 560px;
+  margin: 0 auto;
+}
+
+.detox-form__fields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+@media (min-width: 600px) {
+  .detox-form__fields {
+    flex-direction: row;
+  }
+
+  .detox-form__fields .input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .detox-form__fields .btn {
+    flex-shrink: 0;
+  }
+}
+
 /* ---- HERO NEWSLETTER FORM ---- */
 
 .hero-form {

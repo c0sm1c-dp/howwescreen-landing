@@ -103,6 +103,7 @@
       <nav class="nav__menu" role="navigation" aria-label="Main navigation">
         <ul class="nav__list">
           <li><a href="#problem" class="nav__link" data-i18n="nav.problem">The Problem</a></li>
+          <li><a href="#detox" class="nav__link" data-i18n="nav.detox">Free Reset</a></li>
           <li><a href="#faq" class="nav__link" data-i18n="nav.faq">FAQ</a></li>
         </ul>
       </nav>
@@ -122,6 +123,7 @@
     <div class="nav__menu--mobile" id="nav-mobile-menu" aria-hidden="true">
       <ul class="nav__list">
         <li><a href="#problem" class="nav__link" data-i18n="nav.problem">The Problem</a></li>
+        <li><a href="#detox" class="nav__link" data-i18n="nav.detox">Free Reset</a></li>
         <li><a href="#faq" class="nav__link" data-i18n="nav.faq">FAQ</a></li>
       </ul>
       <button class="lang-toggle" aria-label="Cambiar a español">ES</button>
@@ -264,6 +266,66 @@
       </div>
     </section>
 
+    <!-- Transition -->
+    <div class="section-transition" aria-hidden="true">
+      <p class="reveal" data-hws="transition.2" data-i18n="transition.2">So here &mdash; take this.</p>
+    </div>
+
+    <!-- ======================== DETOX ======================== -->
+    <section class="section section--detox" id="detox">
+      <div class="container">
+        <span class="section-label reveal" data-hws="detox.label" data-i18n="detox.label">Our Gift to You</span>
+        <h2 class="section-heading reveal reveal-delay-1" data-hws="detox.heading" data-i18n="detox.heading">The 3-Day Screen Reset</h2>
+        <div class="detox__content reveal reveal-delay-2">
+          <p class="detox__body" data-hws="detox.body" data-i18n="detox.body">
+            Three days. Three short emails. Zero judgment. We&rsquo;ll walk you through noticing your patterns, replacing a few habits, and deciding what stays. Think of it as a friend who gets it &mdash; holding your hand through the noise, not asking you to throw your phone in a lake.
+          </p>
+          <div class="detox__form-wrap">
+            <form
+              action="https://app.kit.com/forms/9073578/subscriptions"
+              method="post"
+              class="newsletter-form detox-form"
+              data-sv-form="9073578"
+              data-uid="f0bed3858c"
+              id="detox-form"
+            >
+              <div class="detox-form__fields">
+                <label for="detox-name" class="visually-hidden">First name</label>
+                <input
+                  type="text"
+                  id="detox-name"
+                  name="fields[first_name]"
+                  placeholder="Your name"
+                  class="input"
+                  autocomplete="given-name"
+                  data-i18n="detox.namePlaceholder"
+                >
+                <label for="detox-email" class="visually-hidden">Email address</label>
+                <input
+                  type="email"
+                  id="detox-email"
+                  name="email_address"
+                  placeholder="Your email"
+                  class="input"
+                  required
+                  autocomplete="email"
+                  data-i18n="detox.emailPlaceholder"
+                >
+                <button type="submit" class="btn btn--primary btn--lg" data-i18n="detox.formButton">Send Me the Reset</button>
+              </div>
+              <p class="form-note" data-hws="detox.formNote" data-i18n="detox.formNote">Free forever. No spam. We respect your inbox the way we want you to respect your screen time.</p>
+            </form>
+            <div class="form-success" id="detox-form-success" hidden>
+              <p data-i18n="detox.formSuccess">You&rsquo;re in. Check your inbox &mdash; Day 1 is on its way.</p>
+            </div>
+            <div class="form-error" id="detox-form-error" hidden>
+              <p data-i18n="detox.formError">Hmm, that didn&rsquo;t work. Try again?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ======================== FAQ ======================== -->
     <section class="section section--faq" id="faq">
       <div class="container">
@@ -349,6 +411,7 @@
           <p class="footer__heading" data-i18n="footer.navigate">Navigate</p>
           <div class="footer__links">
             <a href="#problem" data-i18n="nav.problem">The Problem</a>
+            <a href="#detox" data-i18n="nav.detox">Free Reset</a>
             <a href="#faq" data-i18n="nav.faq">FAQ</a>
           </div>
         </div>
