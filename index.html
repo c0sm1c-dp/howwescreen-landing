@@ -102,17 +102,14 @@
       <!-- Desktop navigation -->
       <nav class="nav__menu" role="navigation" aria-label="Main navigation">
         <ul class="nav__list">
-          <li><a href="#detox" class="nav__link" data-hws="nav.link1Label" data-i18n="nav.detox">Free Detox</a></li>
-          <li><a href="#about" class="nav__link" data-hws="nav.link2Label" data-i18n="nav.about">About</a></li>
-          <li><a href="#problem" class="nav__link" data-hws="nav.link3Label" data-i18n="nav.problem">The Problem</a></li>
-          <li><a href="#faq" class="nav__link" data-hws="nav.link4Label" data-i18n="nav.faq">FAQ</a></li>
-          <li><a href="blog.html" class="nav__link" data-i18n="nav.blog">Blog</a></li>
+          <li><a href="#problem" class="nav__link" data-i18n="nav.problem">The Problem</a></li>
+          <li><a href="#faq" class="nav__link" data-i18n="nav.faq">FAQ</a></li>
         </ul>
       </nav>
 
       <div class="nav__actions">
         <button class="lang-toggle" aria-label="Cambiar a español">ES</button>
-        <a href="#detox" class="btn btn--primary btn--sm nav__cta" data-hws="nav.ctaText" data-i18n="nav.cta">Start Your Detox</a>
+        <a href="#hero-form" class="btn btn--primary btn--sm nav__cta" data-hws="nav.ctaText" data-i18n="nav.cta">Subscribe</a>
       </div>
 
       <!-- Hamburger button (mobile) -->
@@ -124,14 +121,11 @@
     <!-- Mobile menu -->
     <div class="nav__menu--mobile" id="nav-mobile-menu" aria-hidden="true">
       <ul class="nav__list">
-        <li><a href="#detox" class="nav__link" data-i18n="nav.detox">Free Detox</a></li>
-        <li><a href="#about" class="nav__link" data-i18n="nav.about">About</a></li>
         <li><a href="#problem" class="nav__link" data-i18n="nav.problem">The Problem</a></li>
         <li><a href="#faq" class="nav__link" data-i18n="nav.faq">FAQ</a></li>
-        <li><a href="blog.html" class="nav__link" data-i18n="nav.blog">Blog</a></li>
       </ul>
       <button class="lang-toggle" aria-label="Cambiar a español">ES</button>
-      <a href="#detox" class="btn btn--primary" data-i18n="nav.cta">Start Your Detox</a>
+      <a href="#hero-form" class="btn btn--primary" data-i18n="nav.cta">Subscribe</a>
     </div>
   </header>
 
@@ -177,121 +171,48 @@
               How We Screen is a free, guided practice for anyone ready to build space between themselves and the digital noise.
             </p>
 
-            <!-- CTA buttons -->
+            <!-- Newsletter form -->
             <div class="hero-card__cta-group reveal reveal-delay-6">
-              <a href="#detox" class="btn btn--primary btn--lg hero-card__btn" data-hws="hero.ctaPrimary" data-i18n="hero.ctaPrimary">
-                Start the Free 3-Day Reset
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </a>
-              <a href="#problem" class="btn btn--ghost" data-hws="hero.ctaSecondary" data-i18n="hero.ctaSecondary">Learn more</a>
-            </div>
-
-            <p class="hero-card__note reveal reveal-delay-7" data-hws="hero.newsletterNote" data-i18n="hero.note">
-              Or just get our weekly letter on screen culture &mdash; no commitment.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Transition -->
-    <div class="section-transition" aria-hidden="true">
-      <p class="reveal" data-hws="transition.1" data-i18n="transition.1">This is our gift to you. Take it.</p>
-    </div>
-
-    <!-- ======================== DETOX SIGNUP ======================== -->
-    <section class="section section--detox" id="detox">
-      <div class="container">
-        <div class="text-center mb-2xl">
-          <p class="section-label reveal" data-hws="detox.label" data-i18n="detox.label">Free Program</p>
-          <h2 class="section-heading reveal reveal-delay-1" data-hws="detox.heading" data-i18n="detox.heading">The 3-Day Reset</h2>
-          <p class="section-subtext reveal reveal-delay-2" style="margin: 0 auto;" data-hws="detox.subtext" data-i18n="detox.subtext">
-            A free, guided micro-detox delivered to your inbox. No app required.
-            No cold turkey. Just three days of small, intentional shifts.
-          </p>
-        </div>
-
-        <div class="detox__layout">
-          <!-- Day previews -->
-          <div class="detox__days">
-            <div class="day-card reveal reveal-delay-1">
-              <div class="day-card__number">1</div>
-              <div>
-                <h3 class="day-card__title" data-hws="detox.day1Title" data-i18n="detox.day1Title">Notice</h3>
-                <p class="day-card__text" data-hws="detox.day1Text" data-i18n="detox.day1Text">Become aware of your patterns without changing them. Track your impulses. No judgment.</p>
+              <form
+                action="https://app.kit.com/forms/9073578/subscriptions"
+                method="post"
+                class="newsletter-form hero-form"
+                data-sv-form="9073578"
+                data-uid="f0bed3858c"
+                id="hero-form"
+              >
+                <div class="hero-form__fields">
+                  <label for="hero-name" class="visually-hidden">First name</label>
+                  <input
+                    type="text"
+                    id="hero-name"
+                    name="fields[first_name]"
+                    placeholder="Your name"
+                    class="input"
+                    autocomplete="given-name"
+                    data-i18n="hero.namePlaceholder"
+                  >
+                  <label for="hero-email" class="visually-hidden">Email address</label>
+                  <input
+                    type="email"
+                    id="hero-email"
+                    name="email_address"
+                    placeholder="Your email"
+                    class="input"
+                    required
+                    autocomplete="email"
+                    data-i18n="hero.emailPlaceholder"
+                  >
+                  <button type="submit" class="btn btn--primary btn--lg" data-i18n="hero.formButton">Subscribe</button>
+                </div>
+                <p class="form-note" data-hws="hero.formNote" data-i18n="hero.formNote">Free. No spam. No algorithm. Just ideas, delivered to your inbox.</p>
+              </form>
+              <div class="form-success" id="hero-form-success" hidden>
+                <p data-i18n="hero.formSuccess">Welcome in. Check your inbox to confirm.</p>
               </div>
-            </div>
-            <div class="day-card reveal reveal-delay-2">
-              <div class="day-card__number">2</div>
-              <div>
-                <h3 class="day-card__title" data-hws="detox.day2Title" data-i18n="detox.day2Title">Replace</h3>
-                <p class="day-card__text" data-hws="detox.day2Text" data-i18n="detox.day2Text">For every scroll impulse, try one analog alternative. We give you a list. Some are weird.</p>
+              <div class="form-error" id="hero-form-error" hidden>
+                <p data-i18n="hero.formError">Hmm, that didn&rsquo;t work. Try again?</p>
               </div>
-            </div>
-            <div class="day-card reveal reveal-delay-3">
-              <div class="day-card__number">3</div>
-              <div>
-                <h3 class="day-card__title" data-hws="detox.day3Title" data-i18n="detox.day3Title">Decide</h3>
-                <p class="day-card__text" data-hws="detox.day3Text" data-i18n="detox.day3Text">Choose what stays and what goes. Build your personal Screen Agreement.</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- Signup form -->
-          <div class="detox__form-card reveal reveal-delay-2">
-            <h3 class="detox__form-title" data-hws="detox.formTitle" data-i18n="detox.formTitle">Get the free reset</h3>
-            <p class="detox__form-subtitle" data-hws="detox.formSubtitle" data-i18n="detox.formSubtitle">Three emails. Three days. Zero spam.</p>
-
-            <form
-              action="https://app.kit.com/forms/9070045/subscriptions"
-              method="post"
-              class="detox-form"
-              data-sv-form="9070045"
-              data-uid="da07d62314"
-              id="detox-form"
-            >
-              <div class="form-group">
-                <label for="detox-name" class="visually-hidden">First name</label>
-                <input
-                  type="text"
-                  id="detox-name"
-                  name="fields[first_name]"
-                  placeholder="What should we call you?"
-                  class="input"
-                  autocomplete="given-name"
-                  data-i18n="detox.namePlaceholder"
-                >
-              </div>
-              <div class="form-group">
-                <label for="detox-email" class="visually-hidden">Email address</label>
-                <input
-                  type="email"
-                  id="detox-email"
-                  name="email_address"
-                  placeholder="you@humanwithascreenname.com"
-                  class="input"
-                  required
-                  autocomplete="email"
-                  data-i18n="detox.emailPlaceholder"
-                >
-              </div>
-              <button type="submit" class="btn btn--primary btn--full btn--lg" data-hws="detox.formButton" data-i18n="detox.formButton">
-                Send Me The Reset
-              </button>
-              <p class="form-note" data-hws="detox.formNote" data-i18n="detox.formNote">
-                Free. No spam. Unsubscribe anytime. We respect your inbox the way we want you to respect your screen time.
-              </p>
-            </form>
-
-            <!-- Success state (hidden by default) -->
-            <div class="form-success" id="detox-form-success" hidden>
-              <p style="font-size: var(--text-xl); margin-bottom: var(--space-sm);">&#10003;</p>
-              <p data-hws="detox.formSuccessMsg" data-i18n="detox.formSuccessMsg">Welcome in! Check your inbox and confirm your email to start Day 1.</p>
-            </div>
-
-            <!-- Error state (hidden by default) -->
-            <div class="form-error" id="detox-form-error" hidden>
-              <p data-hws="detox.formErrorMsg" data-i18n="detox.formErrorMsg">Hmm, that didn&rsquo;t work. Mind trying again?</p>
             </div>
           </div>
         </div>
@@ -300,32 +221,7 @@
 
     <!-- Transition -->
     <div class="section-transition" aria-hidden="true">
-      <p class="reveal" data-hws="transition.2" data-i18n="transition.2">Why does this exist?</p>
-    </div>
-
-    <!-- ======================== ABOUT / FOUNDER ======================== -->
-    <section class="section section--about" id="about">
-      <div class="container">
-        <div class="about__layout">
-          <!-- Photo side -->
-          <div class="about__photo reveal">
-            <img src="assets/founder.jpg" alt="Founder of How We Screen" class="about__img" data-hws="img.founderPhoto">
-          </div>
-          <!-- Text side -->
-          <div class="about__content">
-            <p class="section-label reveal" data-hws="about.label" data-i18n="about.label">About</p>
-            <h2 class="section-heading reveal reveal-delay-1" data-hws="about.heading" data-i18n="about.heading">[Your heading here]</h2>
-            <p class="reveal reveal-delay-2" data-hws="about.body1" data-i18n="about.body1">[Your story &mdash; why you built this]</p>
-            <p class="reveal reveal-delay-3" data-hws="about.body2" data-i18n="about.body2">[Your philosophy &mdash; consciousness, digital distance, the gift]</p>
-            <p class="reveal reveal-delay-4" data-hws="about.body3" data-i18n="about.body3">[Your invitation &mdash; take the key, run with it]</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Transition -->
-    <div class="section-transition" aria-hidden="true">
-      <p class="reveal" data-hws="transition.3" data-i18n="transition.3">You already know something is off. Let&rsquo;s name it.</p>
+      <p class="reveal" data-hws="transition.1" data-i18n="transition.1">You already know something is off.</p>
     </div>
 
     <!-- ======================== PROBLEM ======================== -->
@@ -368,106 +264,6 @@
       </div>
     </section>
 
-    <!-- Transition -->
-    <div class="section-transition" aria-hidden="true">
-      <p class="reveal" data-hws="transition.4" data-i18n="transition.4">So what do we do about it?</p>
-    </div>
-
-    <!-- ======================== SOLUTION ======================== -->
-    <section class="section section--solution" id="solution">
-      <div class="container">
-        <div class="solution__intro">
-          <p class="section-label reveal" data-hws="solution.label" data-i18n="solution.label">What We Do</p>
-          <h2 class="section-heading reveal reveal-delay-1" data-hws="solution.heading" data-i18n="solution.heading">Not another digital detox app.</h2>
-          <p class="section-subtext reveal reveal-delay-2" data-hws="solution.subtext" data-i18n="solution.intro">
-            We&rsquo;re a community, a content studio, and a set of guided programs. Think of us as
-            your intentional-screen-time friend who doesn&rsquo;t judge you for still loving memes.
-          </p>
-        </div>
-
-        <div class="solution__grid">
-          <div class="card card--feature reveal reveal-delay-1">
-            <div class="card__icon">
-              <div class="icon-hourglass" aria-hidden="true"></div>
-            </div>
-            <h3 class="card__title" data-hws="solution.card0.title" data-i18n="solution.card0.title">Guided Detox Programs</h3>
-            <p class="card__text" data-hws="solution.card0.text" data-i18n="solution.card0.text">
-              Structured multi-day programs that actually work because they don&rsquo;t ask you to
-              throw your phone in a lake. Start with our free 3-day reset.
-            </p>
-          </div>
-
-          <div class="card card--feature reveal reveal-delay-2">
-            <div class="card__icon">
-              <div class="icon-community" aria-hidden="true"></div>
-            </div>
-            <h3 class="card__title" data-hws="solution.card1.title" data-i18n="solution.card1.title">The Community</h3>
-            <p class="card__text" data-hws="solution.card1.text" data-i18n="solution.card1.text">
-              A private space for people who want to talk honestly about their relationship with
-              technology. No toxic positivity. No shame. Just real conversations.
-            </p>
-          </div>
-
-          <div class="card card--feature reveal reveal-delay-3">
-            <div class="card__icon">
-              <div class="icon-content" aria-hidden="true"></div>
-            </div>
-            <h3 class="card__title" data-hws="solution.card2.title" data-i18n="solution.card2.title">Weekly Content</h3>
-            <p class="card__text" data-hws="solution.card2.text" data-i18n="solution.card2.text">
-              A newsletter, essays, and curated links about screen culture, digital wellness
-              (without the cringe), and how to reclaim your attention.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Transition -->
-    <div class="section-transition" aria-hidden="true">
-      <p class="reveal" data-hws="transition.5" data-i18n="transition.5">Here&rsquo;s exactly what happens.</p>
-    </div>
-
-    <!-- ======================== HOW IT WORKS ======================== -->
-    <section class="section section--steps" id="how-it-works">
-      <div class="container">
-        <div class="text-center mb-2xl">
-          <p class="section-label reveal" data-hws="steps.label" data-i18n="steps.label">How It Works</p>
-          <h2 class="section-heading reveal reveal-delay-1" data-hws="steps.heading" data-i18n="steps.heading">Four steps. No app download.</h2>
-        </div>
-
-        <div class="steps">
-          <div class="step reveal reveal-delay-1">
-            <div class="step__number">1</div>
-            <div class="step__content">
-              <h3 class="step__title" data-hws="steps.step0.title" data-i18n="steps.step0.title">Sign up for free</h3>
-              <p class="step__text" data-hws="steps.step0.text" data-i18n="steps.step0.text">Enter your email and get The 3-Day Reset delivered straight to your inbox. Takes 30 seconds.</p>
-            </div>
-          </div>
-          <div class="step reveal reveal-delay-2">
-            <div class="step__number">2</div>
-            <div class="step__content">
-              <h3 class="step__title" data-hws="steps.step1.title" data-i18n="steps.step1.title">Follow the daily guides</h3>
-              <p class="step__text" data-hws="steps.step1.text" data-i18n="steps.step1.text">Each morning you get a short email with one focus for the day. Simple exercises, reflection prompts, and one challenge.</p>
-            </div>
-          </div>
-          <div class="step reveal reveal-delay-3">
-            <div class="step__number">3</div>
-            <div class="step__content">
-              <h3 class="step__title" data-hws="steps.step2.title" data-i18n="steps.step2.title">Notice what changes</h3>
-              <p class="step__text" data-hws="steps.step2.text" data-i18n="steps.step2.text">Use our included reflection worksheet to track how your screen habits shift over three days. Most people are surprised.</p>
-            </div>
-          </div>
-          <div class="step reveal reveal-delay-4">
-            <div class="step__number">4</div>
-            <div class="step__content">
-              <h3 class="step__title" data-hws="steps.step3.title" data-i18n="steps.step3.title">Keep going with us</h3>
-              <p class="step__text" data-hws="steps.step3.text" data-i18n="steps.step3.text">After your reset, join the How We Screen community to stay accountable. Or just take what you learned and go live your life.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ======================== FAQ ======================== -->
     <section class="section section--faq" id="faq">
       <div class="container">
@@ -479,84 +275,48 @@
         <div class="accordion" role="list">
           <div class="accordion__item reveal reveal-delay-1" role="listitem">
             <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-1">
-              <span data-hws="faq.item0.question" data-i18n="faq.item0.question">Is this just another &ldquo;put your phone in a drawer&rdquo; thing?</span>
+              <span data-hws="faq.item0.question" data-i18n="faq.item0.question">What is How We Screen?</span>
               <span class="accordion__icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion__content" id="faq-1">
               <div class="accordion__content-inner">
-                <p data-hws="faq.item0.answer" data-i18n="faq.item0.answer">No. We don&rsquo;t believe in willpower-based approaches or shame-driven detoxes. The 3-Day Reset teaches you to notice your patterns and make conscious choices. Your phone stays in your pocket.</p>
+                <p data-hws="faq.item0.answer" data-i18n="faq.item0.answer">A newsletter about screen culture, digital consciousness, and building a more intentional relationship with technology. No corporate wellness. No shame. Just honest ideas delivered to your inbox.</p>
               </div>
             </div>
           </div>
 
           <div class="accordion__item reveal reveal-delay-2" role="listitem">
             <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-2">
-              <span data-hws="faq.item1.question" data-i18n="faq.item1.question">Do I have to delete social media?</span>
+              <span data-hws="faq.item1.question" data-i18n="faq.item1.question">How often do you send emails?</span>
               <span class="accordion__icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion__content" id="faq-2">
               <div class="accordion__content-inner">
-                <p data-hws="faq.item1.answer" data-i18n="faq.item1.answer">Absolutely not. We&rsquo;re not anti-social-media. We&rsquo;re pro-intentional-use. You might decide to take breaks, set boundaries, or change how you engage &mdash; but that&rsquo;s your call, not ours.</p>
+                <p data-hws="faq.item1.answer" data-i18n="faq.item1.answer">Once a week. We respect your inbox the way we want you to respect your screen time. No daily blasts, no engagement bait &mdash; just one letter worth reading.</p>
               </div>
             </div>
           </div>
 
           <div class="accordion__item reveal reveal-delay-3" role="listitem">
             <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-3">
-              <span data-hws="faq.item2.question" data-i18n="faq.item2.question">Is this backed by research?</span>
+              <span data-hws="faq.item2.question" data-i18n="faq.item2.question">Is this a product or an app?</span>
               <span class="accordion__icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion__content" id="faq-3">
               <div class="accordion__content-inner">
-                <p data-hws="faq.item2.answer" data-i18n="faq.item2.answer">Our programs are informed by behavioral psychology, digital wellness research, and the lived experiences of our community. We&rsquo;re not doctors, though, so this isn&rsquo;t medical advice.</p>
+                <p data-hws="faq.item2.answer" data-i18n="faq.item2.answer">Not yet. Right now How We Screen is ideas and community. We&rsquo;re building something bigger &mdash; guided programs, tools, conversations &mdash; but it starts here, with the newsletter. More is coming.</p>
               </div>
             </div>
           </div>
 
           <div class="accordion__item reveal reveal-delay-4" role="listitem">
             <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-4">
-              <span data-hws="faq.item3.question" data-i18n="faq.item3.question">What happens after the 3 days?</span>
+              <span data-hws="faq.item3.question" data-i18n="faq.item3.question">Can I unsubscribe?</span>
               <span class="accordion__icon" aria-hidden="true">+</span>
             </button>
             <div class="accordion__content" id="faq-4">
               <div class="accordion__content-inner">
-                <p data-hws="faq.item3.answer" data-i18n="faq.item3.answer">You&rsquo;ll have a personal Screen Agreement and a set of new habits to experiment with. From there, you can join our community, try a deeper program, or just take what you learned and go live your life.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion__item reveal reveal-delay-5" role="listitem">
-            <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-5">
-              <span data-hws="faq.item4.question" data-i18n="faq.item4.question">I&rsquo;m a content creator. Will this ruin my career?</span>
-              <span class="accordion__icon" aria-hidden="true">+</span>
-            </button>
-            <div class="accordion__content" id="faq-5">
-              <div class="accordion__content-inner">
-                <p data-hws="faq.item4.answer" data-i18n="faq.item4.answer">We designed our programs with creators in mind. It&rsquo;s not about posting less &mdash; it&rsquo;s about separating creation from consumption. Many creators find they produce better work with more intentional screen habits.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion__item reveal reveal-delay-6" role="listitem">
-            <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-6">
-              <span data-hws="faq.item5.question" data-i18n="faq.item5.question">Is the community another group chat I&rsquo;ll feel guilty about not reading?</span>
-              <span class="accordion__icon" aria-hidden="true">+</span>
-            </button>
-            <div class="accordion__content" id="faq-6">
-              <div class="accordion__content-inner">
-                <p data-hws="faq.item5.answer" data-i18n="faq.item5.answer">We actively designed against that. Our community has no pressure to participate daily. It&rsquo;s async-first, with weekly prompts and monthly live sessions. No 500-message-thread anxiety.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="accordion__item reveal reveal-delay-7" role="listitem">
-            <button class="accordion__trigger" aria-expanded="false" aria-controls="faq-7">
-              <span data-hws="faq.item6.question" data-i18n="faq.item6.question">How is this different from Screen Time / Digital Wellbeing on my phone?</span>
-              <span class="accordion__icon" aria-hidden="true">+</span>
-            </button>
-            <div class="accordion__content" id="faq-7">
-              <div class="accordion__content-inner">
-                <p data-hws="faq.item6.answer" data-i18n="faq.item6.answer">Those tools show you data. We help you understand what to do with it. A timer that you swipe away doesn&rsquo;t change your relationship with your phone. A guided program with community support does.</p>
+                <p data-hws="faq.item3.answer" data-i18n="faq.item3.answer">Always. One click, no guilt. We&rsquo;re not going to guilt-trip you into staying &mdash; that would be deeply ironic for a newsletter about intentional screen use.</p>
               </div>
             </div>
           </div>
@@ -588,11 +348,8 @@
         <div>
           <p class="footer__heading" data-i18n="footer.navigate">Navigate</p>
           <div class="footer__links">
-            <a href="#detox" data-i18n="nav.detox">Free Detox</a>
-            <a href="#about" data-i18n="nav.about">About</a>
             <a href="#problem" data-i18n="nav.problem">The Problem</a>
             <a href="#faq" data-i18n="nav.faq">FAQ</a>
-            <a href="blog.html" data-i18n="nav.blog">Blog</a>
           </div>
         </div>
 
@@ -634,12 +391,13 @@
               type="email"
               id="footer-email"
               name="email_address"
-              placeholder="Your email"
+              placeholder="Your email address"
               class="input"
               required
               autocomplete="email"
+              data-i18n="footer.emailPlaceholder"
             >
-            <button type="submit" class="btn btn--primary btn--sm">Join</button>
+            <button type="submit" class="btn btn--primary btn--sm" data-i18n="footer.subscribe">Subscribe</button>
           </form>
           <div class="form-success" id="footer-form-success" hidden>
             <p style="font-size: var(--text-sm);">Almost there! Check your inbox to confirm your subscription.</p>
@@ -648,7 +406,7 @@
       </div>
 
       <div class="footer__bottom">
-        <p class="footer__copyright" data-hws="footer.copyright">&copy; 2026 How We Screen. All rights reserved.</p>
+        <p class="footer__copyright" data-hws="footer.copyright" data-i18n="footer.copyright">&copy; 2026 How We Screen. All rights reserved.</p>
         <div class="footer__legal">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>

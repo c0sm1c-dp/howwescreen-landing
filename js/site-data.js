@@ -61,35 +61,23 @@ const HWS_DEFAULTS = {
   // ======================== NAVIGATION ========================
 
   'nav.logoText':  'How We Screen',
-  'nav.ctaText':   'Start Your Detox',
-  'nav.ctaLink':   '#detox',
-  'nav.link1Label': 'Free Detox',
-  'nav.link1Href':  '#detox',
-  'nav.link2Label': 'About',
-  'nav.link2Href':  '#about',
-  'nav.link3Label': 'The Problem',
-  'nav.link3Href':  '#problem',
-  'nav.link4Label': 'FAQ',
-  'nav.link4Href':  '#faq',
+  'nav.ctaText':   'Subscribe',
+  'nav.ctaLink':   '#hero-form',
+  'nav.link1Label': 'The Problem',
+  'nav.link1Href':  '#problem',
+  'nav.link2Label': 'FAQ',
+  'nav.link2Href':  '#faq',
 
   // ======================== HERO ========================
 
   'hero.label':          'A guided digital detox',
   'hero.headline':       'What if you could look at your phone and feel <em>nothing?</em>',
-  'hero.subtext':        'No guilt. No anxiety. Just you, deciding what deserves your attention. How We Screen is a free, guided practice for anyone ready to build space between themselves and the digital noise.',
-  'hero.ctaPrimary':     'Start the Free 3-Day Reset',
-  'hero.ctaPrimaryLink': '#detox',
-  'hero.ctaSecondary':   'Learn more',
-  'hero.ctaSecondaryLink': '#problem',
-  'hero.newsletterNote': 'Or just get our weekly letter on screen culture \u2014 no commitment.',
+  'hero.subtext':        'No guilt. No anxiety. Just you, deciding what deserves your attention. How We Screen is a newsletter about screen culture, digital consciousness, and building a more intentional relationship with technology \u2014 free from algorithmic reach.',
+  'hero.formNote':       'Free. No spam. No algorithm. Just ideas, delivered to your inbox.',
 
   // ======================== TRANSITIONS ========================
 
-  'transition.1': 'This is our gift to you. Take it.',
-  'transition.2': 'Why does this exist?',
-  'transition.3': 'You already know something is off. Let\u2019s name it.',
-  'transition.4': 'So what do we do about it?',
-  'transition.5': 'Here\u2019s exactly what happens.',
+  'transition.1': 'You already know something is off.',
 
   // ======================== PROBLEM ========================
 
@@ -105,90 +93,22 @@ const HWS_DEFAULTS = {
   'problem.stat3Number': '58%',
   'problem.stat3Label':  'Of adults say social media harms their mental health',
 
-  // ======================== ABOUT / FOUNDER ========================
-
-  'about.label':   'About',
-  'about.heading': '[Your heading here]',
-  'about.body1':   '[Your story \u2014 why you built this]',
-  'about.body2':   '[Your philosophy \u2014 consciousness, digital distance, the gift]',
-  'about.body3':   '[Your invitation \u2014 take the key, run with it]',
-
-  // ======================== SOLUTION ========================
-
-  'solution.label':   'What We Do',
-  'solution.heading': 'Not another digital detox app.',
-  'solution.subtext': 'We\u2019re a community, a content studio, and a set of guided programs. Think of us as your intentional-screen-time friend who doesn\u2019t judge you for still loving memes.',
-
-  'solution.card0.title': 'Guided Detox Programs',
-  'solution.card0.text':  'Structured multi-day programs that actually work because they don\u2019t ask you to throw your phone in a lake. Start with our free 3-day reset.',
-
-  'solution.card1.title': 'The Community',
-  'solution.card1.text':  'A private space for people who want to talk honestly about their relationship with technology. No toxic positivity. No shame. Just real conversations.',
-
-  'solution.card2.title': 'Weekly Content',
-  'solution.card2.text':  'A newsletter, essays, and curated links about screen culture, digital wellness (without the cringe), and how to reclaim your attention.',
-
-  // ======================== DETOX ========================
-
-  'detox.label':       'Free Program',
-  'detox.heading':     'The 3-Day Reset',
-  'detox.subtext':     'A free, guided micro-detox delivered to your inbox. No app required. No cold turkey. Just three days of small, intentional shifts.',
-
-  'detox.day1Title':   'Notice',
-  'detox.day1Text':    'Become aware of your patterns without changing them. Track your impulses. No judgment.',
-  'detox.day2Title':   'Replace',
-  'detox.day2Text':    'For every scroll impulse, try one analog alternative. We give you a list. Some are weird.',
-  'detox.day3Title':   'Decide',
-  'detox.day3Text':    'Choose what stays and what goes. Build your personal Screen Agreement.',
-
-  'detox.formTitle':    'Get the free reset',
-  'detox.formSubtitle': 'Three emails. Three days. Zero spam.',
-  'detox.formButton':   'Send Me The Reset',
-  'detox.formNote':     'Free. No spam. Unsubscribe anytime. We respect your inbox the way we want you to respect your screen time.',
-  'detox.formNamePlaceholder': 'What should we call you?',
-  'detox.formEmailPlaceholder': 'you@humanwithascreenname.com',
-  'detox.formSuccessMsg': 'Welcome in. Check your inbox \u2014 Day 1 is on its way.',
-  'detox.formErrorMsg':   'Hmm, that didn\u2019t work. Mind trying again?',
-
-  // ======================== HOW IT WORKS ========================
-
-  'steps.label':   'How It Works',
-  'steps.heading': 'Four steps. No app download.',
-
-  'steps.step0.title': 'Sign up for free',
-  'steps.step0.text':  'Enter your email and get The 3-Day Reset delivered straight to your inbox. Takes 30 seconds.',
-  'steps.step1.title': 'Follow the daily guides',
-  'steps.step1.text':  'Each morning you get a short email with one focus for the day. Simple exercises, reflection prompts, and one challenge.',
-  'steps.step2.title': 'Notice what changes',
-  'steps.step2.text':  'Use our included reflection worksheet to track how your screen habits shift over three days. Most people are surprised.',
-  'steps.step3.title': 'Keep going with us',
-  'steps.step3.text':  'After your reset, join the How We Screen community to stay accountable. Or just take what you learned and go live your life.',
-
   // ======================== FAQ ========================
 
   'faq.label':   'FAQ',
   'faq.heading': 'Questions you probably have',
 
-  'faq.item0.question': 'Is this just another \u201cput your phone in a drawer\u201d thing?',
-  'faq.item0.answer':   'No. We don\u2019t believe in willpower-based approaches or shame-driven detoxes. The 3-Day Reset teaches you to notice your patterns and make conscious choices. Your phone stays in your pocket.',
+  'faq.item0.question': 'What is How We Screen?',
+  'faq.item0.answer':   'A newsletter about screen culture, digital consciousness, and building a more intentional relationship with technology. No corporate wellness. No shame. Just honest ideas delivered to your inbox.',
 
-  'faq.item1.question': 'Do I have to delete social media?',
-  'faq.item1.answer':   'Absolutely not. We\u2019re not anti-social-media. We\u2019re pro-intentional-use. You might decide to take breaks, set boundaries, or change how you engage \u2014 but that\u2019s your call, not ours.',
+  'faq.item1.question': 'How often do you send emails?',
+  'faq.item1.answer':   'Once a week. We respect your inbox the way we want you to respect your screen time. No daily blasts, no engagement bait \u2014 just one letter worth reading.',
 
-  'faq.item2.question': 'Is this backed by research?',
-  'faq.item2.answer':   'Our programs are informed by behavioral psychology, digital wellness research, and the lived experiences of our community. We\u2019re not doctors, though, so this isn\u2019t medical advice.',
+  'faq.item2.question': 'Is this a product or an app?',
+  'faq.item2.answer':   'Not yet. Right now How We Screen is ideas and community. We\u2019re building something bigger \u2014 guided programs, tools, conversations \u2014 but it starts here, with the newsletter. More is coming.',
 
-  'faq.item3.question': 'What happens after the 3 days?',
-  'faq.item3.answer':   'You\u2019ll have a personal Screen Agreement and a set of new habits to experiment with. From there, you can join our community, try a deeper program, or just take what you learned and go live your life.',
-
-  'faq.item4.question': 'I\u2019m a content creator. Will this ruin my career?',
-  'faq.item4.answer':   'We designed our programs with creators in mind. It\u2019s not about posting less \u2014 it\u2019s about separating creation from consumption. Many creators find they produce better work with more intentional screen habits.',
-
-  'faq.item5.question': 'Is the community another group chat I\u2019ll feel guilty about not reading?',
-  'faq.item5.answer':   'We actively designed against that. Our community has no pressure to participate daily. It\u2019s async-first, with weekly prompts and monthly live sessions. No 500-message-thread anxiety.',
-
-  'faq.item6.question': 'How is this different from Screen Time / Digital Wellbeing on my phone?',
-  'faq.item6.answer':   'Those tools show you data. We help you understand what to do with it. A timer that you swipe away doesn\u2019t change your relationship with your phone. A guided program with community support does.',
+  'faq.item3.question': 'Can I unsubscribe?',
+  'faq.item3.answer':   'Always. One click, no guilt. We\u2019re not going to guilt-trip you into staying \u2014 that would be deeply ironic for a newsletter about intentional screen use.',
 
   // ======================== FOOTER ========================
 
@@ -196,6 +116,7 @@ const HWS_DEFAULTS = {
   'footer.copyright': '\u00a9 2026 How We Screen. All rights reserved.',
   'footer.newsletterDesc': 'Screen culture, digital wellness, and taking your life back from the algorithm.',
   'footer.instagramUrl': 'https://instagram.com/',
+  'footer.tiktokUrl':    'https://www.tiktok.com/@howwescreen',
 
   // ======================== IMAGES ========================
 

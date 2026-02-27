@@ -4,9 +4,8 @@
  */
 
 function initFormHandlers() {
-  setupForm('detox-form', 'detox-form-success', 'detox-form-error');
+  setupForm('hero-form', 'hero-form-success', 'hero-form-error');
   setupForm('footer-form', 'footer-form-success', null);
-  setupForm('article-detox-form', 'article-detox-form-success', 'article-detox-form-error');
 }
 
 function setupForm(formId, successId, errorId) {

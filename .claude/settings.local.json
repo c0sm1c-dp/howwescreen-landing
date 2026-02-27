@@ -28,7 +28,9 @@
       "Bash(git checkout:*)",
       "Bash(git ls-tree:*)",
       "Bash(gh api:*)",
-      "Bash(grep:*)"
+      "Bash(grep:*)",
+      "Bash(gh repo view:*)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }

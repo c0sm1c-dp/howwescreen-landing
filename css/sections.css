@@ -216,60 +216,6 @@
   }
 }
 
-/* ---- ABOUT / FOUNDER SECTION ---- */
-
-.section--about {
-  background-color: var(--color-bg-primary);
-}
-
-.about__layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-2xl);
-  align-items: center;
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-@media (min-width: 768px) {
-  .about__layout {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.about__photo {
-  display: flex;
-  justify-content: center;
-}
-
-.about__img {
-  width: 100%;
-  max-width: 400px;
-  height: auto;
-  object-fit: cover;
-  border-radius: var(--border-radius-lg);
-  box-shadow: 0 8px 32px rgba(44, 36, 24, 0.08);
-}
-
-.about__content {
-  text-align: left;
-}
-
-.about__content p {
-  font-size: var(--text-lg);
-  line-height: 1.8;
-  margin-bottom: var(--space-lg);
-  font-family: var(--font-secondary);
-}
-
-.about__content .section-label {
-  text-align: left;
-}
-
-.about__content .section-heading {
-  text-align: left;
-}
-
 /* ---- PROBLEM SECTION ---- */
 
 .section--problem {
@@ -344,150 +290,32 @@
   font-family: var(--font-secondary);
 }
 
-/* ---- SOLUTION SECTION ---- */
+/* ---- HERO NEWSLETTER FORM ---- */
 
-.section--solution {
-  background-color: var(--color-bg-secondary);
+.hero-form {
+  width: 100%;
+  max-width: 560px;
 }
 
-.solution__intro {
-  max-width: 640px;
-  margin-bottom: var(--space-3xl);
-}
-
-.solution__grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--grid-gap);
-}
-
-@media (min-width: 768px) {
-  .solution__grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* CSS Icons */
-.icon-hourglass,
-.icon-community,
-.icon-content {
-  width: 32px;
-  height: 32px;
-  position: relative;
-}
-
-.icon-hourglass::before,
-.icon-hourglass::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-}
-
-.icon-hourglass::before {
-  top: 0;
-  border-top: 14px solid currentColor;
-}
-
-.icon-hourglass::after {
-  bottom: 0;
-  border-bottom: 14px solid currentColor;
-}
-
-.icon-community::before,
-.icon-community::after {
-  content: '';
-  position: absolute;
-  border-radius: 50%;
-  border: 2px solid currentColor;
-}
-
-.icon-community::before {
-  width: 20px;
-  height: 20px;
-  top: 2px;
-  left: 2px;
-}
-
-.icon-community::after {
-  width: 20px;
-  height: 20px;
-  bottom: 2px;
-  right: 2px;
-}
-
-.icon-content::before {
-  content: '';
-  position: absolute;
-  inset: 2px;
-  border: 2px solid currentColor;
-  border-radius: 2px;
-}
-
-.icon-content::after {
-  content: '';
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  right: 8px;
-  height: 2px;
-  background: currentColor;
-  box-shadow: 0 5px 0 currentColor, 0 10px 0 currentColor;
-}
-
-/* ---- DETOX SECTION ---- */
-
-.section--detox {
-  background-color: var(--color-bg-secondary);
-  position: relative;
-  padding: var(--space-4xl) 0;
-}
-
-.detox__layout {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--space-3xl);
-  align-items: start;
-}
-
-@media (min-width: 768px) {
-  .detox__layout {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-4xl);
-  }
-}
-
-.detox__days {
+.hero-form__fields {
   display: flex;
   flex-direction: column;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
-.detox__form-card {
-  background: var(--color-bg-secondary);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--border-radius-lg);
-  padding: var(--space-2xl);
-}
+@media (min-width: 600px) {
+  .hero-form__fields {
+    flex-direction: row;
+  }
 
-.detox__form-title {
-  font-size: var(--text-xl);
-  font-weight: var(--font-weight-bold);
-  margin-bottom: var(--space-sm);
-}
+  .hero-form__fields .input {
+    flex: 1;
+    min-width: 0;
+  }
 
-.detox__form-subtitle {
-  font-size: var(--text-sm);
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-xl);
-}
-
-/* ---- HOW IT WORKS ---- */
-
-.section--steps {
-  background-color: var(--color-bg-secondary);
+  .hero-form__fields .btn {
+    flex-shrink: 0;
+  }
 }
 
 /* ---- FAQ SECTION ---- */
