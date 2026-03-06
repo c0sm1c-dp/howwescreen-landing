@@ -7,18 +7,18 @@
 const HWS_TRANSLATIONS = {
   // Navigation
   'nav.problem':   { en: 'The Problem',    es: 'El Problema' },
-  'nav.detox':     { en: 'Free Reset',     es: 'Reset Gratis' },
+  'nav.detox':     { en: 'The Reset',      es: 'El Reset' },
   'nav.faq':       { en: 'FAQ',            es: 'Preguntas' },
-  'nav.cta':       { en: 'Subscribe',      es: 'Suscr\u00edbete' },
+  'nav.cta':       { en: 'Start the Reset', es: 'Empezar el Reset' },
 
   // Hero
   'hero.badge':            { en: 'A guided digital detox',  es: 'Un detox digital guiado' },
-  'hero.subtext':          { en: 'No guilt. No anxiety. Just you, deciding what deserves your attention. How We Screen is a newsletter about screen culture, digital consciousness, and building a more intentional relationship with technology \u2014 free from algorithmic reach.', es: 'Sin culpa. Sin ansiedad. Solo t\u00fa, decidiendo qu\u00e9 merece tu atenci\u00f3n. How We Screen es un newsletter sobre cultura de pantallas, consciencia digital, y construir una relaci\u00f3n m\u00e1s intencional con la tecnolog\u00eda \u2014 libre del alcance algor\u00edtmico.' },
+  'hero.subtext':          { en: 'No guilt. No anxiety. Just you, deciding what deserves your attention. A free 3-day guided practice \u2014 three gentle emails to help you notice, breathe, and build space between you and the digital noise.', es: 'Sin culpa. Sin ansiedad. Solo t\u00fa, decidiendo qu\u00e9 merece tu atenci\u00f3n. Una pr\u00e1ctica guiada gratuita de 3 d\u00edas \u2014 tres emails suaves para ayudarte a notar, respirar, y crear espacio entre t\u00fa y el ruido digital.' },
   'hero.namePlaceholder':  { en: 'Your name',               es: 'Tu nombre' },
   'hero.emailPlaceholder': { en: 'Your email',              es: 'Tu correo' },
-  'hero.formButton':       { en: 'Subscribe',               es: 'Suscr\u00edbete' },
-  'hero.formNote':         { en: 'Free. No spam. No algorithm. Just ideas, delivered to your inbox.', es: 'Gratis. Sin spam. Sin algoritmo. Solo ideas, directo a tu bandeja.' },
-  'hero.formSuccess':      { en: 'Welcome in. Check your inbox to confirm.', es: 'Bienvenida/o. Revisa tu bandeja para confirmar.' },
+  'hero.formButton':       { en: 'Start My Reset',          es: 'Empezar Mi Reset' },
+  'hero.formNote':         { en: 'Free, always. Three emails over three days, then we let go.', es: 'Gratis, siempre. Tres emails en tres d\u00edas, y te dejamos ir.' },
+  'hero.formSuccess':      { en: 'You\u2019re in. Check your inbox \u2014 Day 1 is on its way.', es: 'Ya est\u00e1s. Revisa tu bandeja \u2014 el D\u00eda 1 va en camino.' },
   'hero.formError':        { en: 'Hmm, that didn\u2019t work. Try again?', es: 'Hmm, eso no funcion\u00f3. \u00bfIntentas de nuevo?' },
 
   // Transitions
@@ -36,8 +36,8 @@ const HWS_TRANSLATIONS = {
   'problem.stat3Label': { en: 'Of adults say social media harms their mental health', es: 'De los adultos dicen que las redes sociales da\u00f1an su salud mental' },
 
   // Detox section
-  'detox.label':            { en: 'Our Gift to You',        es: 'Nuestro Regalo Para Ti' },
-  'detox.heading':          { en: 'The 3-Day Screen Reset', es: 'El Reset de Pantalla de 3 D\u00edas' },
+  'detox.label':            { en: 'The Reset',              es: 'El Reset' },
+  'detox.heading':          { en: '3 Days. 3 Emails. A Quieter You.', es: '3 D\u00edas. 3 Emails. Un T\u00fa M\u00e1s Tranquilo.' },
   'detox.body':             { en: 'We made this for you. Three gentle emails over three days \u2014 each one a small invitation to notice, breathe, and choose differently. No rules. No shame. Just us, walking beside you through the noise, helping you find the quiet that was always yours.', es: 'Hicimos esto para ti. Tres emails suaves en tres d\u00edas \u2014 cada uno una peque\u00f1a invitaci\u00f3n a notar, respirar, y elegir diferente. Sin reglas. Sin verg\u00fcenza. Solo nosotros, caminando a tu lado entre el ruido, ayud\u00e1ndote a encontrar la calma que siempre fue tuya.' },
   'detox.namePlaceholder':  { en: 'Your name',              es: 'Tu nombre' },
   'detox.emailPlaceholder': { en: 'Your email',             es: 'Tu correo' },
@@ -49,23 +49,23 @@ const HWS_TRANSLATIONS = {
   // FAQ section
   'faq.label':   { en: 'FAQ',  es: 'Preguntas Frecuentes' },
   'faq.heading': { en: 'Questions you probably have', es: 'Preguntas que probablemente tienes' },
-  'faq.item0.question': { en: 'What is How We Screen?', es: '\u00bfQu\u00e9 es How We Screen?' },
-  'faq.item0.answer':   { en: 'A newsletter about screen culture, digital consciousness, and building a more intentional relationship with technology. No corporate wellness. No shame. Just honest ideas delivered to your inbox.', es: 'Un newsletter sobre cultura de pantallas, consciencia digital, y construir una relaci\u00f3n m\u00e1s intencional con la tecnolog\u00eda. Sin bienestar corporativo. Sin verg\u00fcenza. Solo ideas honestas directo a tu bandeja.' },
-  'faq.item1.question': { en: 'How often do you send emails?', es: '\u00bfCon qu\u00e9 frecuencia env\u00edan emails?' },
-  'faq.item1.answer':   { en: 'Once a week. We respect your inbox the way we want you to respect your screen time. No daily blasts, no engagement bait \u2014 just one letter worth reading.', es: 'Una vez por semana. Respetamos tu bandeja como queremos que respetes tu tiempo de pantalla. Sin correos diarios, sin carnada de engagement \u2014 solo una carta que vale la pena leer.' },
-  'faq.item2.question': { en: 'Is this a product or an app?', es: '\u00bfEs un producto o una app?' },
-  'faq.item2.answer':   { en: 'Not yet. Right now How We Screen is ideas and community. We\u2019re building something bigger \u2014 guided programs, tools, conversations \u2014 but it starts here, with the newsletter. More is coming.', es: 'A\u00fan no. Ahora mismo How We Screen es ideas y comunidad. Estamos construyendo algo m\u00e1s grande \u2014 programas guiados, herramientas, conversaciones \u2014 pero empieza aqu\u00ed, con el newsletter. Viene m\u00e1s.' },
-  'faq.item3.question': { en: 'Can I unsubscribe?', es: '\u00bfPuedo cancelar la suscripci\u00f3n?' },
-  'faq.item3.answer':   { en: 'Always. One click, no guilt. We\u2019re not going to guilt-trip you into staying \u2014 that would be deeply ironic for a newsletter about intentional screen use.', es: 'Siempre. Un clic, sin culpa. No vamos a hacerte sentir culpable por irte \u2014 ser\u00eda profundamente ir\u00f3nico para un newsletter sobre uso intencional de pantallas.' },
+  'faq.item0.question': { en: 'What is the 3-Day Screen Reset?', es: '\u00bfQu\u00e9 es el Reset de Pantalla de 3 D\u00edas?' },
+  'faq.item0.answer':   { en: 'A free 3-day guided program to help you reset your relationship with your phone. Three gentle emails, each with a small practice to help you notice, breathe, and choose differently. No corporate wellness. No shame.', es: 'Un programa guiado gratuito de 3 d\u00edas para ayudarte a resetear tu relaci\u00f3n con el tel\u00e9fono. Tres emails suaves, cada uno con una peque\u00f1a pr\u00e1ctica para notar, respirar, y elegir diferente. Sin bienestar corporativo. Sin verg\u00fcenza.' },
+  'faq.item1.question': { en: 'What happens during the 3 days?', es: '\u00bfQu\u00e9 pasa durante los 3 d\u00edas?' },
+  'faq.item1.answer':   { en: 'Each day you\u2019ll receive one email with a simple, guided practice. Day 1 is about noticing. Day 2 is about creating space. Day 3 is about choosing differently. No rules, no shame \u2014 just small invitations.', es: 'Cada d\u00eda recibir\u00e1s un email con una pr\u00e1ctica simple y guiada. El D\u00eda 1 es sobre notar. El D\u00eda 2 es sobre crear espacio. El D\u00eda 3 es sobre elegir diferente. Sin reglas, sin verg\u00fcenza \u2014 solo peque\u00f1as invitaciones.' },
+  'faq.item2.question': { en: 'Is this an app?', es: '\u00bfEs una app?' },
+  'faq.item2.answer':   { en: 'No. The 3-Day Screen Reset is delivered by email \u2014 no downloads, no tracking, no app demanding more of your attention. Just three messages designed to help you notice and shift.', es: 'No. El Reset de Pantalla de 3 D\u00edas se entrega por email \u2014 sin descargas, sin tracking, sin app exigi\u00e9ndote m\u00e1s atenci\u00f3n. Solo tres mensajes dise\u00f1ados para ayudarte a notar y cambiar.' },
+  'faq.item3.question': { en: 'What happens after the 3 days?', es: '\u00bfQu\u00e9 pasa despu\u00e9s de los 3 d\u00edas?' },
+  'faq.item3.answer':   { en: 'The emails stop. That\u2019s it. We\u2019re not going to hound your inbox \u2014 that would be deeply ironic for a digital detox. If you want to stay connected, you can. But we let go first.', es: 'Los emails paran. Eso es todo. No vamos a bombardear tu bandeja \u2014 ser\u00eda profundamente ir\u00f3nico para un detox digital. Si quieres seguir conectada/o, puedes. Pero nosotros soltamos primero.' },
 
   // Footer
   'footer.tagline':  { en: 'Building intentional relationships with technology. One screen at a time.', es: 'Construyendo relaciones intencionales con la tecnolog\u00eda. Una pantalla a la vez.' },
   'footer.navigate': { en: 'Navigate',      es: 'Navegar' },
   'footer.connect':  { en: 'Connect',       es: 'Conectar' },
-  'footer.newsletter': { en: 'Weekly Letter', es: 'Carta Semanal' },
-  'footer.newsletterDesc': { en: 'Screen culture, digital wellness, and taking your life back from the algorithm.', es: 'Cultura de pantallas, bienestar digital, y recuperando tu vida del algoritmo.' },
+  'footer.newsletter': { en: 'Start the Reset', es: 'Empezar el Reset' },
+  'footer.newsletterDesc': { en: 'Three days. Three emails. A quieter relationship with your screen.', es: 'Tres d\u00edas. Tres emails. Una relaci\u00f3n m\u00e1s tranquila con tu pantalla.' },
   'footer.emailPlaceholder': { en: 'Your email address', es: 'Tu correo electr\u00f3nico' },
-  'footer.subscribe': { en: 'Subscribe', es: 'Suscr\u00edbete' },
+  'footer.subscribe': { en: 'Start My Reset', es: 'Empezar Mi Reset' },
   'footer.copyright': { en: '\u00a9 2026 How We Screen. All rights reserved.', es: '\u00a9 2026 How We Screen. Todos los derechos reservados.' },
 
   // Share
