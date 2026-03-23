@@ -61,7 +61,7 @@ const HWS_DEFAULTS = {
   // ======================== NAVIGATION ========================
 
   'nav.logoText':  'How We Screen',
-  'nav.ctaText':   'Subscribe',
+  'nav.ctaText':   'Start the Reset',
   'nav.ctaLink':   '#hero-form',
   'nav.link1Label': 'The Problem',
   'nav.link1Href':  '#problem',
@@ -72,21 +72,21 @@ const HWS_DEFAULTS = {
 
   'hero.label':          'A guided digital detox',
   'hero.headline':       'What if you could look at your phone and feel <em>nothing?</em>',
-  'hero.subtext':        'No guilt. No anxiety. Just you, deciding what deserves your attention. How We Screen is a newsletter about screen culture, digital consciousness, and building a more intentional relationship with technology \u2014 free from algorithmic reach.',
-  'hero.formNote':       'Free. No spam. No algorithm. Just ideas, delivered to your inbox.',
+  'hero.subtext':        'No guilt. No anxiety. Just you, deciding what gets your attention. Three days, three short emails. Each one gives you something small to try that might change how the rest of your day feels.',
+  'hero.formNote':       'Free, always. Three emails over three days, then we let go.',
 
   // ======================== TRANSITIONS ========================
 
   'transition.1': 'You already know something is off.',
-  'transition.2': 'So here \u2014 take this.',
+  'transition.2': 'So. Take this.',
 
   // ======================== PROBLEM ========================
 
   'problem.label':    'The Problem',
   'problem.heading':  'The Scroll Trap',
   'problem.body1':    'It starts innocently. A quick check. A notification. And then thirty minutes vanish like they were never yours. You unlock your phone 96 times a day. You watch reels you don\u2019t even like. You know it\u2019s not making you feel good, and you do it anyway.',
-  'problem.body2':    'This isn\u2019t a willpower failure. It\u2019s a design feature. Every app on your phone was built by a team of engineers whose success is measured by how long they keep you staring at glass.',
-  'problem.body3':    'You\u2019re not the problem. But you might be ready for a different relationship with your screen.',
+  'problem.body2':    'Willpower has nothing to do with it. Every app on your phone was built by a team of engineers whose job is keeping you staring at glass for as long as possible. That\u2019s their metric. That\u2019s how they win.',
+  'problem.body3':    'Something in you already knows this isn\u2019t working. Maybe you\u2019re ready to try something different.',
   'problem.stat1Number': '7 hrs',
   'problem.stat1Label':  'Average daily screen time for adults',
   'problem.stat2Number': '96x',
@@ -98,7 +98,7 @@ const HWS_DEFAULTS = {
 
   'detox.label':    'Our Gift to You',
   'detox.heading':  'The 3-Day Screen Reset',
-  'detox.body':     'We made this for you. Three gentle emails over three days \u2014 each one a small invitation to notice, breathe, and choose differently. No rules. No shame. Just us, walking beside you through the noise, helping you find the quiet that was always yours.',
+  'detox.body':     'We made this for you. Three emails over three days, each one short and each one with something small you can actually try. No rules. No shame. Just a little room to breathe and notice what\u2019s going on with you and your phone.',
   'detox.formNote': 'Free, always. Three emails, then we let go. Unless you want to stay.',
 
   // ======================== FAQ ========================
@@ -106,23 +106,23 @@ const HWS_DEFAULTS = {
   'faq.label':   'FAQ',
   'faq.heading': 'Questions you probably have',
 
-  'faq.item0.question': 'What is How We Screen?',
-  'faq.item0.answer':   'A newsletter about screen culture, digital consciousness, and building a more intentional relationship with technology. No corporate wellness. No shame. Just honest ideas delivered to your inbox.',
+  'faq.item0.question': 'What is the 3-Day Screen Reset?',
+  'faq.item0.answer':   'A free 3-day guided program to help you reset your relationship with your phone. Three short emails, each with a small practice to help you notice, breathe, and choose differently. No corporate wellness. No shame.',
 
-  'faq.item1.question': 'How often do you send emails?',
-  'faq.item1.answer':   'Once a week. We respect your inbox the way we want you to respect your screen time. No daily blasts, no engagement bait \u2014 just one letter worth reading.',
+  'faq.item1.question': 'What happens during the 3 days?',
+  'faq.item1.answer':   'Each day you\u2019ll get one email with a simple practice to try. Day 1 is about noticing. Day 2 is about creating some space. Day 3 is about choosing differently. No pressure, just small invitations.',
 
-  'faq.item2.question': 'Is this a product or an app?',
-  'faq.item2.answer':   'Not yet. Right now How We Screen is ideas and community. We\u2019re building something bigger \u2014 guided programs, tools, conversations \u2014 but it starts here, with the newsletter. More is coming.',
+  'faq.item2.question': 'Is this an app?',
+  'faq.item2.answer':   'No. It comes by email. No downloads, no tracking, no app asking for more of your attention. Just three messages to help you notice and shift.',
 
-  'faq.item3.question': 'Can I unsubscribe?',
-  'faq.item3.answer':   'Always. One click, no guilt. We\u2019re not going to guilt-trip you into staying \u2014 that would be deeply ironic for a newsletter about intentional screen use.',
+  'faq.item3.question': 'What happens after the 3 days?',
+  'faq.item3.answer':   'The emails stop. That\u2019s it. We\u2019re not going to hound your inbox. That would be pretty ironic for a digital detox. If you want to stay connected after, you can. But we let go first.',
 
   // ======================== FOOTER ========================
 
-  'footer.tagline':   'Building intentional relationships with technology. One screen at a time.',
+  'footer.tagline':   'Helping you use your phone on your own terms.',
   'footer.copyright': '\u00a9 2026 How We Screen. All rights reserved.',
-  'footer.newsletterDesc': 'Screen culture, digital wellness, and taking your life back from the algorithm.',
+  'footer.newsletterDesc': 'Three days, three emails, a quieter relationship with your screen.',
   'footer.instagramUrl': 'https://instagram.com/',
   'footer.tiktokUrl':    'https://www.tiktok.com/@howwescreen',
 

@@ -30,7 +30,10 @@
       "Bash(gh api:*)",
       "Bash(grep:*)",
       "Bash(gh repo view:*)",
-      "mcp__Claude_Preview__preview_start"
+      "mcp__Claude_Preview__preview_start",
+      "Bash(find /Users/sophiadiaspeixoto/Desktop/claude -maxdepth 2 -name *.md ! -path */node_modules/*)",
+      "Bash(find /Users/sophiadiaspeixoto/Desktop/claude -path */.agents/* -name *.md ! -path */node_modules/*)",
+      "Bash(find /Users/sophiadiaspeixoto/Desktop/claude -path */.agents/* -type f ! -path */node_modules/*)"
     ]
   }
 }
