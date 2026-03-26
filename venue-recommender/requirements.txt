@@ -1,0 +1,11 @@
+# Buenos Aires Venue Recommender — Python dependencies
+#
+# Core requirements (Python stdlib only for the base app):
+#   - json, re, math, os, pathlib, dataclasses, collections, datetime
+#   All of these ship with Python 3.10+ and need NO installation.
+#
+# Optional — only needed if you enable Google Maps Places API mode:
+requests>=2.28.0          # HTTP calls to Places API (New)
+
+# Optional — only needed if you want rich terminal tables (not required):
+# rich>=13.0.0            # Uncomment for prettier CLI output
