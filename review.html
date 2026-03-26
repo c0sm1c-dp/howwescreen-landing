@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<!--
+  Component:  HWS Testimonial / Review Collection Form
+  Purpose:    Post-program review submission for DigiTox 3-Day (and future HWS programs)
+  Version:    1.0.0
+
+  Integration Notes
+  ─────────────────
+  This form logs collected data to the browser console on submit.
+  To wire up a real backend, find the comment "BACKEND INTEGRATION POINT" inside
+  handleSuccess() near the bottom of the <script> block and replace the console.log
+  with one of the following:
+
+  ▸ Formspree (easiest):
+      1. Create a form at formspree.io, copy your endpoint URL.
+      2. Add action="https://formspree.io/f/YOUR_ID" method="POST" to the <form> element.
+      3. Remove the form's submit event listener in the JS.
+
+  ▸ Netlify Forms:
+      1. Add the `netlify` attribute and a `name` attribute to the <form> element.
+      2. Remove the JS submit handler.
+
+  ▸ Custom API:
+      Replace the console.log with:
+        await fetch('/api/reviews', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(formData)
+        });
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Share Your Experience | How We Screen</title>
+  <meta name="description" content="Tell us how the DigiTox 3-Day reset went for you.">
+  <meta name="robots" content="noindex">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="FVFavicon.png">
+
+  <!-- Google Fonts — DM Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+  <style>
+    /* ================================================================
+       RESET
+    ================================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ================================================================
+       DESIGN TOKENS  (mirrors howwescreen.org palette)
+    ================================================================ */
+    :root {
+      --bg:              #F5F0E8;
+      --bg-card:         #FAF7F2;
+      --bg-secondary:    #EDE6D6;
+      --bg-dark:         #2C2418;
+      --border:          #D4C9B4;
+      --border-light:    #E8E0D0;
+      --text:            #2C2418;
+      --text-secondary:  #5C4E3C;
+      --text-muted:      #8A7D6B;
+      --brand:           #6B4C3B;
+      --brand-hover:     #5A3D2E;
+      --cta:             #995D81;
+      --cta-hover:       #824E6D;
+      --star:            #EB8258;
+      --star-empty:      #D4C9B4;
+      --error:           #B94040;
+      --error-bg:        #FBF0F0;
+      --error-border:    rgba(185, 64, 64, 0.25);
+      --focus-ring:      rgba(107, 76, 59, 0.18);
+      --radius-sm:       4px;
+      --radius:          8px;
+      --radius-lg:       12px;
+      --radius-pill:     9999px;
+      --speed:           0.2s;
+      --ease:            cubic-bezier(0.25, 0.1, 0.25, 1);
+    }
+
+    /* ================================================================
+       BASE
+    ================================================================ */
+    html { font-size: 16px; -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+      padding: 2rem 1rem 5rem;
+    }
+
+    /* ================================================================
+       PAGE WRAPPER
+    ================================================================ */
+    .page {
+      max-width: 580px;
+      margin: 0 auto;
+    }
+
+    /* ================================================================
+       HEADER
+    ================================================================ */
+    .page-header {
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    .logo-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--brand);
+      text-decoration: none;
+      margin-bottom: 2rem;
+    }
+
+    .logo-link:hover { opacity: 0.8; }
+
+    .logo-wordmark {
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+
+    .page-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 0.3rem 0.85rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+      margin-bottom: 1.25rem;
+    }
+
+    .page-badge__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--cta);
+      flex-shrink: 0;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.5rem, 4vw, 1.875rem);
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
+    }
+
+    .page-header p {
+      font-size: 0.93rem;
+      color: var(--text-muted);
+      max-width: 400px;
+      margin: 0 auto;
+      line-height: 1.65;
+    }
+
+    /* ================================================================
+       FORM CARD
+    ================================================================ */
+    .form-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 1.25rem;
+    }
+
+    @media (min-width: 480px) {
+      .form-card { padding: 2.25rem 2rem; }
+    }
+
+    /* ================================================================
+       FORM STRUCTURE
+    ================================================================ */
+    .field { margin-bottom: 1.5rem; }
+    .field:last-child { margin-bottom: 0; }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 420px) {
+      .field-row { grid-template-columns: 1fr; }
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border-light);
+      margin: 1.75rem 0;
+    }
+
+    /* ================================================================
+       LABELS
+    ================================================================ */
+    .label {
+      display: block;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+      line-height: 1.4;
+    }
+
+    .label-note {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .optional-pill {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 0.1rem 0.45rem;
+      margin-left: 0.35rem;
+      vertical-align: middle;
+      line-height: 1.5;
+    }
+
+    /* ================================================================
+       INPUTS
+    ================================================================ */
+    .input,
+    .select,
+    .textarea {
+      display: block;
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.938rem;
+      padding: 0.6rem 0.85rem;
+      transition: border-color var(--speed) var(--ease),
+                  box-shadow var(--speed) var(--ease),
+                  background var(--speed) var(--ease);
+      outline: none;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .input::placeholder,
+    .textarea::placeholder {
+      color: var(--text-muted);
+      opacity: 0.75;
+    }
+
+    .input:focus,
+    .select:focus,
+    .textarea:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px var(--focus-ring);
+    }
+
+    .input.has-error,
+    .select.has-error,
+    .textarea.has-error {
+      border-color: var(--error);
+      background: var(--error-bg);
+    }
+
+    .input.has-error:focus,
+    .select.has-error:focus,
+    .textarea.has-error:focus {
+      box-shadow: 0 0 0 3px rgba(185, 64, 64, 0.12);
+    }
+
+    .textarea {
+      resize: vertical;
+      min-height: 120px;
+      line-height: 1.65;
+    }
+
+    /* Select wrapper (custom arrow) */
+    .select-wrap {
+      position: relative;
+    }
+
+    .select-wrap::after {
+      content: '';
+      position: absolute;
+      right: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-top: 5px solid var(--text-muted);
+      pointer-events: none;
+    }
+
+    .select { padding-right: 2.25rem; cursor: pointer; }
+
+    /* ================================================================
+       STAR RATING
+    ================================================================ */
+    .stars {
+      display: flex;
+      align-items: center;
+      gap: 0.15rem;
+      margin-top: 0.35rem;
+    }
+
+    .star-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0.2rem 0.25rem;
+      color: var(--star-empty);
+      font-size: 1.875rem;
+      line-height: 1;
+      transition: color var(--speed) var(--ease), transform 0.15s var(--ease);
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+    }
+
+    .star-btn:hover,
+    .star-btn.lit { color: var(--star); }
+
+    .star-btn:hover { transform: scale(1.2); }
+
+    .star-btn:active { transform: scale(1.05); }
+
+    .star-btn:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    .star-desc {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-left: 0.4rem;
+      min-width: 72px;
+      transition: opacity var(--speed);
+    }
+
+    /* ================================================================
+       RADIO OPTIONS
+    ================================================================ */
+    .radio-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: 0.3rem;
+    }
+
+    .radio-opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.6rem 0.85rem;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background var(--speed) var(--ease),
+                  border-color var(--speed) var(--ease);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .radio-opt:hover {
+      background: var(--bg-secondary);
+    }
+
+    .radio-opt.is-selected {
+      background: var(--bg-secondary);
+      border-color: var(--border);
+    }
+
+    .radio-opt input[type="radio"] {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      margin-top: 0.15rem;
+      accent-color: var(--brand);
+      cursor: pointer;
+    }
+
+    .radio-opt__text {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    /* ================================================================
+       CHECKBOX
+    ================================================================ */
+    .checkbox-opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      padding: 0.6rem 0.85rem;
+      border-radius: var(--radius);
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background var(--speed) var(--ease);
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .checkbox-opt:hover { background: var(--bg-secondary); }
+
+    .checkbox-opt input[type="checkbox"] {
+      width: 17px;
+      height: 17px;
+      min-width: 17px;
+      margin-top: 0.15rem;
+      accent-color: var(--brand);
+      cursor: pointer;
+    }
+
+    .checkbox-opt__text {
+      font-size: 0.9rem;
+      color: var(--text);
+      line-height: 1.45;
+    }
+
+    /* ================================================================
+       CONDITIONAL FIELD (Instagram)
+    ================================================================ */
+    .conditional {
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      margin-top: 0;
+      transition: max-height 0.32s var(--ease),
+                  opacity 0.25s var(--ease),
+                  margin-top 0.32s var(--ease);
+    }
+
+    .conditional.open {
+      max-height: 110px;
+      opacity: 1;
+      margin-top: 1.25rem;
+    }
+
+    /* ================================================================
+       ERROR MESSAGES
+    ================================================================ */
+    .err-msg {
+      display: none;
+      font-size: 0.78rem;
+      color: var(--error);
+      margin-top: 0.35rem;
+      line-height: 1.4;
+    }
+
+    .err-msg.show { display: block; }
+
+    .err-banner {
+      display: none;
+      background: var(--error-bg);
+      border: 1px solid var(--error-border);
+      border-radius: var(--radius);
+      padding: 0.7rem 1rem;
+      font-size: 0.84rem;
+      color: var(--error);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .err-banner.show { display: block; }
+
+    /* ================================================================
+       SUBMIT BUTTON
+    ================================================================ */
+    .btn-submit {
+      display: block;
+      width: 100%;
+      background: var(--cta);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 0.975rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      padding: 0.875rem 2rem;
+      cursor: pointer;
+      transition: background var(--speed) var(--ease),
+                  transform 0.12s var(--ease);
+      margin-top: 0.25rem;
+    }
+
+    .btn-submit:hover  { background: var(--cta-hover); }
+    .btn-submit:active { transform: scale(0.985); }
+
+    .btn-submit:focus-visible {
+      outline: 2px solid var(--brand);
+      outline-offset: 3px;
+    }
+
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* ================================================================
+       CONFIRMATION STATE
+    ================================================================ */
+    #confirmation {
+      display: none;
+      text-align: center;
+      padding: 2.75rem 1rem;
+    }
+
+    #confirmation.show { display: block; }
+
+    .confirm-check {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 52px;
+      height: 52px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      color: var(--brand);
+    }
+
+    #confirmation h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      line-height: 1.25;
+      color: var(--text);
+      margin-bottom: 1.1rem;
+      letter-spacing: -0.01em;
+    }
+
+    #confirmation p {
+      font-size: 0.93rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 400px;
+      margin: 0 auto 0.75rem;
+    }
+
+    .confirm-sig {
+      display: block;
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      font-style: italic;
+      margin-top: 1.25rem;
+    }
+
+    /* ================================================================
+       FOOTER NOTE
+    ================================================================ */
+    .form-footnote {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .form-footnote a {
+      color: var(--text-muted);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <!-- ── Header ── -->
+    <header class="page-header">
+      <a href="https://howwescreen.org" class="logo-link" aria-label="How We Screen — Home">
+        <svg viewBox="0 0 50 60" width="26" height="32" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <line x1="8"  y1="2"  x2="42" y2="2"/>
+          <path d="M10 2 L25 28 L40 2" fill="none"/>
+          <path d="M10 56 L25 30 L40 56" fill="none"/>
+          <line x1="8"  y1="56" x2="42" y2="56"/>
+          <ellipse cx="25" cy="43" rx="8" ry="5" fill="none" stroke-width="1.5"/>
+          <circle  cx="25" cy="43" r="2.5" fill="currentColor" stroke="none"/>
+        </svg>
+        <span class="logo-wordmark">How We Screen</span>
+      </a>
+
+      <div class="page-badge">
+        <span class="page-badge__dot" aria-hidden="true"></span>
+        DigiTox 3-Day
+      </div>
+
+      <h1>How did it go?</h1>
+      <p>A few minutes of honest reflection helps us reach the next person who needs this. Tell us what happened.</p>
+    </header>
+
+    <!-- ── Form Card ── -->
+    <div class="form-card" id="form-card">
+
+      <div class="err-banner" id="err-banner" role="alert" aria-live="assertive">
+        A few things need your attention before we can send this.
+      </div>
+
+      <!-- ── Form ── -->
+      <form id="review-form" novalidate>
+
+        <!-- Name row -->
+        <div class="field field-row">
+          <div>
+            <label class="label" for="first-name">First name</label>
+            <input class="input" type="text" id="first-name" name="first_name"
+                   autocomplete="given-name" required>
+            <span class="err-msg" id="err-first-name">First name is required.</span>
+          </div>
+          <div>
+            <label class="label" for="last-name">
+              Last name <span class="optional-pill">optional</span>
+            </label>
+            <input class="input" type="text" id="last-name" name="last_name"
+                   autocomplete="family-name">
+          </div>
+        </div>
+
+        <!-- Email -->
+        <div class="field">
+          <label class="label" for="email">Email address</label>
+          <span class="label-note">We'll only use this to follow up if needed.</span>
+          <input class="input" type="email" id="email" name="email"
+                 autocomplete="email" required>
+          <span class="err-msg" id="err-email">Please enter a valid email address.</span>
+        </div>
+
+        <!-- Program -->
+        <div class="field">
+          <label class="label" for="program">Which program did you complete?</label>
+          <div class="select-wrap">
+            <select class="select" id="program" name="program" required>
+              <option value="">Select a program...</option>
+              <option value="digitox-3day">DigiTox 3-Day</option>
+              <!-- Future programs added here -->
+            </select>
+          </div>
+          <span class="err-msg" id="err-program">Please select the program you completed.</span>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Star rating -->
+        <div class="field">
+          <span class="label">
+            How would you rate your experience?
+            <span class="optional-pill">optional</span>
+          </span>
+          <div class="stars" id="stars" role="group" aria-label="Star rating, 1 to 5">
+            <button type="button" class="star-btn" data-val="1" aria-label="1 star — Rough">&#9733;</button>
+            <button type="button" class="star-btn" data-val="2" aria-label="2 stars — Okay">&#9733;</button>
+            <button type="button" class="star-btn" data-val="3" aria-label="3 stars — Good">&#9733;</button>
+            <button type="button" class="star-btn" data-val="4" aria-label="4 stars — Great">&#9733;</button>
+            <button type="button" class="star-btn" data-val="5" aria-label="5 stars — Life-changing">&#9733;</button>
+            <span class="star-desc" id="star-desc" aria-live="polite"></span>
+          </div>
+          <input type="hidden" id="star-val" name="star_rating" value="">
+        </div>
+
+        <!-- Experience -->
+        <div class="field">
+          <label class="label" for="experience">Your experience</label>
+          <span class="label-note">3–5 sentences works well.</span>
+          <textarea class="textarea" id="experience" name="experience"
+                    placeholder="What shifted for you? What surprised you? What would you tell someone considering this?"
+                    required></textarea>
+          <span class="err-msg" id="err-experience">Please share a little about your experience.</span>
+        </div>
+
+        <!-- One word -->
+        <div class="field">
+          <label class="label" for="one-word">
+            One word that describes how you feel
+            <span class="optional-pill">optional</span>
+          </label>
+          <input class="input" type="text" id="one-word" name="one_word"
+                 placeholder="e.g. eye-opening, grounding, hard..." maxlength="30">
+        </div>
+
+        <hr class="divider">
+
+        <!-- Permission -->
+        <div class="field">
+          <span class="label">Can we share your review?</span>
+          <div class="radio-stack" id="perm-group" role="radiogroup"
+               aria-label="Permission to share your review">
+            <label class="radio-opt" id="perm-opt-full">
+              <input type="radio" name="permission" value="full-name" id="perm-full" required>
+              <span class="radio-opt__text">Yes, you can share my review with my full name</span>
+            </label>
+            <label class="radio-opt" id="perm-opt-first">
+              <input type="radio" name="permission" value="first-only" id="perm-first">
+              <span class="radio-opt__text">Yes, but first name only please</span>
+            </label>
+            <label class="radio-opt" id="perm-opt-private">
+              <input type="radio" name="permission" value="private" id="perm-private">
+              <span class="radio-opt__text">No, I'd prefer this stays private</span>
+            </label>
+          </div>
+          <span class="err-msg" id="err-permission">Let us know how you'd like this handled.</span>
+
+          <!-- Instagram — conditional on "Yes" options -->
+          <div class="conditional" id="ig-field">
+            <label class="label" for="instagram">
+              Instagram handle
+              <span class="optional-pill">optional</span>
+            </label>
+            <input class="input" type="text" id="instagram" name="instagram"
+                   placeholder="@yourhandle" autocomplete="off" spellcheck="false">
+          </div>
+        </div>
+
+        <!-- Notify -->
+        <div class="field">
+          <label class="checkbox-opt">
+            <input type="checkbox" name="notify" id="notify" value="yes">
+            <span class="checkbox-opt__text">Notify me when new HWS programs launch</span>
+          </label>
+        </div>
+
+        <!-- Submit -->
+        <div class="field" style="margin-bottom:0">
+          <button type="submit" class="btn-submit" id="btn-submit">
+            Send my review
+          </button>
+        </div>
+
+      </form>
+
+      <!-- ── Confirmation (hidden until submit) ── -->
+      <div id="confirmation" role="status" aria-live="polite">
+        <div class="confirm-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none"
+               stroke="currentColor" stroke-width="2.5"
+               stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h2>You did the thing.</h2>
+        <p>
+          Seriously — thank you. Putting your experience into words takes something,
+          and we don't take that lightly.
+        </p>
+        <p>
+          Reviews like yours help us reach the person who's deep in the scroll right now,
+          wondering if there's another way. You're part of how they find it.
+        </p>
+        <span class="confirm-sig">— Sophia &amp; the HWS Team</span>
+      </div>
+
+    </div><!-- /form-card -->
+
+    <p class="form-footnote">
+      Your info is kept private. We don't sell data or spam inboxes.<br>
+      <a href="https://howwescreen.org">Back to howwescreen.org</a>
+    </p>
+
+  </div><!-- /page -->
+
+
+  <script>
+    (function () {
+      'use strict';
+
+      /* ── STAR RATING ──────────────────────────────────────────────── */
+      var starBtns  = document.querySelectorAll('.star-btn');
+      var starDesc  = document.getElementById('star-desc');
+      var starInput = document.getElementById('star-val');
+      var ratingVal = 0;
+
+      var descriptions = ['', 'Rough', 'Okay', 'Good', 'Great', 'Life-changing'];
+
+      function renderStars(upTo) {
+        starBtns.forEach(function (btn, i) {
+          btn.classList.toggle('lit', i < upTo);
+        });
+        starDesc.textContent = upTo ? descriptions[upTo] : '';
+      }
+
+      starBtns.forEach(function (btn) {
+        var v = parseInt(btn.dataset.val);
+
+        btn.addEventListener('mouseenter', function () { renderStars(v); });
+        btn.addEventListener('focus',      function () { renderStars(v); });
+
+        btn.addEventListener('click', function () {
+          ratingVal = (ratingVal === v) ? 0 : v; // toggle off on second click
+          starInput.value = ratingVal || '';
+          renderStars(ratingVal);
+        });
+
+        btn.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            ratingVal = v;
+            starInput.value = ratingVal;
+            renderStars(ratingVal);
+          }
+        });
+      });
+
+      document.getElementById('stars').addEventListener('mouseleave', function () {
+        renderStars(ratingVal);
+      });
+
+      document.getElementById('stars').addEventListener('focusout', function (e) {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          renderStars(ratingVal);
+        }
+      });
+
+
+      /* ── PERMISSION RADIO + INSTAGRAM CONDITIONAL ─────────────────── */
+      var permRadios = document.querySelectorAll('input[name="permission"]');
+      var igField    = document.getElementById('ig-field');
+
+      permRadios.forEach(function (radio) {
+        radio.addEventListener('change', function () {
+          // Highlight selected row
+          document.querySelectorAll('.radio-opt').forEach(function (opt) {
+            opt.classList.remove('is-selected');
+          });
+          radio.closest('.radio-opt').classList.add('is-selected');
+
+          // Show/hide Instagram field
+          var sharesName = radio.value === 'full-name' || radio.value === 'first-only';
+          igField.classList.toggle('open', sharesName);
+          if (!sharesName) {
+            document.getElementById('instagram').value = '';
+          }
+
+          // Clear permission error
+          clearErr('err-permission');
+          clearErrBanner();
+        });
+      });
+
+
+      /* ── LIVE CLEAR ON INPUT ──────────────────────────────────────── */
+      var liveFields = [
+        ['first-name',  'err-first-name'],
+        ['email',       'err-email'],
+        ['experience',  'err-experience'],
+      ];
+
+      liveFields.forEach(function (pair) {
+        var el = document.getElementById(pair[0]);
+        var errId = pair[1];
+        el.addEventListener('input', function () {
+          el.classList.remove('has-error');
+          clearErr(errId);
+          clearErrBanner();
+        });
+      });
+
+      document.getElementById('program').addEventListener('change', function () {
+        this.classList.remove('has-error');
+        clearErr('err-program');
+        clearErrBanner();
+      });
+
+
+      /* ── VALIDATION ───────────────────────────────────────────────── */
+      function showErr(msgId, inputId) {
+        document.getElementById(msgId).classList.add('show');
+        if (inputId) {
+          var el = document.getElementById(inputId);
+          if (el) el.classList.add('has-error');
+        }
+      }
+
+      function clearErr(msgId, inputId) {
+        var msg = document.getElementById(msgId);
+        if (msg) msg.classList.remove('show');
+        if (inputId) {
+          var el = document.getElementById(inputId);
+          if (el) el.classList.remove('has-error');
+        }
+      }
+
+      function clearErrBanner() {
+        document.getElementById('err-banner').classList.remove('show');
+      }
+
+      function validate() {
+        var ok = true;
+
+        // First name
+        var fn = document.getElementById('first-name');
+        if (!fn.value.trim()) {
+          showErr('err-first-name', 'first-name');
+          ok = false;
+        } else {
+          clearErr('err-first-name', 'first-name');
+        }
+
+        // Email
+        var em = document.getElementById('email');
+        var emv = em.value.trim();
+        if (!emv) {
+          showErr('err-email', 'email');
+          document.getElementById('err-email').textContent = 'Email address is required.';
+          ok = false;
+        } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emv)) {
+          showErr('err-email', 'email');
+          document.getElementById('err-email').textContent = 'That doesn\'t look right — check your email address.';
+          ok = false;
+        } else {
+          clearErr('err-email', 'email');
+        }
+
+        // Program
+        var prog = document.getElementById('program');
+        if (!prog.value) {
+          showErr('err-program', 'program');
+          ok = false;
+        } else {
+          clearErr('err-program', 'program');
+        }
+
+        // Experience
+        var exp = document.getElementById('experience');
+        if (!exp.value.trim()) {
+          showErr('err-experience', 'experience');
+          ok = false;
+        } else {
+          clearErr('err-experience', 'experience');
+        }
+
+        // Permission
+        var permChecked = document.querySelector('input[name="permission"]:checked');
+        if (!permChecked) {
+          showErr('err-permission');
+          ok = false;
+        } else {
+          clearErr('err-permission');
+        }
+
+        return ok;
+      }
+
+
+      /* ── SUBMIT ───────────────────────────────────────────────────── */
+      document.getElementById('review-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        if (!validate()) {
+          document.getElementById('err-banner').classList.add('show');
+          // Focus first error
+          var firstErr = document.querySelector('.has-error');
+          if (firstErr) {
+            firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            firstErr.focus();
+          } else {
+            // permission group has no input to focus — scroll to it
+            var permErr = document.querySelector('.err-msg.show');
+            if (permErr) permErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+          return;
+        }
+
+        var permEl = document.querySelector('input[name="permission"]:checked');
+
+        var formData = {
+          first_name:  document.getElementById('first-name').value.trim(),
+          last_name:   document.getElementById('last-name').value.trim()   || null,
+          email:       document.getElementById('email').value.trim(),
+          program:     document.getElementById('program').value,
+          star_rating: ratingVal || null,
+          experience:  document.getElementById('experience').value.trim(),
+          one_word:    document.getElementById('one-word').value.trim()    || null,
+          permission:  permEl ? permEl.value : null,
+          instagram:   document.getElementById('instagram').value.trim()   || null,
+          notify:      document.getElementById('notify').checked,
+          submitted_at: new Date().toISOString()
+        };
+
+        // Hand off to submit-review.js (loaded below).
+        // If the endpoint isn't configured yet it falls back to console.log.
+        if (typeof window.hwsDoFetch === 'function') {
+          window.hwsDoFetch(formData, showConfirmation, showSubmitError);
+        } else {
+          console.log('[HWS] Review (no endpoint configured):', formData);
+          showConfirmation();
+        }
+      });
+
+
+      /* ── CONFIRMATION ─────────────────────────────────────────────── */
+      function showConfirmation() {
+        document.getElementById('review-form').style.display = 'none';
+        document.getElementById('err-banner').style.display  = 'none';
+        document.getElementById('confirmation').classList.add('show');
+        document.getElementById('form-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
+      function showSubmitError() {
+        var btn    = document.getElementById('btn-submit');
+        var banner = document.getElementById('err-banner');
+        btn.disabled    = false;
+        btn.textContent = 'Send my review';
+        banner.textContent = 'Something went wrong on our end. Please try again in a moment.';
+        banner.classList.add('show');
+        banner.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+    })();
+  </script>
+
+  <!-- Submission handler: sets window.hwsDoFetch once REVIEW_ENDPOINT is configured -->
+  <script src="js/submit-review.js"></script>
+
+</body>
+</html>

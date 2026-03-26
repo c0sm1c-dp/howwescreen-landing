@@ -101,6 +101,37 @@ const HWS_DEFAULTS = {
   'detox.body':     'We made this for you. Three emails over three days, each one short and each one with something small you can actually try. No rules. No shame. Just a little room to breathe and notice what\u2019s going on with you and your phone.',
   'detox.formNote': 'Free, always. Three emails, then we let go. Unless you want to stay.',
 
+  // ======================== VOICES (TESTIMONIALS) ========================
+  // Section is hidden until real reviews are ready — see hiddenSections in hws-overrides.json.
+  // To publish: remove "voices" from hiddenSections and fill in real quote data below.
+
+  'voices.label':   'What people say',
+  'voices.heading': 'Real people. Real resets.',
+
+  'voices.quote0.body':     '',
+  'voices.quote0.username': '',
+  'voices.quote0.likes':    '',
+
+  'voices.quote1.body':     '',
+  'voices.quote1.username': '',
+  'voices.quote1.likes':    '',
+
+  'voices.quote2.body':     '',
+  'voices.quote2.username': '',
+  'voices.quote2.likes':    '',
+
+  'voices.quote3.body':     '',
+  'voices.quote3.username': '',
+  'voices.quote3.likes':    '',
+
+  'voices.quote4.body':     '',
+  'voices.quote4.username': '',
+  'voices.quote4.likes':    '',
+
+  'voices.quote5.body':     '',
+  'voices.quote5.username': '',
+  'voices.quote5.likes':    '',
+
   // ======================== FAQ ========================
 
   'faq.label':   'FAQ',

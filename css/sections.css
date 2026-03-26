@@ -670,3 +670,116 @@
   font-family: var(--font-secondary);
 }
 
+/* ---- VOICES (Testimonials) ---- */
+
+.section--voices {
+  background-color: var(--color-bg-secondary);
+}
+
+.voices-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+@media (max-width: 900px) {
+  .voices-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .voices-grid { grid-template-columns: 1fr; }
+}
+
+/* Individual card */
+.voice-card {
+  position: relative;
+  background: var(--color-bg-primary);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--border-radius-card);
+  padding: var(--space-xl) var(--space-lg) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  /* staggered entrance delay via --stagger CSS custom property set inline */
+  transition: transform 0.3s var(--transition-easing),
+              box-shadow 0.3s var(--transition-easing);
+}
+
+.voice-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 32px rgba(44, 36, 24, 0.10);
+}
+
+/* Decorative opening quote mark */
+.voice-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 0.5rem;
+  left: 0.9rem;
+  font-family: Georgia, serif;
+  font-size: 3.5rem;
+  line-height: 1;
+  color: var(--color-accent-1);
+  opacity: 0.18;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Override .reveal animation for voice cards: add scale in addition to translateY */
+.voice-card.reveal {
+  opacity: 0;
+  transform: translateY(var(--animation-distance, 30px)) scale(0.97);
+  transition: opacity var(--transition-speed, 0.4s) var(--transition-easing),
+              transform var(--transition-speed, 0.4s) var(--transition-easing);
+  /* stagger delay: each card in the row delays by --stagger * 80ms */
+  transition-delay: calc(var(--stagger, 0) * 0.08s);
+}
+
+.voice-card.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  /* preserve hover after reveal */
+  transition: opacity var(--transition-speed, 0.4s) var(--transition-easing),
+              transform var(--transition-speed, 0.4s) var(--transition-easing),
+              box-shadow 0.3s var(--transition-easing);
+}
+
+/* Quote body — serif, slightly larger */
+.voice-card__body {
+  font-family: var(--font-secondary, Georgia, serif);
+  font-size: var(--text-lg, 1.125rem);
+  line-height: 1.65;
+  color: var(--color-text-primary);
+  flex: 1;
+  padding-top: var(--space-xs); /* clear the decorative quote mark */
+}
+
+/* Footer row: name + stars */
+.voice-card__footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  margin-top: auto;
+}
+
+/* Attribution name */
+.voice-card__name {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-text-muted);
+  font-style: normal;
+}
+
+.voice-card__name:not(:empty)::before {
+  content: '\2014\00a0'; /* — */
+}
+
+/* Star rating — orange accent */
+.voice-card__stars {
+  font-size: var(--text-sm, 0.875rem);
+  color: var(--color-accent-4); /* #EB8258 — orange */
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+
