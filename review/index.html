@@ -116,47 +116,23 @@
     }
 
     .logo-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--brand);
+      display: inline-block;
       text-decoration: none;
       margin-bottom: 2rem;
     }
 
-    .logo-link:hover { opacity: 0.8; }
+    .logo-link:hover { opacity: 0.85; }
 
-    .logo-wordmark {
-      font-size: 0.8rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--brand);
-    }
-
-    .page-badge {
+    .logo-wrap {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-pill);
-      padding: 0.3rem 0.85rem;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      letter-spacing: 0.02em;
-      margin-bottom: 1.25rem;
+      justify-content: center;
+      background: var(--bg-dark);
+      border-radius: 10px;
+      padding: 0.55rem 1.1rem;
     }
 
-    .page-badge__dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: var(--cta);
-      flex-shrink: 0;
-    }
-
-    .page-header h1 {
+.page-header h1 {
       font-size: clamp(1.5rem, 4vw, 1.875rem);
       font-weight: 300;
       line-height: 1.2;
@@ -598,13 +574,10 @@
     <!-- ── Header ── -->
     <header class="page-header">
       <a href="https://howwescreen.org" class="logo-link" aria-label="How We Screen — Home">
-        <img src="../assets/logo-cream.png" alt="How We Screen" height="36" style="display:block;">
+        <span class="logo-wrap">
+          <img src="../assets/logo-cream.png" alt="How We Screen" height="32">
+        </span>
       </a>
-
-      <div class="page-badge">
-        <span class="page-badge__dot" aria-hidden="true"></span>
-        DigiTox 3-Day
-      </div>
 
       <h1>How did it go?</h1>
       <p>A few minutes of honest reflection helps us reach the next person who needs this. Tell us what happened.</p>
