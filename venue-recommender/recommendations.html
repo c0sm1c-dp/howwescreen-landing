@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buenos Aires Venue Recommender</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --card: #1a1d2e;
+    --card2: #22263a;
+    --accent: #6c63ff;
+    --accent2: #ff6584;
+    --text: #e8eaf6;
+    --muted: #8892b0;
+    --border: #2d3153;
+    --green: #2ecc71;
+    --orange: #f39c12;
+    --red: #e74c3c;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* Header */
+  header {
+    background: linear-gradient(135deg, #1a1d2e 0%, #0f1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 2.5rem 2rem 2rem;
+    text-align: center;
+  }
+  header h1 { font-size: 2rem; font-weight: 700; color: var(--accent); margin-bottom: .3rem; }
+  header p.subtitle { color: var(--muted); font-size: .95rem; }
+  .disclaimer {
+    display: inline-block;
+    margin-top: 1rem;
+    background: #2d2300;
+    border: 1px solid #f39c12;
+    border-radius: 6px;
+    padding: .5rem 1rem;
+    font-size: .8rem;
+    color: #f39c12;
+    max-width: 700px;
+  }
+
+  /* Profile summary */
+  .profile-section {
+    max-width: 960px;
+    margin: 2rem auto;
+    padding: 0 1.5rem;
+  }
+  .profile-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .stat-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.2rem 1.5rem;
+  }
+  .stat-card .label { font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: .3rem; }
+  .stat-card .value { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .stat-card .sub { font-size: .78rem; color: var(--muted); margin-top: .2rem; }
+
+  /* Section headings */
+  .section-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    border-left: 3px solid var(--accent);
+    padding-left: .7rem;
+    margin-bottom: 1rem;
+  }
+
+  /* Interest tags */
+  .interests {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    margin: 1rem 0;
+  }
+  .int-tag {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: .25rem .75rem;
+    font-size: .8rem;
+    color: var(--text);
+  }
+  .int-tag span.dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    margin-right: 4px;
+    vertical-align: middle;
+  }
+
+  /* Venue cards */
+  .venues {
+    max-width: 960px;
+    margin: 0 auto 3rem;
+    padding: 0 1.5rem;
+    display: grid;
+    gap: 1.5rem;
+  }
+  .venue-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .venue-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(108,99,255,.15);
+  }
+  .venue-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.3rem 1.5rem .8rem;
+    gap: 1rem;
+  }
+  .venue-rank {
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--accent);
+    min-width: 2.5rem;
+    line-height: 1;
+  }
+  .venue-title-group { flex: 1; min-width: 0; }
+  .venue-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .venue-meta {
+    font-size: .82rem;
+    color: var(--muted);
+    margin-top: .15rem;
+  }
+  .venue-score-circle {
+    flex-shrink: 0;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 3px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: .65rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  .venue-score-circle .big { font-size: 1.1rem; font-weight: 800; color: var(--accent); }
+
+  .venue-body {
+    padding: 0 1.5rem 1.5rem;
+  }
+  .venue-cats { display: flex; flex-wrap: wrap; gap: .4rem; margin-bottom: .9rem; }
+  .badge {
+    display: inline-block;
+    padding: .2rem .6rem;
+    border-radius: 4px;
+    font-size: .72rem;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  /* Score breakdown */
+  .score-breakdown {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: .4rem .8rem;
+    margin-bottom: 1rem;
+    font-size: .78rem;
+  }
+  .score-row { display: flex; flex-direction: column; gap: 2px; }
+  .score-row label { color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; }
+  .score-bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: .4rem;
+    height: 10px;
+  }
+  .score-bar {
+    height: 8px;
+    border-radius: 4px;
+    min-width: 4px;
+    max-width: 100%;
+    flex-shrink: 0;
+  }
+  .score-pct { font-size: .7rem; color: var(--muted); white-space: nowrap; }
+
+  /* Reasons */
+  .reasons { margin-bottom: .9rem; }
+  .reasons .reason-item {
+    display: flex;
+    align-items: flex-start;
+    gap: .4rem;
+    font-size: .82rem;
+    color: var(--text);
+    margin-bottom: .3rem;
+  }
+  .reason-item .icon { color: var(--green); flex-shrink: 0; }
+
+  /* Best times & stats */
+  .venue-footer {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .7rem;
+    align-items: center;
+    padding-top: .8rem;
+    border-top: 1px solid var(--border);
+    font-size: .8rem;
+  }
+  .info-chip {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: .2rem .7rem;
+    color: var(--text);
+    white-space: nowrap;
+  }
+  .info-chip .chip-label { color: var(--muted); font-size: .7rem; }
+  .maps-link {
+    margin-left: auto;
+    background: var(--accent);
+    color: #fff !important;
+    padding: .35rem .9rem;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: .82rem;
+    white-space: nowrap;
+  }
+  .maps-link:hover { background: #5a52d5; text-decoration: none; }
+  .data-badge {
+    font-size: .68rem;
+    padding: .1rem .45rem;
+    border-radius: 3px;
+    background: #2d2300;
+    color: #f39c12;
+    border: 1px solid #f39c1240;
+  }
+
+  /* Warnings */
+  .warnings-section {
+    max-width: 960px;
+    margin: 0 auto 2rem;
+    padding: 0 1.5rem;
+  }
+  .warning-box {
+    background: #1a1400;
+    border: 1px solid #f39c12;
+    border-radius: 8px;
+    padding: 1rem 1.2rem;
+    font-size: .82rem;
+    color: #f0c060;
+  }
+  .warning-box ul { padding-left: 1.2rem; }
+  .warning-box li { margin-bottom: .3rem; }
+
+  footer {
+    text-align: center;
+    padding: 2rem;
+    color: var(--muted);
+    font-size: .78rem;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.5rem; }
+    .venue-header { flex-wrap: wrap; }
+    .score-breakdown { grid-template-columns: 1fr; }
+    .venue-score-circle { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>📍 Buenos Aires Venue Recommender</h1>
+  <p class="subtitle">Ranked by your actual behavioral patterns — searches, visits, and time-of-day habits</p>
+  <div class="disclaimer">⚠ <strong>DEMO MODE</strong> — Venue data is illustrative mock data, not fetched from the Google Maps Places API. In production mode (with a real API key), all venue data comes live from Google.</div>
+</header>
+
+
+    <div class="profile-section">
+      <div class="section-title">Your Activity Profile</div>
+      
+    <div class="profile-grid">
+      <div class="stat-card">
+        <div class="label">Searches Analysed</div>
+        <div class="value">28</div>
+        <div class="sub">27 Buenos Aires related</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">BA Place Visits</div>
+        <div class="value">60</div>
+        <div class="sub">From location timeline</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Top Interest</div>
+        <div class="value" style="font-size:1.2rem">Bar</div>
+        <div class="sub">Strongest category signal</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Favorite Barrio</div>
+        <div class="value" style="font-size:1.2rem">Palermo</div>
+        <div class="sub">Most searched neighborhood</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Peak Hours</div>
+        <div class="value" style="font-size:1.1rem">early evenings</div>
+        <div class="sub">When you're most active</div>
+      </div>
+      <div class="stat-card">
+        <div class="label">Peak Days</div>
+        <div class="value" style="font-size:1rem">Tuesday, Wednesday</div>
+        <div class="sub">Most active days of week</div>
+      </div>
+    </div>
+    
+      <div style="margin-top:1.2rem">
+        <div class="section-title">Detected Interests</div>
+        <div class="interests"><span class="int-tag"><span class="dot"></span>Bar (95)</span>
+<span class="int-tag"><span class="dot"></span>Live Music (40)</span>
+<span class="int-tag"><span class="dot"></span>Market (40)</span>
+<span class="int-tag"><span class="dot"></span>Cafe (27)</span>
+<span class="int-tag"><span class="dot"></span>Tango Milonga (25)</span>
+<span class="int-tag"><span class="dot"></span>Coworking (22)</span>
+<span class="int-tag"><span class="dot"></span>Restaurant (14)</span>
+<span class="int-tag"><span class="dot"></span>Outdoor Social (5)</span>
+<span class="int-tag"><span class="dot"></span>Event Space (4)</span>
+<span class="int-tag"><span class="dot"></span>Cultural Center (4)</span>
+</div>
+      </div>
+    </div>
+    
+
+
+
+<div class="venues">
+  
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#1</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Cervecería San Telmo Histórico</div>
+          <div class="venue-meta">
+            📍 San Telmo &nbsp;·&nbsp; Bolívar 498, San Telmo, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">55</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#e74c3c">Bar</span><span class="badge" style="background:#7f8c8d">Brewery</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Bar</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched San Telmo 15× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Open during your peak hours (early evenings)</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Tagged as &#x27;social&#x27; — high social opportunity</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:34%;background:#6c63ff"></div><span class="score-pct">34%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:26%;background:#ff6584"></div><span class="score-pct">26%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:100%;background:#2ecc71"></div><span class="score-pct">100%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:81%;background:#f39c12"></div><span class="score-pct">81%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★½ 4.5
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>723
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Cervecería+San+Telmo,+Buenos+Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#2</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Bar de Vinos Recoleta</div>
+          <div class="venue-meta">
+            📍 Recoleta &nbsp;·&nbsp; Junín 1885, Recoleta, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">53</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#e74c3c">Bar</span><span class="badge" style="background:#7f8c8d">Wine Bar</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Bar</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched Recoleta 9× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Open during your peak hours (early evenings)</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Highly rated: 4.6/5 from 356 reviews</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:34%;background:#6c63ff"></div><span class="score-pct">34%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:16%;background:#ff6584"></div><span class="score-pct">16%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:100%;background:#2ecc71"></div><span class="score-pct">100%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:80%;background:#f39c12"></div><span class="score-pct">80%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★½ 4.6
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>356
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$$$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Bar+de+Vinos+Recoleta,+Buenos+Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#3</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Cervecería Artesanal Villa Crespo</div>
+          <div class="venue-meta">
+            📍 Villa Crespo &nbsp;·&nbsp; Av. Corrientes 5200, Villa Crespo, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">53</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#e74c3c">Bar</span><span class="badge" style="background:#7f8c8d">Brewery</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Bar</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched Villa Crespo 8× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Open during your peak hours (early evenings)</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Tagged as &#x27;communal tables&#x27; — high social opportunity</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:34%;background:#6c63ff"></div><span class="score-pct">34%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:14%;background:#ff6584"></div><span class="score-pct">14%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:100%;background:#2ecc71"></div><span class="score-pct">100%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:81%;background:#f39c12"></div><span class="score-pct">81%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★½ 4.6
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>489
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Cervecería+Artesanal+Villa+Crespo,+Buenos+Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#4</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Rooftop Recoleta Bar</div>
+          <div class="venue-meta">
+            📍 Recoleta &nbsp;·&nbsp; Av. Callao 1234, Recoleta, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">52</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#e74c3c">Bar</span><span class="badge" style="background:#7f8c8d">Rooftop</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Bar</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched Recoleta 9× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Open during your peak hours (early evenings)</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Tagged as &#x27;social&#x27; — high social opportunity</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:34%;background:#6c63ff"></div><span class="score-pct">34%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:16%;background:#ff6584"></div><span class="score-pct">16%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:100%;background:#2ecc71"></div><span class="score-pct">100%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:76%;background:#f39c12"></div><span class="score-pct">76%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★☆ 4.3
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>408
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$$$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Rooftop+Recoleta+Bar,+Buenos Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#5</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Jazz Club San Telmo</div>
+          <div class="venue-meta">
+            📍 San Telmo &nbsp;·&nbsp; Defensa 695, San Telmo, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">51</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#e74c3c">Bar</span><span class="badge" style="background:#27ae60">Live Music</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Bar</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched San Telmo 15× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Tagged as &#x27;social&#x27; — high social opportunity</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Highly rated: 4.7/5 from 621 reviews</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:49%;background:#6c63ff"></div><span class="score-pct">49%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:26%;background:#ff6584"></div><span class="score-pct">26%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:50%;background:#2ecc71"></div><span class="score-pct">50%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:83%;background:#f39c12"></div><span class="score-pct">83%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★½ 4.7
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>621
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Jazz+Club+San+Telmo,+Buenos+Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#6</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Meetup Tech Hub Palermo</div>
+          <div class="venue-meta">
+            📍 Palermo &nbsp;·&nbsp; Godoy Cruz 2550, Palermo, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">48</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#2980b9">Coworking</span><span class="badge" style="background:#2c3e50">Event Space</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Coworking</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched Palermo 27× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Open during your peak hours (early evenings)</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Tagged as &#x27;tech meetups&#x27; — high social opportunity</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:11%;background:#6c63ff"></div><span class="score-pct">11%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:47%;background:#ff6584"></div><span class="score-pct">47%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:100%;background:#2ecc71"></div><span class="score-pct">100%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:71%;background:#f39c12"></div><span class="score-pct">71%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★☆ 4.3
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>156
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Meetup+Tech+Hub+Palermo,+Buenos+Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#7</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Bar Indie Chacarita</div>
+          <div class="venue-meta">
+            📍 Chacarita &nbsp;·&nbsp; Av. Corrientes 6500, Chacarita, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">46</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#e74c3c">Bar</span><span class="badge" style="background:#27ae60">Live Music</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Bar</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched Chacarita 5× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Tagged as &#x27;social&#x27; — high social opportunity</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Well rated: 4.4/5 from 298 reviews</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:49%;background:#6c63ff"></div><span class="score-pct">49%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:9%;background:#ff6584"></div><span class="score-pct">9%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:50%;background:#2ecc71"></div><span class="score-pct">50%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:76%;background:#f39c12"></div><span class="score-pct">76%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★☆ 4.4
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>298
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Bar+Indie+Chacarita,+Buenos+Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#8</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Café Palermo Wifi Hub</div>
+          <div class="venue-meta">
+            📍 Palermo Soho &nbsp;·&nbsp; Thames 1885, Palermo, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">43</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#8e44ad">Cafe</span><span class="badge" style="background:#7f8c8d">Coworking Friendly</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Cafe</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched Palermo Soho 27× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Open during your peak hours (early evenings)</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Tagged as &#x27;laptop friendly&#x27; — high social opportunity</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:11%;background:#6c63ff"></div><span class="score-pct">11%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:16%;background:#ff6584"></div><span class="score-pct">16%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:100%;background:#2ecc71"></div><span class="score-pct">100%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:77%;background:#f39c12"></div><span class="score-pct">77%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★½ 4.5
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>312
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Café+Palermo+Wifi+Hub,+Buenos+Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#9</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Academia Tango Centro</div>
+          <div class="venue-meta">
+            📍 San Nicolás &nbsp;·&nbsp; Corrientes 1234, San Nicolás, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">42</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#7f8c8d">Dance School</span><span class="badge" style="background:#d35400">Tango Milonga</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Tango Milonga</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched San Nicolás 15× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Open during your peak hours (early evenings)</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Tagged as &#x27;beginner friendly&#x27; — high social opportunity</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:9%;background:#6c63ff"></div><span class="score-pct">9%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:9%;background:#ff6584"></div><span class="score-pct">9%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:100%;background:#2ecc71"></div><span class="score-pct">100%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:81%;background:#f39c12"></div><span class="score-pct">81%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★½ 4.7
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>389
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Academia+Tango+Centro,+Buenos+Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+
+    <div class="venue-card">
+      <div class="venue-header">
+        <div class="venue-rank">#10</div>
+        <div class="venue-title-group">
+          <div class="venue-name">Espacio Cultural Almagro</div>
+          <div class="venue-meta">
+            📍 Almagro &nbsp;·&nbsp; Av. Rivadavia 4300, Almagro, Buenos Aires
+          </div>
+        </div>
+        <div class="venue-score-circle">
+          <span class="big">39</span>
+          <span>score</span>
+        </div>
+      </div>
+
+      <div class="venue-body">
+        <div class="venue-cats"><span class="badge" style="background:#16a085">Cultural Center</span><span class="badge" style="background:#2c3e50">Event Space</span> <span class="data-badge">MOCK DATA</span></div>
+
+        <div class="reasons"><div class="reason-item"><span class="icon">✓</span><span>Matches your interest in Event Space</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>You&#x27;ve searched Almagro 4× — this is your turf</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Open during your peak hours (early evenings)</span></div>
+<div class="reason-item"><span class="icon">✓</span><span>Tagged as &#x27;community events&#x27; — high social opportunity</span></div>
+</div>
+
+        
+    <div class="score-breakdown">
+      <div class="score-row">
+        <label>Category Match</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:3%;background:#6c63ff"></div><span class="score-pct">3%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Barrio Affinity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:7%;background:#ff6584"></div><span class="score-pct">7%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Hours Alignment</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:100%;background:#2ecc71"></div><span class="score-pct">100%</span></div>
+      </div>
+      <div class="score-row">
+        <label>Popularity</label>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:80%;background:#f39c12"></div><span class="score-pct">80%</span></div>
+      </div>
+    </div>
+    
+
+        <div class="venue-footer">
+          <span class="info-chip">
+            <span class="chip-label">Rating </span>★★★★½ 4.6
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Reviews </span>445
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Price </span>$
+          </span>
+          <span class="info-chip">
+            <span class="chip-label">Best time </span>Tuesday, Wednesday | 19:00–22:00
+          </span>
+          <a class="maps-link" href="https://maps.google.com/?q=Espacio+Cultural+Almagro,+Buenos+Aires" target="_blank" rel="noopener">
+            Open in Maps ↗
+          </a>
+        </div>
+      </div>
+    </div>
+    
+</div>
+
+<footer>
+  Generated 2026-03-26 05:32 · Data stays 100% local ·
+  <a href="https://github.com/c0sm1c-dp/howwescreen-landing">HowWeScreen</a>
+</footer>
+
+</body>
+</html>
