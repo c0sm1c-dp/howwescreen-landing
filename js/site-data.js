@@ -108,6 +108,17 @@ const HWS_DEFAULTS = {
   'voices.label':   'What people say',
   'voices.heading': 'Real people. Real resets.',
 
+  'voices.word0': '',
+  'voices.word1': '',
+  'voices.word2': '',
+  'voices.word3': '',
+  'voices.word4': '',
+  'voices.word5': '',
+  'voices.word6': '',
+  'voices.word7': '',
+  'voices.word8': '',
+  'voices.word9': '',
+
   'voices.quote0.body':     '',
   'voices.quote0.username': '',
   'voices.quote0.likes':    '',

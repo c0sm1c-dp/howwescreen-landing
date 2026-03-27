@@ -672,6 +672,83 @@
 
 /* ---- VOICES (Testimonials) ---- */
 
+/* Floating words cloud */
+@keyframes wc-float-a {
+  0%   { transform: translate(0, 0) rotate(-2deg); }
+  33%  { transform: translate(6px, -10px) rotate(1deg); }
+  66%  { transform: translate(-4px, 5px) rotate(-1deg); }
+  100% { transform: translate(0, 0) rotate(-2deg); }
+}
+@keyframes wc-float-b {
+  0%   { transform: translate(0, 0) rotate(1deg); }
+  40%  { transform: translate(-8px, 7px) rotate(-2deg); }
+  75%  { transform: translate(5px, -5px) rotate(1.5deg); }
+  100% { transform: translate(0, 0) rotate(1deg); }
+}
+@keyframes wc-float-c {
+  0%   { transform: translate(0, 0) rotate(-1deg); }
+  30%  { transform: translate(10px, 6px) rotate(2deg); }
+  70%  { transform: translate(-6px, -8px) rotate(-0.5deg); }
+  100% { transform: translate(0, 0) rotate(-1deg); }
+}
+@keyframes wc-float-d {
+  0%   { transform: translate(0, 0) rotate(2deg); }
+  45%  { transform: translate(-5px, -9px) rotate(-1deg); }
+  80%  { transform: translate(7px, 4px) rotate(2.5deg); }
+  100% { transform: translate(0, 0) rotate(2deg); }
+}
+@keyframes wc-float-e {
+  0%   { transform: translate(0, 0) rotate(-0.5deg); }
+  35%  { transform: translate(4px, 8px) rotate(1.5deg); }
+  65%  { transform: translate(-9px, -4px) rotate(-1deg); }
+  100% { transform: translate(0, 0) rotate(-0.5deg); }
+}
+
+.words-cloud {
+  position: relative;
+  height: 220px;
+  background: var(--color-bg-dark);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  margin-bottom: var(--space-2xl);
+}
+
+/* Hide the cloud entirely if all words are empty */
+.words-cloud:not(:has(.wc-word:not(:empty))) {
+  display: none;
+}
+
+.wc-word {
+  position: absolute;
+  left: var(--wx);
+  top: var(--wy);
+  font-size: var(--ws);
+  opacity: var(--wo);
+  color: var(--color-text-on-dark);
+  font-family: var(--font-primary);
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Hide empty word slots */
+.wc-word:empty {
+  display: none;
+}
+
+.wc-a { animation: wc-float-a 9s ease-in-out infinite; }
+.wc-b { animation: wc-float-b 11s ease-in-out infinite 1.5s; }
+.wc-c { animation: wc-float-c 13s ease-in-out infinite 0.7s; }
+.wc-d { animation: wc-float-d 10s ease-in-out infinite 2.3s; }
+.wc-e { animation: wc-float-e 12s ease-in-out infinite 0.4s; }
+
+/* Hide voice cards with no content */
+.voice-card:has(.voice-card__body:empty) {
+  display: none;
+}
+
 .section--voices {
   background-color: var(--color-bg-secondary);
 }
