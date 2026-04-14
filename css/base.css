@@ -60,8 +60,8 @@ a:hover {
 
 /* --- Selection --- */
 ::selection {
-  background-color: var(--color-accent-1);
-  color: #FFFFFF;
+  background-color: var(--color-brand);
+  color: var(--color-text-on-dark);
 }
 
 /* --- Focus styles --- */
@@ -76,9 +76,9 @@ a:hover {
   font-family: var(--font-primary);
   font-size: var(--text-sm);
   font-weight: var(--font-weight-bold);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--color-accent-1);
+  color: var(--color-text-muted);
   margin-bottom: var(--space-md);
 }
 

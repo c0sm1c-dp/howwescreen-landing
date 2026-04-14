@@ -34,7 +34,8 @@
       "Bash(find /Users/sophiadiaspeixoto/Desktop/claude -maxdepth 2 -name *.md ! -path */node_modules/*)",
       "Bash(find /Users/sophiadiaspeixoto/Desktop/claude -path */.agents/* -name *.md ! -path */node_modules/*)",
       "Bash(find /Users/sophiadiaspeixoto/Desktop/claude -path */.agents/* -type f ! -path */node_modules/*)",
-      "Bash(find /Users/sophiadiaspeixoto/Desktop/claude/howwescreen-landingpage/css -type f -name *.css)"
+      "Bash(find /Users/sophiadiaspeixoto/Desktop/claude/howwescreen-landingpage/css -type f -name *.css)",
+      "WebFetch(domain:o-p-e-n.com)"
     ]
   }
 }

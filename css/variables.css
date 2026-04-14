@@ -1,39 +1,41 @@
 /* ========================================
-   Theme Variables — Calm & Grounding
+   Theme Variables — Organic & Editorial
    ======================================== */
 
 :root {
   /* --- Primary Palette --- */
-  --color-bg-primary:       #F5F0E8;
-  --color-bg-secondary:     #EDE6D6;
-  --color-bg-tertiary:      #E2D9C8;
-  --color-bg-accent:        #D4C9B4;
-  --color-bg-dark:          #2C2418;
-  --color-text-primary:     #2C2418;
-  --color-text-secondary:   #5C4E3C;
-  --color-text-muted:       #8A7D6B;
-  --color-text-on-dark:     #F5F0E8;
-  --color-brand:            #6B4C3B;
-  --color-brand-hover:      #5A3D2E;
+  --color-bg-primary:       #F2EDE4;   /* linen */
+  --color-bg-secondary:     #EAE4D8;   /* cooler linen */
+  --color-bg-tertiary:      #D6D0C4;
+  --color-bg-accent:        #D6D0C4;
+  --color-bg-dark:          #0D0D0D;   /* near-black */
+  --color-bg-forest:        #1C3028;   /* forest green */
+  --color-bg-olive:         #5C5E3A;   /* olive — bg use only */
+  --color-text-primary:     #0D0D0D;   /* near-black */
+  --color-text-secondary:   #2B2B2B;
+  --color-text-muted:       #AEAEAE;   /* mid grey */
+  --color-text-on-dark:     #F2EDE4;   /* linen on dark */
+  --color-brand:            #1C3028;   /* forest green */
+  --color-brand-hover:      #14221C;   /* deeper forest */
 
-  /* --- Accent Colors (Palette A) --- */
-  --color-accent-1:         #995D81;   /* mauve-plum */
-  --color-accent-2:         #6689A1;   /* steel blue */
-  --color-accent-3:         #D8DC6A;   /* lime-olive */
-  --color-accent-4:         #EB8258;   /* burnt orange */
-  --color-accent-5:         #F6F740;   /* electric yellow */
+  /* --- Accent Colors --- */
+  --color-accent-1:         #1C3028;   /* forest green — primary accent */
+  --color-accent-2:         #1A3A5C;   /* deep cobalt — rare accent */
+  --color-accent-3:         #5C5E3A;   /* olive */
+  --color-accent-4:         #AEAEAE;   /* mid grey */
+  --color-accent-5:         #F2EDE4;   /* linen */
 
   /* --- CTA Colors --- */
-  --color-cta-bg:           #995D81;
-  --color-cta-text:         #FFFFFF;
-  --color-cta-hover-bg:     #824E6D;
+  --color-cta-bg:           #1C3028;   /* forest green */
+  --color-cta-text:         #F2EDE4;   /* linen */
+  --color-cta-hover-bg:     #14221C;
   --color-cta-secondary-bg: transparent;
-  --color-cta-secondary-border: #995D81;
-  --color-cta-secondary-text: #995D81;
+  --color-cta-secondary-border: #1C3028;
+  --color-cta-secondary-text: #1C3028;
 
   /* --- Borders --- */
-  --color-border:           #D4C9B4;
-  --color-border-light:     #E8E0D0;
+  --color-border:           #D6D0C4;
+  --color-border-light:     #E2DCD0;
 
   /* --- Typography --- */
   --font-primary:           'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -77,9 +79,9 @@
   --border-radius-pill:  9999px;
   --border-radius-card:  8px;
 
-  --shadow-sm:   0 1px 3px rgba(44, 36, 24, 0.06);
-  --shadow-md:   0 4px 12px rgba(44, 36, 24, 0.08);
-  --shadow-lg:   0 8px 30px rgba(44, 36, 24, 0.10);
+  --shadow-sm:   0 1px 3px rgba(13, 13, 13, 0.06);
+  --shadow-md:   0 4px 12px rgba(13, 13, 13, 0.08);
+  --shadow-lg:   0 8px 30px rgba(13, 13, 13, 0.10);
 
   --transition-speed:       0.4s;
   --transition-speed-fast:  0.2s;
@@ -101,6 +103,6 @@
   --btn-font-size:          1rem;
 
   /* --- Decorative --- */
-  --grain-opacity:          0.04;
+  --grain-opacity:          0.07;   /* slightly higher for organic/film feel */
   --decorative-border-style: solid;
 }
