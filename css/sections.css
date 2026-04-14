@@ -279,16 +279,13 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
+  /* Static, subtle tint — no animation to avoid dark banding on short sections */
   background: linear-gradient(
-    135deg,
-    rgba(92, 94, 58, 0.28),
-    rgba(26, 58, 92, 0.12),
-    rgba(13, 13, 13, 0.42),
-    rgba(92, 94, 58, 0.20),
-    rgba(26, 58, 92, 0.08)
+    160deg,
+    rgba(92, 94, 58, 0.14) 0%,
+    rgba(31, 43, 28, 0.04) 50%,
+    rgba(26, 58, 92, 0.10) 100%
   );
-  background-size: 300% 300%;
-  animation: hero-gradient-shift 14s ease-in-out infinite;
 }
 
 .section--problem::after,
@@ -297,7 +294,7 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-  opacity: 0.18;
+  opacity: 0.22;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   background-repeat: repeat;
@@ -411,12 +408,14 @@
   text-align: center;
   padding: var(--space-2xl) var(--space-lg);
   font-size: var(--text-lg);
-  color: var(--color-text-muted);
+  color: rgba(242, 237, 228, 0.5);
   font-style: italic;
+  font-family: var(--font-secondary);
 }
 
-.section-transition {
-  font-family: var(--font-secondary);
+/* Explicit override — base.css `p { color: ... }` beats inherited color */
+.section-transition p {
+  color: rgba(242, 237, 228, 0.5);
 }
 
 /* ---- DETOX SECTION (THE GUIDEBOOK) ---- */
@@ -530,6 +529,7 @@
 @media (min-width: 600px) {
   .detox-form__fields {
     flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .detox-form__fields .input {
@@ -538,7 +538,8 @@
   }
 
   .detox-form__fields .btn {
-    flex-shrink: 0;
+    flex: 0 0 100%;
+    width: 100%;
   }
 }
 
@@ -555,9 +556,11 @@
   gap: var(--space-sm);
 }
 
+/* Inputs side by side, button full-width on its own row below */
 @media (min-width: 600px) {
   .hero-form__fields {
     flex-direction: row;
+    flex-wrap: wrap;
   }
 
   .hero-form__fields .input {
@@ -566,7 +569,8 @@
   }
 
   .hero-form__fields .btn {
-    flex-shrink: 0;
+    flex: 0 0 100%;
+    width: 100%;
   }
 }
 
