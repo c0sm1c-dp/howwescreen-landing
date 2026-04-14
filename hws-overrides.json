@@ -3,20 +3,17 @@
     "img.navLogo": "assets/logo-cream.png",
     "nav.logoText": "",
     "img.footerLogo": "assets/logo-cream.png",
-    "voices.quote0.body": "I was surprised at how easy the guide made the detox. Something overwhelming became approachable and digestible. I feel like I’ve found a more sustainable relationship with my phone and deeper connections in my life because of the detox.",
+    "voices.quote0.body": "I was surprised at how easy the guide made the detox. Something overwhelming became approachable and digestible. I feel like I\u2019ve found a more sustainable relationship with my phone and deeper connections in my life because of the detox.",
     "voices.quote0.username": "Hannah",
-    "voices.quote0.likes": "★★★★★",
+    "voices.quote0.likes": "\u2605\u2605\u2605\u2605\u2605",
     "voices.word0": "connected",
     "voices.word1": "practical"
   },
   "sectionOrder": [
     "hero",
+    "detox",
     "problem",
     "voices",
-    "solution",
-    "detox",
-    "how-it-works",
-    "pricing",
     "faq"
   ],
   "hiddenSections": [],
