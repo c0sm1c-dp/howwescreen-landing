@@ -1,73 +1,124 @@
 /**
  * testimonial-stack.js
- * Vanilla JS stacked testimonial carousel.
+ * Editorial testimonial carousel — single card, serif quote, initials avatar,
+ * line navigation, prev/next arrows, swipe/drag support.
  * Must run after initSiteRenderer() has injected content into data-hws elements.
  */
 
 function initTestimonialStack() {
   var stack    = document.getElementById('testimonial-stack');
   var pagNav   = document.getElementById('testimonial-pagination');
+  var counterEl = document.getElementById('testimonial-counter');
+  var prevBtn  = document.getElementById('testimonial-prev');
+  var nextBtn  = document.getElementById('testimonial-next');
+
   if (!stack) return;
 
-  // Collect cards and filter out empty ones (no quote body text)
+  // Collect cards, filter out empty ones
   var allCards = Array.prototype.slice.call(stack.querySelectorAll('.voice-card'));
   var cards = allCards.filter(function(card) {
     var body = card.querySelector('.voice-card__body');
     return body && body.textContent.trim() !== '';
   });
 
-  // Hide cards with no content
+  // Hide empty cards
   allCards.forEach(function(card) {
-    if (cards.indexOf(card) === -1) {
-      card.style.display = 'none';
-    }
+    if (cards.indexOf(card) === -1) card.style.display = 'none';
   });
 
-  // Nothing to show
   if (cards.length === 0) {
     stack.style.display = 'none';
-    if (pagNav) pagNav.style.display = 'none';
+    var ctrlWrap = prevBtn && prevBtn.parentElement;
+    if (ctrlWrap) ctrlWrap.style.display = 'none';
     return;
   }
 
   var total       = cards.length;
   var activeIndex = 0;
-  var BEHIND      = 2; // how many cards peek behind the active
 
-  // ── PAGINATION DOTS ──────────────────────────────────────────────────────
-  var dots = [];
+  // ── INJECT BIG FADED INDEX NUMBER ──────────────────────────────────────────
+  var numEl = document.createElement('div');
+  numEl.className = 'et-number';
+  numEl.setAttribute('aria-hidden', 'true');
+  stack.insertBefore(numEl, stack.firstChild);
+
+  // ── INJECT AVATAR INTO EACH CARD FOOTER ────────────────────────────────────
+  cards.forEach(function(card) {
+    var footer = card.querySelector('.voice-card__footer');
+    if (!footer) return;
+    var avatarDiv = document.createElement('div');
+    avatarDiv.className = 'voice-card__avatar';
+    avatarDiv.setAttribute('aria-hidden', 'true');
+    footer.insertBefore(avatarDiv, footer.firstChild);
+  });
+
+  // ── LINE NAV ────────────────────────────────────────────────────────────────
+  var lines = [];
   if (pagNav) {
     cards.forEach(function(_, i) {
       var btn = document.createElement('button');
-      btn.className  = 'testimonial-dot';
-      btn.setAttribute('aria-label', 'Testimonial ' + (i + 1));
+      btn.className = 'testimonial-line';
+      btn.setAttribute('aria-label', 'Go to testimonial ' + (i + 1));
       btn.addEventListener('click', function() { navigate(i); });
       pagNav.appendChild(btn);
-      dots.push(btn);
+      lines.push(btn);
     });
   }
 
-  // ── POSITION UPDATE ───────────────────────────────────────────────────────
+  // ── HELPERS ─────────────────────────────────────────────────────────────────
+  function pad(n) { return n < 10 ? '0' + n : String(n); }
+
+  function getInitials(nameEl) {
+    if (!nameEl) return '?';
+    var raw = (nameEl.textContent || '').trim();
+    // Strip leading dash, em-dash, @
+    var name = raw.replace(/^[\u2014\-@\s]+/, '').trim();
+    if (!name) return '?';
+    var parts = name.split(/\s+/);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return name.slice(0, 2).toUpperCase();
+  }
+
+  // ── POSITION UPDATE ─────────────────────────────────────────────────────────
   function updatePositions() {
+    // Update big number
+    numEl.textContent = pad(activeIndex + 1);
+
+    // Update counter
+    if (counterEl) counterEl.textContent = pad(activeIndex + 1) + ' / ' + pad(total);
+
     cards.forEach(function(card, i) {
       var pos = (i - activeIndex + total) % total;
-      card.setAttribute('data-pos', pos <= BEHIND ? String(pos) : 'hidden');
-      card.style.transform = ''; // reset any drag offset
+      card.setAttribute('data-pos', pos === 0 ? '0' : 'hidden');
+      card.style.transform = ''; // clear any drag offset
+
+      // Update avatar initials for the active card
+      if (pos === 0) {
+        var nameEl   = card.querySelector('.voice-card__name');
+        var avatarEl = card.querySelector('.voice-card__avatar');
+        if (avatarEl) avatarEl.textContent = getInitials(nameEl);
+      }
     });
 
-    dots.forEach(function(dot, i) {
-      dot.classList.toggle('active', i === activeIndex);
-      dot.setAttribute('aria-current', i === activeIndex ? 'true' : 'false');
+    lines.forEach(function(line, i) {
+      line.classList.toggle('active', i === activeIndex);
+      line.setAttribute('aria-current', i === activeIndex ? 'true' : 'false');
     });
   }
 
-  // ── NAVIGATION ───────────────────────────────────────────────────────────
+  // ── NAVIGATION ──────────────────────────────────────────────────────────────
   function navigate(newIndex) {
     activeIndex = ((newIndex % total) + total) % total;
     updatePositions();
   }
 
-  // ── DRAG / SWIPE ─────────────────────────────────────────────────────────
+  // Prev / Next buttons
+  if (prevBtn) prevBtn.addEventListener('click', function() { navigate(activeIndex - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function() { navigate(activeIndex + 1); });
+
+  // ── DRAG / SWIPE ─────────────────────────────────────────────────────────────
   var dragging   = false;
   var dragStartX = 0;
   var dragNowX   = 0;
@@ -78,7 +129,6 @@ function initTestimonialStack() {
   }
 
   function onDragStart(e) {
-    // Only respond on the active (front) card
     if (e.currentTarget.getAttribute('data-pos') !== '0') return;
     dragging   = true;
     dragStartX = clientX(e);
@@ -91,9 +141,7 @@ function initTestimonialStack() {
     dragNowX = clientX(e);
     var offset = dragNowX - dragStartX;
     var frontCard = cards[activeIndex];
-    if (frontCard) {
-      frontCard.style.transform = 'translateX(' + offset + 'px)';
-    }
+    if (frontCard) frontCard.style.transform = 'translateX(' + offset + 'px)';
   }
 
   function onDragEnd() {
@@ -119,7 +167,7 @@ function initTestimonialStack() {
   window.addEventListener('mouseup',   onDragEnd);
   window.addEventListener('touchend',  onDragEnd);
 
-  // ── KEYBOARD ─────────────────────────────────────────────────────────────
+  // ── KEYBOARD ─────────────────────────────────────────────────────────────────
   stack.addEventListener('keydown', function(e) {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
       e.preventDefault();
@@ -131,6 +179,6 @@ function initTestimonialStack() {
     }
   });
 
-  // ── INIT ─────────────────────────────────────────────────────────────────
+  // ── INIT ─────────────────────────────────────────────────────────────────────
   updatePositions();
 }

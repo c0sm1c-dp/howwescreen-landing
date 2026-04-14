@@ -30,10 +30,10 @@
 }
 
 .btn--primary:hover {
-  background-color: var(--color-cta-hover-bg);
-  border-color: var(--color-cta-hover-bg);
+  background-color: var(--color-cta-bg);
+  border-color: var(--color-cta-bg);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 0 0 4px rgba(31, 43, 28, 0.12), 0 8px 28px rgba(31, 43, 28, 0.28);
 }
 
 .btn--secondary {
@@ -143,7 +143,7 @@
 .input:focus {
   outline: none;
   border-color: var(--color-accent-1);
-  box-shadow: 0 0 0 3px rgba(28, 48, 40, 0.12);
+  box-shadow: 0 0 0 3px rgba(31, 43, 28, 0.12);
 }
 
 .input--error {
@@ -244,6 +244,33 @@
   background: rgba(242, 237, 228, 0.07);
 }
 
+/* Nav CTA — linen bg + forest text on dark hero */
+.nav .nav__cta {
+  background-color: var(--color-text-on-dark);
+  color: var(--color-bg-forest);
+  border-color: var(--color-text-on-dark);
+}
+
+.nav .nav__cta:hover {
+  background-color: #E5E0D7;
+  border-color: #E5E0D7;
+  color: var(--color-bg-forest);
+  box-shadow: 0 0 0 3px rgba(242, 237, 228, 0.2), 0 6px 20px rgba(0,0,0,0.15);
+}
+
+/* Scrolled: nav CTA flips to forest */
+.nav--scrolled .nav__cta {
+  background-color: var(--color-cta-bg);
+  color: var(--color-cta-text);
+  border-color: var(--color-cta-bg);
+}
+
+.nav--scrolled .nav__cta:hover {
+  background-color: var(--color-cta-bg);
+  border-color: var(--color-cta-bg);
+  box-shadow: 0 0 0 4px rgba(31, 43, 28, 0.12), 0 8px 28px rgba(31, 43, 28, 0.28);
+}
+
 /* Scrolled: over light sections — switch to dark */
 .nav--scrolled {
   background-color: rgba(242, 237, 228, 0.92);
@@ -274,7 +301,7 @@
 .nav--scrolled .lang-toggle:hover {
   border-color: var(--color-accent-1);
   color: var(--color-accent-1);
-  background: rgba(28, 48, 40, 0.05);
+  background: rgba(31, 43, 28, 0.05);
 }
 
 .nav__inner {
@@ -645,13 +672,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(28, 48, 40, 0.25);
+  box-shadow: 0 4px 16px rgba(31, 43, 28, 0.25);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .share-fab:hover {
   transform: scale(1.1);
-  box-shadow: 0 6px 24px rgba(28, 48, 40, 0.35);
+  box-shadow: 0 6px 24px rgba(31, 43, 28, 0.35);
 }
 
 .share-fab svg {
@@ -752,7 +779,7 @@
 .share-bar .share-option:hover {
   border-color: var(--color-accent-1);
   color: var(--color-accent-1);
-  background-color: rgba(28, 48, 40, 0.05);
+  background-color: rgba(31, 43, 28, 0.05);
 }
 
 /* ---- LANGUAGE TOGGLE ---- */
@@ -779,7 +806,7 @@
 .lang-toggle:hover {
   border-color: var(--color-accent-1);
   color: var(--color-accent-1);
-  background: rgba(28, 48, 40, 0.05);
+  background: rgba(31, 43, 28, 0.05);
 }
 
 /* Mobile menu lang toggle */

@@ -109,8 +109,8 @@
 
 /* ---- Button pulse ---- */
 @keyframes gentlePulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(28, 48, 40, 0.3); }
-  50% { box-shadow: 0 0 0 12px rgba(28, 48, 40, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(31, 43, 28, 0.3); }
+  50% { box-shadow: 0 0 0 12px rgba(31, 43, 28, 0); }
 }
 
 /* ---- Stat count up effect (CSS) ---- */

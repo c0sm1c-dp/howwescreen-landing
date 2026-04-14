@@ -9,29 +9,29 @@
   --color-bg-tertiary:      #D6D0C4;
   --color-bg-accent:        #D6D0C4;
   --color-bg-dark:          #0D0D0D;   /* near-black */
-  --color-bg-forest:        #1C3028;   /* forest green */
+  --color-bg-forest:        #1F2B1C;   /* forest green — warm, olive-leaning */
   --color-bg-olive:         #5C5E3A;   /* olive — bg use only */
   --color-text-primary:     #0D0D0D;   /* near-black */
   --color-text-secondary:   #2B2B2B;
   --color-text-muted:       #AEAEAE;   /* mid grey */
   --color-text-on-dark:     #F2EDE4;   /* linen on dark */
-  --color-brand:            #1C3028;   /* forest green */
-  --color-brand-hover:      #14221C;   /* deeper forest */
+  --color-brand:            #1F2B1C;   /* forest green */
+  --color-brand-hover:      #131C12;   /* deeper forest */
 
   /* --- Accent Colors --- */
-  --color-accent-1:         #1C3028;   /* forest green — primary accent */
+  --color-accent-1:         #1F2B1C;   /* forest green — primary accent */
   --color-accent-2:         #1A3A5C;   /* deep cobalt — rare accent */
   --color-accent-3:         #5C5E3A;   /* olive */
   --color-accent-4:         #AEAEAE;   /* mid grey */
   --color-accent-5:         #F2EDE4;   /* linen */
 
   /* --- CTA Colors --- */
-  --color-cta-bg:           #1C3028;   /* forest green */
+  --color-cta-bg:           #1F2B1C;   /* forest green */
   --color-cta-text:         #F2EDE4;   /* linen */
-  --color-cta-hover-bg:     #14221C;
+  --color-cta-hover-bg:     #131C12;
   --color-cta-secondary-bg: transparent;
-  --color-cta-secondary-border: #1C3028;
-  --color-cta-secondary-text: #1C3028;
+  --color-cta-secondary-border: #1F2B1C;
+  --color-cta-secondary-text: #1F2B1C;
 
   /* --- Borders --- */
   --color-border:           #D6D0C4;
