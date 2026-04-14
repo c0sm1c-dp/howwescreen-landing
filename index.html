@@ -293,44 +293,44 @@
           <span class="wc-word wc-e" style="--wx:27%;--wy:36%;--ws:1.05rem;--wo:0.6"  data-hws="voices.word9"></span>
         </div>
 
-        <!-- Review cards — empty ones hide themselves via CSS -->
-        <div class="voices-grid">
-          <div class="voice-card reveal" style="--stagger:0">
+        <!-- Stacked testimonial cards — JS controls positioning after data injection -->
+        <div class="testimonial-stack reveal reveal-delay-3" id="testimonial-stack" role="region" aria-label="Testimonials" tabindex="0">
+          <div class="voice-card" data-hws-card="0">
             <div class="voice-card__body" data-hws="voices.quote0.body"></div>
             <div class="voice-card__footer">
               <span class="voice-card__name" data-hws="voices.quote0.username"></span>
               <span class="voice-card__stars" data-hws="voices.quote0.likes"></span>
             </div>
           </div>
-          <div class="voice-card reveal" style="--stagger:1">
+          <div class="voice-card" data-hws-card="1">
             <div class="voice-card__body" data-hws="voices.quote1.body"></div>
             <div class="voice-card__footer">
               <span class="voice-card__name" data-hws="voices.quote1.username"></span>
               <span class="voice-card__stars" data-hws="voices.quote1.likes"></span>
             </div>
           </div>
-          <div class="voice-card reveal" style="--stagger:2">
+          <div class="voice-card" data-hws-card="2">
             <div class="voice-card__body" data-hws="voices.quote2.body"></div>
             <div class="voice-card__footer">
               <span class="voice-card__name" data-hws="voices.quote2.username"></span>
               <span class="voice-card__stars" data-hws="voices.quote2.likes"></span>
             </div>
           </div>
-          <div class="voice-card reveal" style="--stagger:0">
+          <div class="voice-card" data-hws-card="3">
             <div class="voice-card__body" data-hws="voices.quote3.body"></div>
             <div class="voice-card__footer">
               <span class="voice-card__name" data-hws="voices.quote3.username"></span>
               <span class="voice-card__stars" data-hws="voices.quote3.likes"></span>
             </div>
           </div>
-          <div class="voice-card reveal" style="--stagger:1">
+          <div class="voice-card" data-hws-card="4">
             <div class="voice-card__body" data-hws="voices.quote4.body"></div>
             <div class="voice-card__footer">
               <span class="voice-card__name" data-hws="voices.quote4.username"></span>
               <span class="voice-card__stars" data-hws="voices.quote4.likes"></span>
             </div>
           </div>
-          <div class="voice-card reveal" style="--stagger:2">
+          <div class="voice-card" data-hws-card="5">
             <div class="voice-card__body" data-hws="voices.quote5.body"></div>
             <div class="voice-card__footer">
               <span class="voice-card__name" data-hws="voices.quote5.username"></span>
@@ -338,6 +338,9 @@
             </div>
           </div>
         </div>
+
+        <!-- Pagination dots -->
+        <nav class="testimonial-pagination reveal reveal-delay-4" id="testimonial-pagination" aria-label="Testimonial navigation"></nav>
       </div>
     </section>
 
@@ -591,6 +594,7 @@
   <script defer src="js/faq-accordion.js"></script>
   <script defer src="js/share.js"></script>
   <script defer src="js/i18n.js"></script>
+  <script defer src="js/testimonial-stack.js"></script>
   <script defer src="js/main.js"></script>
   <script defer src="js/editor-init.js"></script>
 </body>

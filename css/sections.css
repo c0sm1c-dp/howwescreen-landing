@@ -8,31 +8,42 @@
   display: flex;
   align-items: center;
   position: relative;
-  padding-top: calc(var(--nav-height, 70px) + var(--space-xl));
-  padding-bottom: var(--space-xl);
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 0;
+  padding-right: 0;
   min-height: 100vh;
   min-height: 100dvh;
+  background-color: var(--color-bg-forest);
 }
 
-/* The card container */
+/* Full-bleed: hero container breaks out of max-width constraints */
+.section--hero > .container {
+  max-width: 100%;
+  padding: 0;
+  width: 100%;
+}
+
+/* The card container — full bleed, no radius, no border */
 .hero-card {
   position: relative;
   overflow: hidden;
-  border-radius: 24px;
-  border: 1px solid rgba(242, 237, 228, 0.08);
-  background-color: var(--color-bg-forest);
-  box-shadow: 0 4px 40px rgba(13, 13, 13, 0.18);
-  min-height: 500px;
+  border-radius: 0;
+  border: none;
+  background-color: transparent;
+  box-shadow: none;
+  min-height: 100vh;
+  min-height: 100dvh;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  transition: box-shadow 0.5s ease;
+  transition: none;
 }
 
 .hero-card:hover {
-  box-shadow: 0 8px 60px rgba(13, 13, 13, 0.28);
+  box-shadow: none;
 }
 
 /* Animated gradient background */
@@ -61,12 +72,12 @@
 .hero-card__grain {
   position: absolute;
   inset: 0;
-  opacity: var(--grain-opacity, 0.04);
+  opacity: 0.22;
   pointer-events: none;
   z-index: 1;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  background-size: 150px;
+  background-size: 200px;
 }
 
 /* Content layer */
@@ -228,8 +239,9 @@
 
 @media (min-width: 768px) {
   .hero-card {
-    min-height: 600px;
-    border-radius: 48px;
+    min-height: 100vh;
+    min-height: 100dvh;
+    border-radius: 0;
   }
 
   .hero-card__content {
@@ -844,41 +856,89 @@
 }
 
 .section--voices {
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-bg-olive);
 }
 
-.voices-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-lg);
+.section--voices .section-label {
+  color: rgba(242, 237, 228, 0.5);
 }
 
-@media (max-width: 900px) {
-  .voices-grid { grid-template-columns: repeat(2, 1fr); }
+.section--voices .section-heading {
+  color: var(--color-text-on-dark);
 }
 
-@media (max-width: 560px) {
-  .voices-grid { grid-template-columns: 1fr; }
-}
+/* ---- TESTIMONIAL STACK ---- */
 
-/* Individual card */
-.voice-card {
+.testimonial-stack {
   position: relative;
-  background: var(--color-bg-primary);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--border-radius-card);
+  max-width: 620px;
+  margin: 0 auto var(--space-xl);
+  /* top padding creates visual room for the peeking back cards */
+  padding-top: 2rem;
+  cursor: default;
+  outline: none;
+}
+
+/* Individual card — glass effect on olive bg */
+.voice-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: rgba(242, 237, 228, 0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(242, 237, 228, 0.55);
+  border-radius: var(--border-radius-lg);
   padding: var(--space-xl) var(--space-lg) var(--space-lg);
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
-  /* staggered entrance delay via --stagger CSS custom property set inline */
-  transition: transform 0.3s var(--transition-easing),
-              box-shadow 0.3s var(--transition-easing);
+  transition: transform 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity   0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform, opacity;
+  user-select: none;
 }
 
-.voice-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 32px rgba(13, 13, 13, 0.10);
+/* Active card */
+.voice-card[data-pos="0"] {
+  position: relative; /* takes up flow → sets container height */
+  transform: translateY(0) scale(1);
+  opacity: 1;
+  z-index: 10;
+  cursor: grab;
+  box-shadow: 0 8px 40px rgba(13, 13, 13, 0.18);
+}
+
+.voice-card[data-pos="0"]:active,
+.voice-card.is-dragging {
+  cursor: grabbing;
+  transition: none; /* instant while dragging */
+}
+
+/* First card behind */
+.voice-card[data-pos="1"] {
+  transform: translateY(-14px) scale(0.96);
+  opacity: 0.75;
+  z-index: 9;
+  pointer-events: none;
+}
+
+/* Second card behind */
+.voice-card[data-pos="2"] {
+  transform: translateY(-26px) scale(0.92);
+  opacity: 0.45;
+  z-index: 8;
+  pointer-events: none;
+}
+
+/* Out of view */
+.voice-card[data-pos="hidden"],
+.voice-card:not([data-pos]) {
+  transform: scale(0.88) translateY(-30px);
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* Decorative opening quote mark */
@@ -890,30 +950,13 @@
   font-family: Georgia, serif;
   font-size: 3.5rem;
   line-height: 1;
-  color: var(--color-accent-1);
-  opacity: 0.18;
+  color: var(--color-bg-forest);
+  opacity: 0.12;
   pointer-events: none;
   user-select: none;
 }
 
-/* Override .reveal animation for voice cards: add scale in addition to translateY */
-.voice-card.reveal {
-  opacity: 0;
-  transform: translateY(var(--animation-distance, 30px)) scale(0.97);
-  transition: opacity var(--transition-speed, 0.4s) var(--transition-easing),
-              transform var(--transition-speed, 0.4s) var(--transition-easing);
-  /* stagger delay: each card in the row delays by --stagger * 80ms */
-  transition-delay: calc(var(--stagger, 0) * 0.08s);
-}
-
-.voice-card.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-  /* preserve hover after reveal */
-  transition: opacity var(--transition-speed, 0.4s) var(--transition-easing),
-              transform var(--transition-speed, 0.4s) var(--transition-easing),
-              box-shadow 0.3s var(--transition-easing);
-}
+/* Voice cards inside the stack are positioned by JS — no scroll-reveal on individual cards */
 
 /* Quote body — serif, slightly larger */
 .voice-card__body {
@@ -945,12 +988,42 @@
   content: '\2014\00a0'; /* — */
 }
 
+/* ---- TESTIMONIAL PAGINATION ---- */
+
+.testimonial-pagination {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  margin-top: var(--space-xl);
+}
+
+.testimonial-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(242, 237, 228, 0.3);
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
+.testimonial-dot.active {
+  background: rgba(242, 237, 228, 0.9);
+  transform: scale(1.3);
+}
+
+.testimonial-dot:hover:not(.active) {
+  background: rgba(242, 237, 228, 0.55);
+}
+
 /* Star rating */
 .voice-card__stars {
   font-size: var(--text-sm, 0.875rem);
-  color: var(--color-accent-2); /* cobalt */
+  color: var(--color-bg-forest); /* forest green on glass linen */
   letter-spacing: 0.05em;
   white-space: nowrap;
+  opacity: 0.7;
 }
 
 

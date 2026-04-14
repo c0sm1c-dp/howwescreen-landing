@@ -49,6 +49,7 @@ function applyOverridesAndInit() {
   initFAQAccordion();
   if (typeof initShare === 'function') initShare();
   if (typeof initI18n === 'function') initI18n();
+  if (typeof initTestimonialStack === 'function') initTestimonialStack();
 }
 
 // Initialize everything on DOM ready
