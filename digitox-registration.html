@@ -8,20 +8,21 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary:      #1F2B1C;   /* forest green */
-      --primary-deep: #131C12;   /* deeper forest — hover */
-      --linen:        #F2EDE4;   /* linen bg */
-      --linen-cool:   #EAE4D8;   /* cooler linen — card hover */
-      --near-black:   #0D0D0D;
+      --primary:        #1F2B1C;
+      --primary-deep:   #131C12;
+      --linen:          #F2EDE4;
+      --linen-cool:     #EAE4D8;
+      --near-black:     #0D0D0D;
       --text-secondary: #2B2B2B;
-      --text-muted:   #6A6460;
-      --white:        #FFFFFF;
-      --error:        #B91C1C;
-      --border:       #D6D0C4;
-      --border-light: #E2DCD0;
-      --card-checked: #E8EDE6;   /* light forest tint for selected state */
-      --font-sans:    'Helvetica Neue', Helvetica, Arial, sans-serif;
-      --font-serif:   Georgia, 'Times New Roman', serif;
+      --text-muted:     #6A6460;
+      --white:          #FFFFFF;
+      --error:          #B91C1C;
+      --border:         #D6D0C4;
+      --border-light:   #E2DCD0;
+      --card-checked:   #E8EDE6;
+      --olive:          #5C5E3A;
+      --font-sans:      'Helvetica Neue', Helvetica, Arial, sans-serif;
+      --font-serif:     Georgia, 'Times New Roman', serif;
     }
 
     html { font-size: 16px; }
@@ -30,173 +31,165 @@
       background: var(--linen);
       color: var(--near-black);
       font-family: var(--font-sans);
-      font-weight: 400;
       line-height: 1.7;
-      letter-spacing: 0.01em;
       min-height: 100vh;
-    }
-
-    .page-wrap {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
+      display: flex;
+      flex-direction: column;
     }
 
     /* ── Header ── */
     .form-header {
       background: var(--primary);
-      margin: -48px -24px 48px;
-      padding: 56px 24px 48px;
+      padding: 28px 32px 24px;
+      flex-shrink: 0;
     }
 
     .form-header .logo {
       display: block;
-      height: 32px;
+      height: 28px;
       width: auto;
-      margin-bottom: 28px;
-      opacity: 0.92;
-    }
-
-    .form-header h1 {
-      font-family: var(--font-serif);
-      font-size: clamp(1.9rem, 5vw, 2.8rem);
-      font-weight: 300;
-      color: var(--linen);
-      line-height: 1.18;
-      letter-spacing: 0.02em;
+      opacity: 0.9;
       margin-bottom: 20px;
     }
 
-    .form-header p {
-      font-size: 1rem;
-      color: rgba(242, 237, 228, 0.78);
-      max-width: 520px;
-      line-height: 1.75;
-      margin-bottom: 0;
+    .progress-bar-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    .form-header .header-divider {
-      border: none;
-      border-top: 1px solid rgba(242, 237, 228, 0.15);
-      margin: 32px 0;
+    .progress-bar {
+      flex: 1;
+      height: 2px;
+      background: rgba(242,237,228,0.15);
+      border-radius: 2px;
+      overflow: hidden;
     }
 
-    .form-header .please-read {
+    .progress-fill {
+      height: 100%;
+      background: var(--linen);
+      border-radius: 2px;
+      transition: width 0.4s ease;
+      width: 0%;
+    }
+
+    .progress-label {
       font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
+      color: rgba(242,237,228,0.45);
       text-transform: uppercase;
-      color: rgba(242, 237, 228, 0.4);
-      margin-bottom: 14px;
+      white-space: nowrap;
     }
 
-    .form-header .disclaimer {
-      font-size: 0.875rem;
-      color: rgba(242, 237, 228, 0.55);
-      line-height: 1.75;
-      max-width: 520px;
+    /* ── Main stage ── */
+    .stage {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
     }
 
-    .form-header .disclaimer p {
-      font-size: 0.875rem;
-      color: rgba(242, 237, 228, 0.55);
+    /* ── Steps ── */
+    .steps-container {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 48px 32px 32px;
+      max-width: 640px;
+      margin: 0 auto;
+      width: 100%;
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      pointer-events: none;
+    }
+
+    .step.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: all;
+    }
+
+    .step.exit-left {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    .step.exit-right {
+      opacity: 0;
+      transform: translateX(60px);
+    }
+
+    /* ── Step content ── */
+    .step-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--olive);
       margin-bottom: 12px;
     }
 
-    .form-header .disclaimer p:last-child {
-      margin-bottom: 0;
-    }
-
-    /* ── Section ── */
-    .form-section {
-      margin-bottom: 48px;
-    }
-
-    .section-header {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--border-light);
-    }
-
-    .section-number {
-      font-family: var(--font-sans);
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--linen);
-      background: var(--primary);
-      border: none;
-      border-radius: 50%;
-      width: 28px;
-      height: 28px;
-      min-width: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 2px;
-    }
-
-    .section-title {
+    .step-question {
       font-family: var(--font-serif);
-      font-size: 1.15rem;
+      font-size: clamp(1.4rem, 4vw, 2rem);
       font-weight: 300;
-      letter-spacing: 0.02em;
+      line-height: 1.25;
       color: var(--near-black);
+      margin-bottom: 8px;
+      letter-spacing: 0.01em;
     }
 
-    .section-desc {
-      font-size: 0.88rem;
+    .step-hint {
+      font-size: 0.85rem;
       color: var(--text-muted);
-      margin-top: 4px;
+      margin-bottom: 28px;
+      line-height: 1.5;
     }
 
-    /* ── Field group ── */
-    .field-group {
-      margin-bottom: 28px;
+    /* ── Inputs ── */
+    .field-wrap {
+      margin-bottom: 16px;
     }
 
     .field-label {
       display: block;
-      font-size: 0.9rem;
+      font-size: 0.82rem;
       font-weight: 600;
-      letter-spacing: 0.01em;
-      color: var(--near-black);
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      text-transform: uppercase;
       margin-bottom: 6px;
     }
 
-    .field-required {
-      color: var(--error);
-      margin-left: 2px;
-    }
-
-    .field-hint {
-      display: block;
-      font-size: 0.82rem;
-      color: var(--text-muted);
-      margin-bottom: 10px;
-      line-height: 1.5;
-    }
-
-    /* ── Text inputs ── */
     input[type="text"],
     input[type="email"],
     input[type="number"],
     select,
     textarea {
       width: 100%;
-      padding: 12px 14px;
+      padding: 14px 16px;
       font-family: var(--font-sans);
-      font-size: 0.9rem;
+      font-size: 1rem;
       color: var(--near-black);
       background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 4px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      outline: none;
       transition: border-color 0.2s;
       appearance: none;
       -webkit-appearance: none;
-      outline: none;
     }
 
     input[type="text"]:focus,
@@ -204,11 +197,17 @@
     input[type="number"]:focus,
     select:focus,
     textarea:focus {
-      border-color: var(--accent);
+      border-color: var(--primary);
+    }
+
+    input.has-error,
+    select.has-error,
+    textarea.has-error {
+      border-color: var(--error);
     }
 
     select {
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231C3028' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231F2B1C' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
       background-repeat: no-repeat;
       background-position: right 14px center;
       padding-right: 40px;
@@ -217,7 +216,27 @@
 
     textarea {
       resize: vertical;
-      min-height: 100px;
+      min-height: 110px;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field-error {
+      display: none;
+      font-size: 0.8rem;
+      color: var(--error);
+      margin-top: 6px;
+    }
+    .field-error.visible { display: block; }
+
+    .enter-hint {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 12px;
     }
 
     /* ── Radio / Checkbox cards ── */
@@ -225,11 +244,12 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      max-height: 55vh;
+      overflow-y: auto;
+      padding-right: 4px;
     }
 
-    .option-item {
-      position: relative;
-    }
+    .option-item { position: relative; }
 
     .option-item input[type="radio"],
     .option-item input[type="checkbox"] {
@@ -245,13 +265,13 @@
       gap: 12px;
       padding: 12px 14px;
       background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 4px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       color: var(--text-secondary);
-      transition: border-color 0.2s, background 0.2s;
-      line-height: 1.6;
+      transition: border-color 0.15s, background 0.15s;
+      line-height: 1.5;
     }
 
     .option-item label:hover {
@@ -259,8 +279,7 @@
       background: var(--linen-cool);
     }
 
-    .option-item input[type="radio"]:checked + label,
-    .option-item input[type="checkbox"]:checked + label {
+    .option-item input:checked + label {
       border-color: var(--primary);
       background: var(--card-checked);
       color: var(--near-black);
@@ -275,12 +294,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-top: 2px;
+      margin-top: 1px;
       transition: border-color 0.15s, background 0.15s;
     }
 
     .radio-ind { border-radius: 50%; }
-    .check-ind { border-radius: 4px; }
+    .check-ind { border-radius: 3px; }
 
     .option-item input[type="radio"]:checked + label .radio-ind {
       border-color: var(--primary);
@@ -297,13 +316,13 @@
       content: '';
       display: block;
       width: 10px;
-      height: 7px;
+      height: 6px;
       border-left: 2px solid var(--white);
       border-bottom: 2px solid var(--white);
       transform: rotate(-45deg) translate(1px, -1px);
     }
 
-    /* ── Single consent checkbox ── */
+    /* ── Consent checkboxes ── */
     .consent-item {
       display: flex;
       align-items: flex-start;
@@ -312,12 +331,12 @@
       background: var(--white);
       border: 1.5px solid var(--border);
       border-radius: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       cursor: pointer;
       transition: border-color 0.15s;
     }
 
-    .consent-item:hover { border-color: var(--primary); background: var(--linen-cool); }
+    .consent-item:hover { border-color: var(--primary); }
     .consent-item.checked { border-color: var(--primary); background: var(--card-checked); }
 
     .consent-item input[type="checkbox"] {
@@ -329,85 +348,184 @@
       cursor: pointer;
     }
 
-    .consent-item .consent-text {
-      font-size: 0.88rem;
+    .consent-text {
+      font-size: 0.875rem;
       color: #3A3530;
       line-height: 1.5;
     }
 
-    /* ── Inline errors ── */
-    .field-error {
-      display: none;
-      font-size: 0.82rem;
-      color: var(--error);
-      margin-top: 6px;
+    /* ── Intro step ── */
+    .intro-step {
+      text-align: left;
     }
 
-    .field-error.visible { display: block; }
-
-    input.has-error,
-    select.has-error,
-    textarea.has-error {
-      border-color: var(--error);
+    .intro-step .intro-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--olive);
+      margin-bottom: 16px;
     }
 
-    /* ── Submit ── */
-    .submit-area {
-      margin-top: 40px;
+    .intro-step h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 6vw, 3rem);
+      font-weight: 300;
+      line-height: 1.15;
+      color: var(--near-black);
+      margin-bottom: 20px;
+      letter-spacing: 0.01em;
     }
 
-    .submit-btn {
-      display: block;
+    .intro-step p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+
+    /* ── Gift info step ── */
+    .gift-card {
+      background: var(--primary);
+      border-radius: 8px;
+      padding: 32px 28px;
+    }
+
+    .gift-card .gift-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(242,237,228,0.4);
+      margin-bottom: 12px;
+    }
+
+    .gift-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      color: var(--linen);
+      margin-bottom: 14px;
+    }
+
+    .gift-card p {
+      font-size: 0.875rem;
+      color: rgba(242,237,228,0.65);
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+
+    .gift-card p:last-child { margin-bottom: 0; }
+
+    .gift-divider {
+      border: none;
+      border-top: 1px solid rgba(242,237,228,0.12);
+      margin: 20px 0;
+    }
+
+    .gift-card .please-read {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(242,237,228,0.35);
+      margin-bottom: 12px;
+    }
+
+    /* ── Navigation ── */
+    .nav-area {
+      padding: 20px 32px 32px;
+      max-width: 640px;
+      margin: 0 auto;
       width: 100%;
-      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .btn-continue {
+      background: var(--primary);
+      color: var(--linen);
+      border: none;
+      border-radius: 6px;
+      padding: 14px 28px;
       font-family: var(--font-sans);
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: uppercase;
-      color: var(--linen);
-      background: var(--primary);
-      border: none;
-      border-radius: 4px;
       cursor: pointer;
       transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .submit-btn:hover { background: var(--primary-deep); }
-    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-continue:hover { background: var(--primary-deep); }
+    .btn-continue:disabled { opacity: 0.5; cursor: not-allowed; }
 
-    .submit-note {
-      font-size: 0.8rem;
-      color: #7A7570;
-      text-align: center;
-      margin-top: 12px;
+    .btn-back {
+      background: transparent;
+      color: var(--text-muted);
+      border: none;
+      padding: 14px 4px;
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
     }
 
-    /* ── Form-level error ── */
-    .form-error-banner {
+    .btn-back:hover { color: var(--near-black); }
+    .btn-back.hidden { visibility: hidden; }
+
+    .skip-link {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      margin-left: auto;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      background: none;
+      border: none;
+      font-family: var(--font-sans);
+      padding: 4px 0;
+    }
+
+    .skip-link:hover { color: var(--near-black); }
+
+    /* ── Step-level error ── */
+    .step-error {
       display: none;
-      padding: 14px 16px;
-      background: #FEF2F2;
-      border: 1px solid #FCA5A5;
-      border-radius: 8px;
+      font-size: 0.82rem;
       color: var(--error);
-      font-size: 0.9rem;
-      margin-top: 16px;
+      margin-top: 10px;
     }
 
-    .form-error-banner.visible { display: block; }
+    .step-error.visible { display: block; }
 
-    /* ── Success state ── */
+    /* ── Success ── */
     #success-message {
       display: none;
-      padding: 56px 24px;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 56px 32px;
       text-align: center;
+      max-width: 520px;
+      margin: 0 auto;
     }
 
     #success-message .success-eyebrow {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.13em;
       text-transform: uppercase;
       color: var(--text-muted);
       margin-bottom: 16px;
@@ -417,7 +535,6 @@
       font-family: var(--font-serif);
       font-size: clamp(2rem, 6vw, 3rem);
       font-weight: 300;
-      letter-spacing: 0.02em;
       color: var(--near-black);
       margin-bottom: 20px;
     }
@@ -425,9 +542,8 @@
     #success-message p {
       font-size: 1rem;
       color: var(--text-secondary);
-      max-width: 480px;
-      margin: 0 auto 12px;
-      line-height: 1.7;
+      line-height: 1.75;
+      margin-bottom: 12px;
     }
 
     #success-message .signature {
@@ -435,151 +551,118 @@
       font-size: 0.9rem;
       color: var(--text-muted);
       font-style: italic;
-      margin-top: 8px;
     }
 
-    /* ── Gift block ── */
-    .gift-block {
-      background: var(--primary);
-      border-radius: 4px;
-      padding: 36px 32px;
-      margin-bottom: 48px;
+    /* ── Form error banner ── */
+    .form-error-banner {
+      display: none;
+      padding: 12px 16px;
+      background: #FEF2F2;
+      border: 1px solid #FCA5A5;
+      border-radius: 6px;
+      color: var(--error);
+      font-size: 0.875rem;
+      margin-top: 12px;
     }
 
-    .gift-block .gift-eyebrow {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: rgba(242, 237, 228, 0.45);
-      margin-bottom: 14px;
-    }
-
-    .gift-block h3 {
-      font-family: var(--font-serif);
-      font-size: 1.4rem;
-      font-weight: 300;
-      letter-spacing: 0.02em;
-      color: var(--linen);
-      margin-bottom: 16px;
-      line-height: 1.3;
-    }
-
-    .gift-block .gift-intro {
-      font-size: 0.95rem;
-      color: rgba(242, 237, 228, 0.78);
-      line-height: 1.75;
-      margin-bottom: 24px;
-    }
-
-    .gift-block .gift-divider {
-      border: none;
-      border-top: 1px solid rgba(242, 237, 228, 0.12);
-      margin-bottom: 20px;
-    }
-
-    .gift-block .please-read {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.13em;
-      text-transform: uppercase;
-      color: rgba(242, 237, 228, 0.4);
-      margin-bottom: 14px;
-    }
-
-    .gift-block .disclaimer p {
-      font-size: 0.85rem;
-      color: rgba(242, 237, 228, 0.5);
-      line-height: 1.75;
-      margin-bottom: 10px;
-    }
-
-    .gift-block .disclaimer p:last-child { margin-bottom: 0; }
-
-    /* ── Divider ── */
-    .section-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0 0 48px;
-    }
+    .form-error-banner.visible { display: block; }
 
     /* ── Responsive ── */
-    @media (min-width: 600px) {
-      .two-col {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-      }
+    @media (max-width: 500px) {
+      .step { padding: 36px 20px 24px; }
+      .nav-area { padding: 16px 20px 24px; }
+      .form-header { padding: 20px; }
+      .two-col { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<div class="page-wrap">
+  <!-- Header -->
+  <header class="form-header">
+    <img src="assets/logo-cream.png" alt="How We Screen" class="logo" />
+    <div class="progress-bar-wrap">
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <span class="progress-label" id="progress-label">0 / 18</span>
+    </div>
+  </header>
 
-  <!-- ── Success state ── -->
-  <div id="success-message">
+  <!-- Success -->
+  <div id="success-message" style="display:none; flex:1; flex-direction:column; align-items:center; justify-content:center; padding:56px 32px; text-align:center;">
     <p class="success-eyebrow">Registration confirmed</p>
     <h2>You're in.</h2>
-    <p>Check your inbox — you'll receive a confirmation email with your Google Meet link, the DigiTox guidebook, and your Telegram invite. We'll see you April 19th at 3PM EST. Come as you are.</p>
-    <p class="signature">— Sophia &amp; the How We Screen team</p>
+    <p>Check your inbox — you'll receive a confirmation email with your Google Meet link, the DigiTox guidebook, and your Telegram invite.</p>
+    <p>We'll see you April 19th at 3PM EST. Come as you are.</p>
+    <p class="signature">— Sophia</p>
   </div>
 
-  <!-- ── Form ── -->
-  <div id="form-wrap">
+  <!-- Stage -->
+  <div class="stage" id="stage">
+    <div class="steps-container" id="steps-container">
 
-    <header class="form-header">
-      <img src="assets/logo-cream.png" alt="How We Screen" class="logo" />
-      <h1>We're glad you're here.</h1>
-      <p>The 3-day digital detox runs April 19–22 at 3PM EST — four live sessions. This form takes about five minutes. There are no right answers, just honest ones. The more you share, the better we can hold the space for you.</p>
-    </header>
-
-    <form id="registration-form" novalidate>
-
-      <!-- ── Section 1: The basics ── -->
-      <section class="form-section">
-        <div class="section-header">
-          <span class="section-number">1</span>
-          <div>
-            <div class="section-title">The basics</div>
-          </div>
+      <!-- Step 0: Intro -->
+      <div class="step active" data-step="0">
+        <div class="intro-step">
+          <p class="intro-eyebrow">DigiTox — April 19–22</p>
+          <h1>We're glad you're here.</h1>
+          <p>This takes about five minutes. There are no right answers — just honest ones. The more you share, the better we can hold the space for you.</p>
         </div>
+      </div>
 
+      <!-- Step 1: Name -->
+      <div class="step" data-step="1">
+        <p class="step-eyebrow">The basics</p>
+        <h2 class="step-question">What's your name?</h2>
         <div class="two-col">
-          <div class="field-group">
-            <label class="field-label" for="firstName">First name <span class="field-required">*</span></label>
-            <input type="text" id="firstName" name="firstName" autocomplete="given-name" />
-            <span class="field-error" id="err-firstName">Please enter your first name.</span>
+          <div class="field-wrap">
+            <label class="field-label" for="firstName">First name</label>
+            <input type="text" id="firstName" name="firstName" autocomplete="given-name" placeholder="Sofia" />
           </div>
-          <div class="field-group">
-            <label class="field-label" for="lastName">Last name <span class="field-required">*</span></label>
-            <input type="text" id="lastName" name="lastName" autocomplete="family-name" />
-            <span class="field-error" id="err-lastName">Please enter your last name.</span>
+          <div class="field-wrap">
+            <label class="field-label" for="lastName">Last name</label>
+            <input type="text" id="lastName" name="lastName" autocomplete="family-name" placeholder="Díaz" />
           </div>
         </div>
+        <p class="step-error" id="err-name">Please enter your first and last name.</p>
+      </div>
 
-        <div class="field-group">
-          <label class="field-label" for="email">Email address <span class="field-required">*</span></label>
-          <input type="email" id="email" name="email" autocomplete="email" />
-          <span class="field-error" id="err-email">Please enter a valid email address.</span>
+      <!-- Step 2: Email -->
+      <div class="step" data-step="2">
+        <p class="step-eyebrow">The basics</p>
+        <h2 class="step-question">And your email?</h2>
+        <p class="step-hint">This is where we'll send your confirmation and session links.</p>
+        <div class="field-wrap">
+          <input type="email" id="email" name="email" autocomplete="email" placeholder="you@example.com" />
         </div>
+        <p class="step-error" id="err-email">Please enter a valid email address.</p>
+        <p class="enter-hint">Press Enter ↵ to continue</p>
+      </div>
 
+      <!-- Step 3: Location + Age -->
+      <div class="step" data-step="3">
+        <p class="step-eyebrow">The basics</p>
+        <h2 class="step-question">Where are you based?</h2>
+        <p class="step-hint">Both optional — helps us understand who's coming.</p>
         <div class="two-col">
-          <div class="field-group">
-            <label class="field-label" for="location">Where are you based?</label>
-            <span class="field-hint">City, country — optional</span>
-            <input type="text" id="location" name="location" placeholder="e.g. Miami, Florida" />
+          <div class="field-wrap">
+            <label class="field-label" for="location">City, country</label>
+            <input type="text" id="location" name="location" placeholder="Miami, Florida" />
           </div>
-          <div class="field-group">
+          <div class="field-wrap">
             <label class="field-label" for="age">Age</label>
-            <span class="field-hint">Optional</span>
-            <input type="number" id="age" name="age" min="13" max="100" />
+            <input type="number" id="age" name="age" min="13" max="100" placeholder="28" />
           </div>
         </div>
+      </div>
 
-        <div class="field-group">
-          <label class="field-label" for="timezone">What time is 3PM EST where you are? <span class="field-required">*</span></label>
-          <span class="field-hint">We meet live on April 19, 20, 21 &amp; 22 at 3PM EST — just want to make sure the timing works before you commit your spot.</span>
+      <!-- Step 4: Timezone -->
+      <div class="step" data-step="4">
+        <p class="step-eyebrow">The basics</p>
+        <h2 class="step-question">What time is 3PM EST where you are?</h2>
+        <p class="step-hint">We meet live April 19–22 at 3PM EST — just want to make sure the timing works.</p>
+        <div class="field-wrap">
           <select id="timezone" name="timezone">
             <option value="" disabled selected>Select your timezone</option>
             <option value="3PM EST — New York / Miami">3PM EST — New York / Miami</option>
@@ -589,506 +672,630 @@
             <option value="4PM ART — Buenos Aires">4PM ART — Buenos Aires</option>
             <option value="8PM GMT — London">8PM GMT — London</option>
             <option value="9PM CET — Paris / Berlin / Madrid">9PM CET — Paris / Berlin / Madrid</option>
-            <option value="A different timezone — I've done the math and I can make it work">A different timezone — I've done the math and I can make it work</option>
+            <option value="A different timezone — I've done the math and I can make it work">A different timezone — I've done the math</option>
             <option value="I'm not sure yet — I need to check">I'm not sure yet — I need to check</option>
           </select>
-          <span class="field-error" id="err-timezone">Please select your timezone.</span>
         </div>
+        <p class="step-error" id="err-timezone">Please select your timezone.</p>
+      </div>
 
-        <div class="field-group">
-          <label class="field-label">How did you hear about How We Screen?</label>
-          <div class="option-list" id="source-list">
-            <div class="option-item">
-              <input type="radio" name="source" id="source-instagram" value="Instagram" />
-              <label for="source-instagram"><span class="option-indicator radio-ind"></span>Instagram</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="source" id="source-tiktok" value="TikTok" />
-              <label for="source-tiktok"><span class="option-indicator radio-ind"></span>TikTok</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="source" id="source-linkedin" value="LinkedIn" />
-              <label for="source-linkedin"><span class="option-indicator radio-ind"></span>LinkedIn</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="source" id="source-friend" value="A friend or colleague" />
-              <label for="source-friend"><span class="option-indicator radio-ind"></span>A friend or colleague</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="source" id="source-email" value="Email" />
-              <label for="source-email"><span class="option-indicator radio-ind"></span>Email</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="source" id="source-other" value="Other" />
-              <label for="source-other"><span class="option-indicator radio-ind"></span>Other</label>
-            </div>
+      <!-- Step 5: Source -->
+      <div class="step" data-step="5">
+        <p class="step-eyebrow">The basics</p>
+        <h2 class="step-question">How did you find How We Screen?</h2>
+        <div class="option-list">
+          <div class="option-item">
+            <input type="radio" name="source" id="src-instagram" value="Instagram" />
+            <label for="src-instagram"><span class="option-indicator radio-ind"></span>Instagram</label>
           </div>
-        </div>
-      </section>
-
-      <hr class="section-divider" />
-
-      <!-- ── Section 2: Where you are now ── -->
-      <section class="form-section">
-        <div class="section-header">
-          <span class="section-number">2</span>
-          <div>
-            <div class="section-title">Where you are now</div>
-            <div class="section-desc">No right or wrong answers here. This is just a snapshot — honest is better than polished.</div>
+          <div class="option-item">
+            <input type="radio" name="source" id="src-tiktok" value="TikTok" />
+            <label for="src-tiktok"><span class="option-indicator radio-ind"></span>TikTok</label>
           </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">How would you describe your current relationship with your phone or screens? <span class="field-required">*</span></label>
-          <div class="option-list" id="screenRelationship-list">
-            <div class="option-item">
-              <input type="radio" name="screenRelationship" id="sr-1" value="It's fine — I just want to be more intentional" />
-              <label for="sr-1"><span class="option-indicator radio-ind"></span>It's fine — I just want to be more intentional</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="screenRelationship" id="sr-2" value="I notice I'm on it more than I'd like, but it's manageable" />
-              <label for="sr-2"><span class="option-indicator radio-ind"></span>I notice I'm on it more than I'd like, but it's manageable</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="screenRelationship" id="sr-3" value="It's affecting my focus, sleep, or mood regularly" />
-              <label for="sr-3"><span class="option-indicator radio-ind"></span>It's affecting my focus, sleep, or mood regularly</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="screenRelationship" id="sr-4" value="It feels out of control and I don't know how to change it" />
-              <label for="sr-4"><span class="option-indicator radio-ind"></span>It feels out of control and I don't know how to change it</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="screenRelationship" id="sr-5" value="I'm not sure — that's partly why I'm here" />
-              <label for="sr-5"><span class="option-indicator radio-ind"></span>I'm not sure — that's partly why I'm here</label>
-            </div>
+          <div class="option-item">
+            <input type="radio" name="source" id="src-linkedin" value="LinkedIn" />
+            <label for="src-linkedin"><span class="option-indicator radio-ind"></span>LinkedIn</label>
           </div>
-          <span class="field-error" id="err-screenRelationship">Please select one option.</span>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Which of these do you relate to?</label>
-          <span class="field-hint">Select all that apply</span>
-          <div class="option-list" id="patterns-list">
-            <div class="option-item">
-              <input type="checkbox" name="patterns" id="pat-1" value="I pick up my phone without meaning to" />
-              <label for="pat-1"><span class="option-indicator check-ind"></span>I pick up my phone without meaning to</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="patterns" id="pat-2" value="I doom scroll before bed even when I'm tired" />
-              <label for="pat-2"><span class="option-indicator check-ind"></span>I doom scroll before bed even when I'm tired</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="patterns" id="pat-3" value="I feel anxious when I don't have my phone nearby" />
-              <label for="pat-3"><span class="option-indicator check-ind"></span>I feel anxious when I don't have my phone nearby</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="patterns" id="pat-4" value="I lose track of time on social media" />
-              <label for="pat-4"><span class="option-indicator check-ind"></span>I lose track of time on social media</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="patterns" id="pat-5" value="I compare myself to others online and feel worse after" />
-              <label for="pat-5"><span class="option-indicator check-ind"></span>I compare myself to others online and feel worse after</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="patterns" id="pat-6" value="I struggle to be present in conversations or real-life moments" />
-              <label for="pat-6"><span class="option-indicator check-ind"></span>I struggle to be present in conversations or real-life moments</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="patterns" id="pat-7" value="I use my phone to avoid feelings or uncomfortable situations" />
-              <label for="pat-7"><span class="option-indicator check-ind"></span>I use my phone to avoid feelings or uncomfortable situations</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="patterns" id="pat-8" value="I feel like I should be able to just stop — but I can't" />
-              <label for="pat-8"><span class="option-indicator check-ind"></span>I feel like I should be able to just stop — but I can't</label>
-            </div>
+          <div class="option-item">
+            <input type="radio" name="source" id="src-friend" value="A friend or colleague" />
+            <label for="src-friend"><span class="option-indicator radio-ind"></span>A friend or colleague</label>
           </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Which apps take up the most of your time?</label>
-          <span class="field-hint">Select all that apply</span>
-          <div class="option-list" id="apps-list">
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-1" value="Instagram" />
-              <label for="app-1"><span class="option-indicator check-ind"></span>Instagram</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-2" value="TikTok" />
-              <label for="app-2"><span class="option-indicator check-ind"></span>TikTok</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-3" value="YouTube" />
-              <label for="app-3"><span class="option-indicator check-ind"></span>YouTube</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-4" value="Twitter / X" />
-              <label for="app-4"><span class="option-indicator check-ind"></span>Twitter / X</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-5" value="LinkedIn" />
-              <label for="app-5"><span class="option-indicator check-ind"></span>LinkedIn</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-6" value="WhatsApp / Telegram" />
-              <label for="app-6"><span class="option-indicator check-ind"></span>WhatsApp / Telegram</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-7" value="Reddit" />
-              <label for="app-7"><span class="option-indicator check-ind"></span>Reddit</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-8" value="Email" />
-              <label for="app-8"><span class="option-indicator check-ind"></span>Email</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-9" value="News apps" />
-              <label for="app-9"><span class="option-indicator check-ind"></span>News apps</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="apps" id="app-10" value="Other" />
-              <label for="app-10"><span class="option-indicator check-ind"></span>Other</label>
-            </div>
+          <div class="option-item">
+            <input type="radio" name="source" id="src-email" value="Email" />
+            <label for="src-email"><span class="option-indicator radio-ind"></span>Email</label>
           </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="screenFeeling">In your own words: what does your screen use feel like right now?</label>
-          <textarea id="screenFeeling" name="screenFeeling" placeholder="A sentence or two is fine. There's no wrong answer — just say it as it is."></textarea>
-        </div>
-      </section>
-
-      <hr class="section-divider" />
-
-      <!-- ── Section 3: What you're hoping for ── -->
-      <section class="form-section">
-        <div class="section-header">
-          <span class="section-number">3</span>
-          <div>
-            <div class="section-title">What you're hoping for</div>
-            <div class="section-desc">This is where we start to get curious together.</div>
+          <div class="option-item">
+            <input type="radio" name="source" id="src-other" value="Other" />
+            <label for="src-other"><span class="option-indicator radio-ind"></span>Other</label>
           </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">What are you hoping to get from the DigiTox?</label>
-          <span class="field-hint">Select all that apply</span>
-          <div class="option-list" id="hoping-list">
-            <div class="option-item">
-              <input type="checkbox" name="hoping" id="hop-1" value="More awareness of my habits" />
-              <label for="hop-1"><span class="option-indicator check-ind"></span>More awareness of my habits</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="hoping" id="hop-2" value="Practical tools I can actually use" />
-              <label for="hop-2"><span class="option-indicator check-ind"></span>Practical tools I can actually use</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="hoping" id="hop-3" value="A sense of calm or reset" />
-              <label for="hop-3"><span class="option-indicator check-ind"></span>A sense of calm or reset</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="hoping" id="hop-4" value="Community — people working on this too" />
-              <label for="hop-4"><span class="option-indicator check-ind"></span>Community — people working on this too</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="hoping" id="hop-5" value="A starting point for a longer-term change" />
-              <label for="hop-5"><span class="option-indicator check-ind"></span>A starting point for a longer-term change</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="hoping" id="hop-6" value="To feel less controlled by my phone" />
-              <label for="hop-6"><span class="option-indicator check-ind"></span>To feel less controlled by my phone</label>
-            </div>
-            <div class="option-item">
-              <input type="checkbox" name="hoping" id="hop-7" value="To understand why this is so hard to change" />
-              <label for="hop-7"><span class="option-indicator check-ind"></span>To understand why this is so hard to change</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="struggling">Is there anything specific you're struggling with that you'd like to work through?</label>
-          <textarea id="struggling" name="struggling" placeholder="Optional — but the more you share, the better we can hold the space."></textarea>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Have you tried anything before to change your screen habits?</label>
-          <div class="option-list" id="triedBefore-list">
-            <div class="option-item">
-              <input type="radio" name="triedBefore" id="tb-1" value="Yes — it helped a little but didn't stick" />
-              <label for="tb-1"><span class="option-indicator radio-ind"></span>Yes — it helped a little but didn't stick</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="triedBefore" id="tb-2" value="Yes — it didn't really work" />
-              <label for="tb-2"><span class="option-indicator radio-ind"></span>Yes — it didn't really work</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="triedBefore" id="tb-3" value="No — this is my first time trying something like this" />
-              <label for="tb-3"><span class="option-indicator radio-ind"></span>No — this is my first time trying something like this</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="triedBefore" id="tb-4" value="I've thought about it but never followed through" />
-              <label for="tb-4"><span class="option-indicator radio-ind"></span>I've thought about it but never followed through</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="whatTheyTried">If yes — what did you try, and what happened?</label>
-          <textarea id="whatTheyTried" name="whatTheyTried" placeholder="Apps, challenges, cold turkey... whatever you tried."></textarea>
-        </div>
-      </section>
-
-      <hr class="section-divider" />
-
-      <!-- ── Section 4: Logistics ── -->
-      <section class="form-section">
-        <div class="section-header">
-          <span class="section-number">4</span>
-          <div>
-            <div class="section-title">Logistics</div>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Will you be able to attend all four live sessions? <span class="field-required">*</span></label>
-          <span class="field-hint">April 19, 20, 21 &amp; 22 · 3PM EST · 45 minutes each</span>
-          <div class="option-list" id="canAttend-list">
-            <div class="option-item">
-              <input type="radio" name="canAttend" id="ca-1" value="Yes, I can make all four" />
-              <label for="ca-1"><span class="option-indicator radio-ind"></span>Yes, I can make all four</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="canAttend" id="ca-2" value="I can make most of them" />
-              <label for="ca-2"><span class="option-indicator radio-ind"></span>I can make most of them</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="canAttend" id="ca-3" value="I'm not sure yet — I still want to register" />
-              <label for="ca-3"><span class="option-indicator radio-ind"></span>I'm not sure yet — I still want to register</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="canAttend" id="ca-4" value="I might need the recap — will replays be available?" />
-              <label for="ca-4"><span class="option-indicator radio-ind"></span>I might need the recap — will replays be available?</label>
-            </div>
-          </div>
-          <span class="field-error" id="err-canAttend">Please select one option.</span>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label">Do you have access to Telegram? <span class="field-required">*</span></label>
-          <span class="field-hint">We use a private Telegram group between sessions for midday check-ins and community support.</span>
-          <div class="option-list" id="hasTelegram-list">
-            <div class="option-item">
-              <input type="radio" name="hasTelegram" id="ht-1" value="Yes, I'm already on it" />
-              <label for="ht-1"><span class="option-indicator radio-ind"></span>Yes, I'm already on it</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="hasTelegram" id="ht-2" value="No, but I'm willing to download it" />
-              <label for="ht-2"><span class="option-indicator radio-ind"></span>No, but I'm willing to download it</label>
-            </div>
-            <div class="option-item">
-              <input type="radio" name="hasTelegram" id="ht-3" value="No, and I'd prefer not to" />
-              <label for="ht-3"><span class="option-indicator radio-ind"></span>No, and I'd prefer not to</label>
-            </div>
-          </div>
-          <span class="field-error" id="err-hasTelegram">Please select one option.</span>
-        </div>
-      </section>
-
-      <hr class="section-divider" />
-
-      <!-- ── Section 5: Anything else ── -->
-      <section class="form-section">
-        <div class="section-header">
-          <span class="section-number">5</span>
-          <div>
-            <div class="section-title">Anything else?</div>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="anythingElse">Is there anything else you'd like us to know before we begin?</label>
-          <textarea id="anythingElse" name="anythingElse" placeholder="This is your space — use it however feels right."></textarea>
-        </div>
-      </section>
-
-      <hr class="section-divider" />
-
-      <!-- ── Gift + Disclaimer block ── -->
-      <div class="gift-block">
-        <p class="gift-eyebrow">A note before you go further</p>
-        <h3>This is a gift.</h3>
-        <p class="gift-intro">To celebrate our inaugural cohort, we're offering this experience as a gift to the community. No payment required — just show up. At the end of the detox, we'll invite those who found value in it to support the work with an optional donation. There's no obligation, no pressure. We're doing this because we believe in it, and we want to share it with people who are ready.</p>
-
-        <hr class="gift-divider" />
-
-        <p class="please-read">Please read before submitting</p>
-        <div class="disclaimer">
-          <p>The 3-day digital detox is a wellness program grounded in behavioral psychology, nervous system regulation, and intentional technology use. It is not therapy, and Sophia Dias is not a licensed therapist, counselor, or medical professional.</p>
-          <p>This program is designed to help you build awareness and develop a more intentional relationship with technology. It is not a substitute for professional mental health support. If you are experiencing significant distress, anxiety, depression, or any mental health concerns, we encourage you to seek support from a qualified professional alongside this program.</p>
-          <p>By registering, you acknowledge that you are participating voluntarily and that this program is educational and experiential in nature.</p>
         </div>
       </div>
 
-      <hr class="section-divider" />
-
-      <!-- ── Section 6: Before you submit ── -->
-      <section class="form-section">
-        <div class="section-header">
-          <span class="section-number">6</span>
-          <div>
-            <div class="section-title">Before you submit</div>
+      <!-- Step 6: Screen relationship -->
+      <div class="step" data-step="6">
+        <p class="step-eyebrow">Where you are now</p>
+        <h2 class="step-question">How would you describe your current relationship with your phone?</h2>
+        <div class="option-list">
+          <div class="option-item">
+            <input type="radio" name="screenRelationship" id="sr-1" value="It's fine — I just want to be more intentional" />
+            <label for="sr-1"><span class="option-indicator radio-ind"></span>It's fine — I just want to be more intentional</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="screenRelationship" id="sr-2" value="I notice I'm on it more than I'd like, but it's manageable" />
+            <label for="sr-2"><span class="option-indicator radio-ind"></span>I notice I'm on it more than I'd like, but it's manageable</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="screenRelationship" id="sr-3" value="It's affecting my focus, sleep, or mood regularly" />
+            <label for="sr-3"><span class="option-indicator radio-ind"></span>It's affecting my focus, sleep, or mood regularly</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="screenRelationship" id="sr-4" value="It feels out of control and I don't know how to change it" />
+            <label for="sr-4"><span class="option-indicator radio-ind"></span>It feels out of control and I don't know how to change it</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="screenRelationship" id="sr-5" value="I'm not sure — that's partly why I'm here" />
+            <label for="sr-5"><span class="option-indicator radio-ind"></span>I'm not sure — that's partly why I'm here</label>
           </div>
         </div>
+        <p class="step-error" id="err-screenRelationship">Please select one option.</p>
+      </div>
 
-        <div class="field-group">
-          <label class="consent-item" id="disclaimer-wrap">
-            <input type="checkbox" id="disclaimerAgreed" name="disclaimerAgreed" />
-            <span class="consent-text">
-              I've read and understand that the DigiTox is a wellness program, not therapy or medical advice. Sophia Dias is not a licensed therapist or medical professional. This program does not replace professional mental health support. <span class="field-required">*</span>
-            </span>
-          </label>
-          <span class="field-error" id="err-disclaimerAgreed">You must agree to this to continue.</span>
-
-          <label class="consent-item" id="emailconsent-wrap">
-            <input type="checkbox" id="emailConsent" name="emailConsent" />
-            <span class="consent-text">
-              By submitting this form I agree to receive emails and promotional materials from How We Screen. I can unsubscribe at any time. <span class="field-required">*</span>
-            </span>
-          </label>
-          <span class="field-error" id="err-emailConsent">You must agree to this to continue.</span>
-        </div>
-
-        <div class="submit-area">
-          <button type="submit" class="submit-btn" id="submit-btn">Register for the DigiTox</button>
-          <p class="submit-note">Free for beta cohort. No payment required.</p>
-          <div class="form-error-banner" id="form-error-banner">
-            Something went wrong — please try again or email <a href="mailto:hello@howwescreen.org">hello@howwescreen.org</a>
+      <!-- Step 7: Patterns -->
+      <div class="step" data-step="7">
+        <p class="step-eyebrow">Where you are now</p>
+        <h2 class="step-question">Which of these do you relate to?</h2>
+        <p class="step-hint">Select all that apply.</p>
+        <div class="option-list">
+          <div class="option-item">
+            <input type="checkbox" name="patterns" id="pat-1" value="I pick up my phone without meaning to" />
+            <label for="pat-1"><span class="option-indicator check-ind"></span>I pick up my phone without meaning to</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="patterns" id="pat-2" value="I doom scroll before bed even when I'm tired" />
+            <label for="pat-2"><span class="option-indicator check-ind"></span>I doom scroll before bed even when I'm tired</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="patterns" id="pat-3" value="I feel anxious when I don't have my phone nearby" />
+            <label for="pat-3"><span class="option-indicator check-ind"></span>I feel anxious when I don't have my phone nearby</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="patterns" id="pat-4" value="I lose track of time on social media" />
+            <label for="pat-4"><span class="option-indicator check-ind"></span>I lose track of time on social media</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="patterns" id="pat-5" value="I compare myself to others online and feel worse after" />
+            <label for="pat-5"><span class="option-indicator check-ind"></span>I compare myself to others online and feel worse after</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="patterns" id="pat-6" value="I struggle to be present in conversations or real-life moments" />
+            <label for="pat-6"><span class="option-indicator check-ind"></span>I struggle to be present in real-life moments</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="patterns" id="pat-7" value="I use my phone to avoid feelings or uncomfortable situations" />
+            <label for="pat-7"><span class="option-indicator check-ind"></span>I use my phone to avoid feelings or discomfort</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="patterns" id="pat-8" value="I feel like I should be able to just stop — but I can't" />
+            <label for="pat-8"><span class="option-indicator check-ind"></span>I feel like I should be able to just stop — but I can't</label>
           </div>
         </div>
-      </section>
+      </div>
 
+      <!-- Step 8: Apps -->
+      <div class="step" data-step="8">
+        <p class="step-eyebrow">Where you are now</p>
+        <h2 class="step-question">Which apps take up the most of your time?</h2>
+        <p class="step-hint">Select all that apply.</p>
+        <div class="option-list">
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-1" value="Instagram" />
+            <label for="app-1"><span class="option-indicator check-ind"></span>Instagram</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-2" value="TikTok" />
+            <label for="app-2"><span class="option-indicator check-ind"></span>TikTok</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-3" value="YouTube" />
+            <label for="app-3"><span class="option-indicator check-ind"></span>YouTube</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-4" value="Twitter / X" />
+            <label for="app-4"><span class="option-indicator check-ind"></span>Twitter / X</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-5" value="LinkedIn" />
+            <label for="app-5"><span class="option-indicator check-ind"></span>LinkedIn</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-6" value="WhatsApp / Telegram" />
+            <label for="app-6"><span class="option-indicator check-ind"></span>WhatsApp / Telegram</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-7" value="Reddit" />
+            <label for="app-7"><span class="option-indicator check-ind"></span>Reddit</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-8" value="Email" />
+            <label for="app-8"><span class="option-indicator check-ind"></span>Email</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-9" value="News apps" />
+            <label for="app-9"><span class="option-indicator check-ind"></span>News apps</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="apps" id="app-10" value="Other" />
+            <label for="app-10"><span class="option-indicator check-ind"></span>Other</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 9: Screen feeling -->
+      <div class="step" data-step="9">
+        <p class="step-eyebrow">Where you are now</p>
+        <h2 class="step-question">In your own words — what does your screen use feel like right now?</h2>
+        <p class="step-hint">A sentence or two is fine. There's no wrong answer.</p>
+        <div class="field-wrap">
+          <textarea id="screenFeeling" name="screenFeeling" placeholder="Say it as it is..."></textarea>
+        </div>
+        <p class="enter-hint">Press Enter ↵ to continue, or click Continue below</p>
+      </div>
+
+      <!-- Step 10: Hoping -->
+      <div class="step" data-step="10">
+        <p class="step-eyebrow">What you're hoping for</p>
+        <h2 class="step-question">What are you hoping to get from the DigiTox?</h2>
+        <p class="step-hint">Select all that apply.</p>
+        <div class="option-list">
+          <div class="option-item">
+            <input type="checkbox" name="hoping" id="hop-1" value="More awareness of my habits" />
+            <label for="hop-1"><span class="option-indicator check-ind"></span>More awareness of my habits</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="hoping" id="hop-2" value="Practical tools I can actually use" />
+            <label for="hop-2"><span class="option-indicator check-ind"></span>Practical tools I can actually use</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="hoping" id="hop-3" value="A sense of calm or reset" />
+            <label for="hop-3"><span class="option-indicator check-ind"></span>A sense of calm or reset</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="hoping" id="hop-4" value="Community — people working on this too" />
+            <label for="hop-4"><span class="option-indicator check-ind"></span>Community — people working on this too</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="hoping" id="hop-5" value="A starting point for a longer-term change" />
+            <label for="hop-5"><span class="option-indicator check-ind"></span>A starting point for a longer-term change</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="hoping" id="hop-6" value="To feel less controlled by my phone" />
+            <label for="hop-6"><span class="option-indicator check-ind"></span>To feel less controlled by my phone</label>
+          </div>
+          <div class="option-item">
+            <input type="checkbox" name="hoping" id="hop-7" value="To understand why this is so hard to change" />
+            <label for="hop-7"><span class="option-indicator check-ind"></span>To understand why this is so hard to change</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 11: Struggling -->
+      <div class="step" data-step="11">
+        <p class="step-eyebrow">What you're hoping for</p>
+        <h2 class="step-question">Is there anything specific you're struggling with that you'd like to work through?</h2>
+        <p class="step-hint">Optional — but the more you share, the better we can hold the space.</p>
+        <div class="field-wrap">
+          <textarea id="struggling" name="struggling" placeholder="Take your time..."></textarea>
+        </div>
+      </div>
+
+      <!-- Step 12: Tried before -->
+      <div class="step" data-step="12">
+        <p class="step-eyebrow">What you're hoping for</p>
+        <h2 class="step-question">Have you tried anything before to change your screen habits?</h2>
+        <div class="option-list">
+          <div class="option-item">
+            <input type="radio" name="triedBefore" id="tb-1" value="Yes — it helped a little but didn't stick" />
+            <label for="tb-1"><span class="option-indicator radio-ind"></span>Yes — it helped a little but didn't stick</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="triedBefore" id="tb-2" value="Yes — it didn't really work" />
+            <label for="tb-2"><span class="option-indicator radio-ind"></span>Yes — it didn't really work</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="triedBefore" id="tb-3" value="No — this is my first time trying something like this" />
+            <label for="tb-3"><span class="option-indicator radio-ind"></span>No — this is my first time</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="triedBefore" id="tb-4" value="I've thought about it but never followed through" />
+            <label for="tb-4"><span class="option-indicator radio-ind"></span>I've thought about it but never followed through</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 13: What they tried (conditional) -->
+      <div class="step" data-step="13">
+        <p class="step-eyebrow">What you're hoping for</p>
+        <h2 class="step-question">What did you try, and what happened?</h2>
+        <p class="step-hint">Apps, challenges, cold turkey... whatever you tried.</p>
+        <div class="field-wrap">
+          <textarea id="whatTheyTried" name="whatTheyTried" placeholder="e.g. I tried Screen Time limits but kept disabling them after a day..."></textarea>
+        </div>
+      </div>
+
+      <!-- Step 14: Can attend -->
+      <div class="step" data-step="14">
+        <p class="step-eyebrow">Logistics</p>
+        <h2 class="step-question">Will you be able to attend all four live sessions?</h2>
+        <p class="step-hint">April 19, 20, 21 &amp; 22 · 3PM EST · 45 minutes each</p>
+        <div class="option-list">
+          <div class="option-item">
+            <input type="radio" name="canAttend" id="ca-1" value="Yes, I can make all four" />
+            <label for="ca-1"><span class="option-indicator radio-ind"></span>Yes, I can make all four</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="canAttend" id="ca-2" value="I can make most of them" />
+            <label for="ca-2"><span class="option-indicator radio-ind"></span>I can make most of them</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="canAttend" id="ca-3" value="I'm not sure yet — I still want to register" />
+            <label for="ca-3"><span class="option-indicator radio-ind"></span>I'm not sure yet — I still want to register</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="canAttend" id="ca-4" value="I might need the recap — will replays be available?" />
+            <label for="ca-4"><span class="option-indicator radio-ind"></span>I might need the recap — will replays be available?</label>
+          </div>
+        </div>
+        <p class="step-error" id="err-canAttend">Please select one option.</p>
+      </div>
+
+      <!-- Step 15: Telegram -->
+      <div class="step" data-step="15">
+        <p class="step-eyebrow">Logistics</p>
+        <h2 class="step-question">Do you have access to Telegram?</h2>
+        <p class="step-hint">We use a private Telegram group between sessions for midday check-ins and community support.</p>
+        <div class="option-list">
+          <div class="option-item">
+            <input type="radio" name="hasTelegram" id="ht-1" value="Yes, I'm already on it" />
+            <label for="ht-1"><span class="option-indicator radio-ind"></span>Yes, I'm already on it</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="hasTelegram" id="ht-2" value="No, but I'm willing to download it" />
+            <label for="ht-2"><span class="option-indicator radio-ind"></span>No, but I'm willing to download it</label>
+          </div>
+          <div class="option-item">
+            <input type="radio" name="hasTelegram" id="ht-3" value="No, and I'd prefer not to" />
+            <label for="ht-3"><span class="option-indicator radio-ind"></span>No, and I'd prefer not to</label>
+          </div>
+        </div>
+        <p class="step-error" id="err-hasTelegram">Please select one option.</p>
+      </div>
+
+      <!-- Step 16: Anything else -->
+      <div class="step" data-step="16">
+        <p class="step-eyebrow">Almost done</p>
+        <h2 class="step-question">Anything else you'd like us to know before we begin?</h2>
+        <p class="step-hint">This is your space — use it however feels right.</p>
+        <div class="field-wrap">
+          <textarea id="anythingElse" name="anythingElse" placeholder="Totally optional..."></textarea>
+        </div>
+      </div>
+
+      <!-- Step 17: Gift + disclaimer info -->
+      <div class="step" data-step="17">
+        <p class="step-eyebrow">Almost done</p>
+        <h2 class="step-question" style="margin-bottom:20px;">One last thing.</h2>
+        <div class="gift-card">
+          <p class="gift-eyebrow">A note before you submit</p>
+          <h3>This is a gift.</h3>
+          <p>To celebrate our inaugural cohort, we're offering this experience at no cost. At the end of the detox, we'll invite those who found value in it to support the work with an optional donation. No obligation, no pressure.</p>
+          <hr class="gift-divider" />
+          <p class="please-read">Please read</p>
+          <p>The 3-day DigiTox is a wellness program grounded in behavioral psychology and nervous system regulation. It is not therapy. Sophia Dias is not a licensed therapist or medical professional.</p>
+          <p>This program is not a substitute for professional mental health support. By registering, you acknowledge you're participating voluntarily and that this program is educational and experiential in nature.</p>
+        </div>
+      </div>
+
+      <!-- Step 18: Consents + Submit -->
+      <div class="step" data-step="18">
+        <p class="step-eyebrow">Almost done</p>
+        <h2 class="step-question">Before you submit.</h2>
+        <p class="step-hint" style="margin-bottom:20px;">Two things to confirm.</p>
+
+        <label class="consent-item" id="disclaimer-wrap">
+          <input type="checkbox" id="disclaimerAgreed" name="disclaimerAgreed" />
+          <span class="consent-text">
+            I've read and understand that the DigiTox is a wellness program, not therapy or medical advice. Sophia Dias is not a licensed therapist. This does not replace professional mental health support.
+          </span>
+        </label>
+        <p class="step-error" id="err-disclaimerAgreed" style="margin-bottom:10px;">Please agree to continue.</p>
+
+        <label class="consent-item" id="emailconsent-wrap">
+          <input type="checkbox" id="emailConsent" name="emailConsent" />
+          <span class="consent-text">
+            I agree to receive emails and promotional materials from How We Screen. I can unsubscribe at any time.
+          </span>
+        </label>
+        <p class="step-error" id="err-emailConsent">Please agree to continue.</p>
+
+        <div class="form-error-banner" id="form-error-banner">
+          Something went wrong — please try again or email <a href="mailto:hello@howwescreen.org">hello@howwescreen.org</a>
+        </div>
+      </div>
+
+    </div><!-- /steps-container -->
+
+    <!-- Navigation -->
+    <div class="nav-area" id="nav-area">
+      <button class="btn-back hidden" id="btn-back">← Back</button>
+      <button class="btn-continue" id="btn-continue">Start →</button>
+      <button class="skip-link" id="btn-skip" style="display:none;">Skip</button>
+    </div>
+  </div><!-- /stage -->
+
+  <!-- Hidden Kit form — CK.js handles subscription -->
+  <div id="kit-form-wrapper" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;overflow:hidden;">
+    <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
+    <form action="https://app.kit.com/forms/9333505/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9333505" data-uid="fb81964117" data-format="inline" data-version="5">
+      <div data-element="fields">
+        <input class="formkit-input" name="email_address" type="email" />
+      </div>
+      <button data-element="submit" class="formkit-submit" type="submit">Subscribe</button>
     </form>
-  </div><!-- /#form-wrap -->
-
-</div><!-- /.page-wrap -->
+  </div>
 
 <script>
-  // ── Consent checkbox visual state ──
-  document.getElementById('disclaimerAgreed').addEventListener('change', function() {
-    document.getElementById('disclaimer-wrap').classList.toggle('checked', this.checked);
-  });
-  document.getElementById('emailConsent').addEventListener('change', function() {
-    document.getElementById('emailconsent-wrap').classList.toggle('checked', this.checked);
-  });
+  // ── Step definitions ──
+  // Each entry: { required: bool, validate: fn, optional: bool, conditional: fn }
+  const TOTAL_STEPS = 18; // steps 1–18 (0 is intro)
 
-  // ── Validation helpers ──
-  function showError(fieldId, msg) {
-    const err = document.getElementById('err-' + fieldId);
-    if (err) { err.textContent = msg || err.textContent; err.classList.add('visible'); }
-    const el = document.getElementById(fieldId);
-    if (el) el.classList.add('has-error');
+  // Steps that are optional (no validation required)
+  const optionalSteps  = new Set([3, 5, 7, 8, 9, 11, 13, 16]);
+  // Steps that auto-advance on radio selection
+  const autoAdvance    = new Set([5, 6, 12, 14, 15]);
+  // Step 13 only shows if triedBefore starts with "Yes"
+  function shouldShowStep13() {
+    const v = getRadioValue('triedBefore');
+    return v && v.startsWith('Yes');
   }
 
-  function clearError(fieldId) {
-    const err = document.getElementById('err-' + fieldId);
-    if (err) err.classList.remove('visible');
-    const el = document.getElementById(fieldId);
-    if (el) el.classList.remove('has-error');
-  }
+  let currentStep = 0;
+  let isAnimating = false;
 
+  // ── Helpers ──
   function getRadioValue(name) {
-    const checked = document.querySelector('input[name="' + name + '"]:checked');
-    return checked ? checked.value : null;
+    const el = document.querySelector(`input[name="${name}"]:checked`);
+    return el ? el.value : null;
   }
 
   function getCheckboxValues(name) {
-    return Array.from(document.querySelectorAll('input[name="' + name + '"]:checked')).map(el => el.value);
+    return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`)).map(e => e.value);
   }
 
-  function isValidEmail(val) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val.trim());
+  function isValidEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim());
   }
 
-  // ── Live clear errors on input ──
-  ['firstName','lastName','email','timezone'].forEach(id => {
+  function showErr(id) {
     const el = document.getElementById(id);
-    if (el) el.addEventListener('input', () => clearError(id));
-  });
+    if (el) el.classList.add('visible');
+  }
 
-  ['screenRelationship','canAttend','hasTelegram'].forEach(name => {
-    document.querySelectorAll('input[name="' + name + '"]').forEach(el => {
-      el.addEventListener('change', () => clearError(name));
-    });
-  });
+  function clearErr(id) {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('visible');
+  }
 
-  ['disclaimerAgreed','emailConsent'].forEach(id => {
-    document.getElementById(id).addEventListener('change', () => clearError(id));
-  });
+  // ── Validate current step ──
+  function validateStep(step) {
+    let valid = true;
 
-  // ── Form submit ──
-  document.getElementById('registration-form').addEventListener('submit', async function(e) {
-    e.preventDefault();
-
-    // Clear all errors
-    ['firstName','lastName','email','timezone','screenRelationship','canAttend','hasTelegram','disclaimerAgreed','emailConsent']
-      .forEach(clearError);
-    document.getElementById('form-error-banner').classList.remove('visible');
-
-    // Collect values
-    const firstName = document.getElementById('firstName').value.trim();
-    const lastName  = document.getElementById('lastName').value.trim();
-    const email     = document.getElementById('email').value.trim();
-    const location  = document.getElementById('location').value.trim();
-    const age       = document.getElementById('age').value.trim();
-    const timezone  = document.getElementById('timezone').value;
-    const source    = getRadioValue('source');
-    const screenRelationship = getRadioValue('screenRelationship');
-    const patterns  = getCheckboxValues('patterns');
-    const apps      = getCheckboxValues('apps');
-    const screenFeeling = document.getElementById('screenFeeling').value.trim();
-    const hoping    = getCheckboxValues('hoping');
-    const struggling = document.getElementById('struggling').value.trim();
-    const triedBefore = getRadioValue('triedBefore');
-    const whatTheyTried = document.getElementById('whatTheyTried').value.trim();
-    const canAttend = getRadioValue('canAttend');
-    const hasTelegram = getRadioValue('hasTelegram');
-    const anythingElse = document.getElementById('anythingElse').value.trim();
-    const disclaimerAgreed = document.getElementById('disclaimerAgreed').checked;
-    const emailConsent = document.getElementById('emailConsent').checked;
-
-    // Validate required fields
-    let hasError = false;
-
-    if (!firstName) { showError('firstName'); hasError = true; }
-    if (!lastName)  { showError('lastName');  hasError = true; }
-    if (!email || !isValidEmail(email)) { showError('email', 'Please enter a valid email address.'); hasError = true; }
-    if (!timezone)  { showError('timezone');  hasError = true; }
-    if (!screenRelationship) { showError('screenRelationship', 'Please select one option.'); hasError = true; }
-    if (!canAttend) { showError('canAttend',  'Please select one option.'); hasError = true; }
-    if (!hasTelegram){ showError('hasTelegram','Please select one option.'); hasError = true; }
-    if (!disclaimerAgreed) { showError('disclaimerAgreed'); hasError = true; }
-    if (!emailConsent)     { showError('emailConsent');     hasError = true; }
-
-    if (hasError) {
-      // Scroll to first error
-      const firstErr = document.querySelector('.field-error.visible');
-      if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      return;
+    if (step === 1) {
+      clearErr('err-name');
+      const fn = document.getElementById('firstName').value.trim();
+      const ln = document.getElementById('lastName').value.trim();
+      if (!fn || !ln) { showErr('err-name'); valid = false; }
+    }
+    if (step === 2) {
+      clearErr('err-email');
+      const em = document.getElementById('email').value.trim();
+      if (!isValidEmail(em)) { showErr('err-email'); valid = false; }
+    }
+    if (step === 4) {
+      clearErr('err-timezone');
+      if (!document.getElementById('timezone').value) { showErr('err-timezone'); valid = false; }
+    }
+    if (step === 6) {
+      clearErr('err-screenRelationship');
+      if (!getRadioValue('screenRelationship')) { showErr('err-screenRelationship'); valid = false; }
+    }
+    if (step === 14) {
+      clearErr('err-canAttend');
+      if (!getRadioValue('canAttend')) { showErr('err-canAttend'); valid = false; }
+    }
+    if (step === 15) {
+      clearErr('err-hasTelegram');
+      if (!getRadioValue('hasTelegram')) { showErr('err-hasTelegram'); valid = false; }
+    }
+    if (step === 18) {
+      clearErr('err-disclaimerAgreed');
+      clearErr('err-emailConsent');
+      if (!document.getElementById('disclaimerAgreed').checked) { showErr('err-disclaimerAgreed'); valid = false; }
+      if (!document.getElementById('emailConsent').checked)     { showErr('err-emailConsent');     valid = false; }
     }
 
-    // Submit
-    const btn = document.getElementById('submit-btn');
+    return valid;
+  }
+
+  // ── Navigate ──
+  function getNextStep(from) {
+    let next = from + 1;
+    // Skip step 13 if they haven't tried before
+    if (next === 13 && !shouldShowStep13()) next = 14;
+    return next;
+  }
+
+  function getPrevStep(from) {
+    let prev = from - 1;
+    // Skip step 13 going back if it wasn't shown
+    if (prev === 13 && !shouldShowStep13()) prev = 12;
+    return prev;
+  }
+
+  function goTo(nextIndex, direction) {
+    if (isAnimating) return;
+    isAnimating = true;
+
+    const steps = document.querySelectorAll('.step');
+    const current = steps[currentStep];
+    const next    = steps[nextIndex];
+
+    const exitClass  = direction === 'forward' ? 'exit-left'  : 'exit-right';
+    const enterClass = direction === 'forward' ? ''           : '';
+
+    // Exit current
+    current.classList.remove('active');
+    current.classList.add(exitClass);
+
+    // Prep next (start from right or left)
+    next.style.transform = direction === 'forward' ? 'translateX(60px)' : 'translateX(-60px)';
+    next.style.opacity = '0';
+    next.style.pointerEvents = 'none';
+    next.classList.remove('exit-left', 'exit-right');
+
+    // Force reflow
+    next.offsetHeight;
+
+    // Animate in
+    next.style.transition = 'opacity 0.35s ease, transform 0.35s ease';
+    next.style.transform = 'translateX(0)';
+    next.style.opacity = '1';
+    next.style.pointerEvents = 'all';
+
+    setTimeout(() => {
+      current.classList.remove(exitClass);
+      current.style.transform = '';
+      current.style.opacity = '';
+      current.style.pointerEvents = '';
+      current.style.transition = '';
+      next.style.transform = '';
+      next.style.opacity = '';
+      next.style.transition = '';
+      next.classList.add('active');
+      currentStep = nextIndex;
+      isAnimating = false;
+      updateNav();
+      focusStep(currentStep);
+    }, 370);
+  }
+
+  function focusStep(step) {
+    const s = document.querySelectorAll('.step')[step];
+    const input = s.querySelector('input[type="text"], input[type="email"], input[type="number"], textarea');
+    if (input) setTimeout(() => input.focus(), 80);
+  }
+
+  // ── Update nav UI ──
+  function updateNav() {
+    const backBtn = document.getElementById('btn-back');
+    const contBtn = document.getElementById('btn-continue');
+    const skipBtn = document.getElementById('btn-skip');
+
+    // Back button
+    if (currentStep === 0) {
+      backBtn.classList.add('hidden');
+    } else {
+      backBtn.classList.remove('hidden');
+    }
+
+    // Continue button label
+    if (currentStep === 0) {
+      contBtn.textContent = 'Start →';
+    } else if (currentStep === 18) {
+      contBtn.textContent = 'Submit registration';
+    } else {
+      contBtn.textContent = 'Continue →';
+    }
+
+    // Progress
+    const progressFill = document.getElementById('progress-fill');
+    const progressLabel = document.getElementById('progress-label');
+    if (currentStep === 0) {
+      progressFill.style.width = '0%';
+      progressLabel.textContent = '';
+    } else {
+      const pct = Math.round((currentStep / TOTAL_STEPS) * 100);
+      progressFill.style.width = pct + '%';
+      progressLabel.textContent = currentStep + ' / ' + TOTAL_STEPS;
+    }
+
+    // Skip button (optional steps)
+    if (optionalSteps.has(currentStep)) {
+      skipBtn.style.display = 'block';
+    } else {
+      skipBtn.style.display = 'none';
+    }
+  }
+
+  // ── Continue ──
+  async function handleContinue() {
+    if (currentStep === 18) {
+      await handleSubmit();
+      return;
+    }
+    if (!validateStep(currentStep)) return;
+    const next = getNextStep(currentStep);
+    if (next > TOTAL_STEPS) return;
+    goTo(next, 'forward');
+  }
+
+  // ── Back ──
+  function handleBack() {
+    if (currentStep === 0) return;
+    const prev = getPrevStep(currentStep);
+    goTo(prev, 'back');
+  }
+
+  // ── Skip ──
+  function handleSkip() {
+    const next = getNextStep(currentStep);
+    if (next > TOTAL_STEPS) return;
+    goTo(next, 'forward');
+  }
+
+  // ── Submit ──
+  async function handleSubmit() {
+    if (!validateStep(18)) return;
+
+    const btn = document.getElementById('btn-continue');
     btn.disabled = true;
-    btn.textContent = 'Registering...';
+    btn.textContent = 'Submitting...';
+    document.getElementById('form-error-banner').classList.remove('visible');
 
     const payload = {
-      firstName, lastName, email, location, age, timezone, source,
-      screenRelationship, patterns, apps, screenFeeling, hoping,
-      struggling, triedBefore, whatTheyTried, canAttend, hasTelegram,
-      anythingElse, disclaimerAgreed, emailConsent
+      firstName:        document.getElementById('firstName').value.trim(),
+      lastName:         document.getElementById('lastName').value.trim(),
+      email:            document.getElementById('email').value.trim(),
+      location:         document.getElementById('location').value.trim(),
+      age:              document.getElementById('age').value.trim(),
+      timezone:         document.getElementById('timezone').value,
+      source:           getRadioValue('source'),
+      screenRelationship: getRadioValue('screenRelationship'),
+      patterns:         getCheckboxValues('patterns'),
+      apps:             getCheckboxValues('apps'),
+      screenFeeling:    document.getElementById('screenFeeling').value.trim(),
+      hoping:           getCheckboxValues('hoping'),
+      struggling:       document.getElementById('struggling').value.trim(),
+      triedBefore:      getRadioValue('triedBefore'),
+      whatTheyTried:    document.getElementById('whatTheyTried').value.trim(),
+      canAttend:        getRadioValue('canAttend'),
+      hasTelegram:      getRadioValue('hasTelegram'),
+      anythingElse:     document.getElementById('anythingElse').value.trim(),
+      disclaimerAgreed: document.getElementById('disclaimerAgreed').checked,
+      emailConsent:     document.getElementById('emailConsent').checked,
     };
 
     try {
-      // 1. Send full registration data to Google Sheet
+      // 1. Google Sheet
       await fetch('https://script.google.com/macros/s/AKfycbzciAVWqbW1DnpfqPKwQLamtQ6Wkjy7ZemSqJnjey42huJJJBF_7geJ-PkGaoDcqhubNg/exec', {
         method: 'POST',
         mode: 'no-cors',
@@ -1096,38 +1303,66 @@
         body: JSON.stringify(payload)
       });
 
-      // 2. Subscribe to Kit — set email in hidden Kit form and let CK.js submit it
+      // 2. Kit subscription
       const kitInput = document.querySelector('#kit-form-wrapper input[name="email_address"]');
       const kitBtn   = document.querySelector('#kit-form-wrapper button[data-element="submit"]');
       if (kitInput && kitBtn) {
-        kitInput.value = email;
+        kitInput.value = payload.email;
         kitBtn.click();
       }
 
-      // no-cors returns an opaque response — if fetch didn't throw, data was sent
-      document.getElementById('form-wrap').style.display = 'none';
-      document.getElementById('success-message').style.display = 'block';
+      // Show success
+      document.getElementById('stage').style.display = 'none';
+      const successEl = document.getElementById('success-message');
+      successEl.style.display = 'flex';
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
     } catch (err) {
-      console.error('Submission error:', err);
+      console.error(err);
       btn.disabled = false;
-      btn.textContent = 'Register for the DigiTox';
+      btn.textContent = 'Submit registration';
       document.getElementById('form-error-banner').classList.add('visible');
     }
+  }
+
+  // ── Auto-advance on radio select ──
+  document.querySelectorAll('.option-list input[type="radio"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      const stepEl = radio.closest('.step');
+      const stepIndex = parseInt(stepEl.dataset.step);
+      if (autoAdvance.has(stepIndex) && stepIndex === currentStep) {
+        setTimeout(() => handleContinue(), 280);
+      }
+    });
   });
+
+  // ── Consent visual state ──
+  document.getElementById('disclaimerAgreed').addEventListener('change', function() {
+    document.getElementById('disclaimer-wrap').classList.toggle('checked', this.checked);
+  });
+  document.getElementById('emailConsent').addEventListener('change', function() {
+    document.getElementById('emailconsent-wrap').classList.toggle('checked', this.checked);
+  });
+
+  // ── Keyboard: Enter to advance ──
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      const tag = document.activeElement.tagName;
+      if (tag === 'TEXTAREA') return; // allow newlines in textarea
+      if (tag === 'BUTTON') return;
+      e.preventDefault();
+      handleContinue();
+    }
+  });
+
+  // ── Button listeners ──
+  document.getElementById('btn-continue').addEventListener('click', handleContinue);
+  document.getElementById('btn-back').addEventListener('click', handleBack);
+  document.getElementById('btn-skip').addEventListener('click', handleSkip);
+
+  // ── Init ──
+  updateNav();
 </script>
-
-
-<!-- Kit form — hidden but active so CK.js can handle the subscription -->
-<div id="kit-form-wrapper" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px;overflow:hidden;">
-  <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
-  <form action="https://app.kit.com/forms/9333505/subscriptions" class="seva-form formkit-form" method="post" data-sv-form="9333505" data-uid="fb81964117" data-format="inline" data-version="5">
-    <div data-element="fields">
-      <input class="formkit-input" name="email_address" type="email" />
-    </div>
-    <button data-element="submit" class="formkit-submit" type="submit">Subscribe</button>
-  </form>
-</div>
 
 </body>
 </html>
