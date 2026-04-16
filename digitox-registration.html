@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DigiTox Beta — Register | How We Screen</title>
+  <title>3-Day Digital Detox — Register | How We Screen</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -44,33 +44,36 @@
 
     /* ── Header ── */
     .form-header {
-      margin-bottom: 48px;
+      background: var(--primary);
+      margin: -48px -24px 48px;
+      padding: 56px 24px 48px;
     }
 
     .form-header .eyebrow {
       font-family: var(--font-sans);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 12px;
+      color: rgba(242, 237, 228, 0.55);
+      margin-bottom: 16px;
     }
 
     .form-header h1 {
       font-family: var(--font-serif);
-      font-size: clamp(1.8rem, 5vw, 2.6rem);
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
       font-weight: 300;
-      color: var(--near-black);
-      line-height: 1.2;
+      color: var(--linen);
+      line-height: 1.18;
       letter-spacing: 0.02em;
-      margin-bottom: 16px;
+      margin-bottom: 20px;
     }
 
     .form-header p {
       font-size: 1rem;
-      color: var(--text-secondary);
-      max-width: 560px;
+      color: rgba(242, 237, 228, 0.75);
+      max-width: 520px;
+      line-height: 1.7;
     }
 
     /* ── Section ── */
@@ -89,11 +92,11 @@
 
     .section-number {
       font-family: var(--font-sans);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      color: var(--primary);
-      background: transparent;
-      border: 1.5px solid var(--primary);
+      color: var(--linen);
+      background: var(--primary);
+      border: none;
       border-radius: 50%;
       width: 28px;
       height: 28px;
@@ -437,9 +440,9 @@
   <div id="form-wrap">
 
     <header class="form-header">
-      <p class="eyebrow">How We Screen · DigiTox Beta</p>
-      <h1>Register for the DigiTox</h1>
-      <p>April 19–22 · 3PM EST · Four live sessions · Free for beta cohort members. Take a few minutes with this — your answers help us hold the space well.</p>
+      <p class="eyebrow">How We Screen · April 2026</p>
+      <h1>We're glad you're here.</h1>
+      <p>The 3-day digital detox runs April 19–22 at 3PM EST — four live sessions, free for beta cohort members. This form takes about five minutes. There are no right answers, just honest ones. The more you share, the better we can hold the space for you.</p>
     </header>
 
     <form id="registration-form" novalidate>
@@ -476,7 +479,7 @@
           <div class="field-group">
             <label class="field-label" for="location">Where are you based?</label>
             <span class="field-hint">City, country — optional</span>
-            <input type="text" id="location" name="location" placeholder="e.g. Buenos Aires, Argentina" />
+            <input type="text" id="location" name="location" placeholder="e.g. Miami, Florida" />
           </div>
           <div class="field-group">
             <label class="field-label" for="age">Age</label>
