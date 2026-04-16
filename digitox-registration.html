@@ -438,6 +438,64 @@
       margin-top: 8px;
     }
 
+    /* ── Gift block ── */
+    .gift-block {
+      background: var(--primary);
+      border-radius: 4px;
+      padding: 36px 32px;
+      margin-bottom: 48px;
+    }
+
+    .gift-block .gift-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(242, 237, 228, 0.45);
+      margin-bottom: 14px;
+    }
+
+    .gift-block h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      color: var(--linen);
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+
+    .gift-block .gift-intro {
+      font-size: 0.95rem;
+      color: rgba(242, 237, 228, 0.78);
+      line-height: 1.75;
+      margin-bottom: 24px;
+    }
+
+    .gift-block .gift-divider {
+      border: none;
+      border-top: 1px solid rgba(242, 237, 228, 0.12);
+      margin-bottom: 20px;
+    }
+
+    .gift-block .please-read {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: rgba(242, 237, 228, 0.4);
+      margin-bottom: 14px;
+    }
+
+    .gift-block .disclaimer p {
+      font-size: 0.85rem;
+      color: rgba(242, 237, 228, 0.5);
+      line-height: 1.75;
+      margin-bottom: 10px;
+    }
+
+    .gift-block .disclaimer p:last-child { margin-bottom: 0; }
+
     /* ── Divider ── */
     .section-divider {
       border: none;
@@ -473,16 +531,7 @@
     <header class="form-header">
       <img src="assets/logo-cream.png" alt="How We Screen" class="logo" />
       <h1>We're glad you're here.</h1>
-      <p>This experience is a gift from How We Screen to you — offered freely, with intention. No payment. No catch. We're doing this because we believe in the work, and we want to share it with people who are ready to show up for it.</p>
-
-      <hr class="header-divider" />
-
-      <p class="please-read">Please read before submitting</p>
-      <div class="disclaimer">
-        <p>The 3-day digital detox is a wellness program grounded in behavioral psychology, nervous system regulation, and intentional technology use. It is not therapy, and Sophia Dias Peixoto is not a licensed therapist, counselor, or medical professional.</p>
-        <p>This program is designed to help you build awareness and develop a more intentional relationship with technology. It is not a substitute for professional mental health support. If you are experiencing significant distress, anxiety, depression, or any mental health concerns, we encourage you to seek support from a qualified professional alongside this program.</p>
-        <p>By registering, you acknowledge that you are participating voluntarily and that this program is educational and experiential in nature.</p>
-      </div>
+      <p>The 3-day digital detox runs April 19–22 at 3PM EST — four live sessions. This form takes about five minutes. There are no right answers, just honest ones. The more you share, the better we can hold the space for you.</p>
     </header>
 
     <form id="registration-form" novalidate>
@@ -860,6 +909,24 @@
           <textarea id="anythingElse" name="anythingElse" placeholder="This is your space — use it however feels right."></textarea>
         </div>
       </section>
+
+      <hr class="section-divider" />
+
+      <!-- ── Gift + Disclaimer block ── -->
+      <div class="gift-block">
+        <p class="gift-eyebrow">A note before you go further</p>
+        <h3>This is a gift.</h3>
+        <p class="gift-intro">To celebrate our inaugural cohort, we're offering this experience as a gift to the community. No payment required — just show up. At the end of the detox, we'll invite those who found value in it to support the work with an optional donation. There's no obligation, no pressure. We're doing this because we believe in it, and we want to share it with people who are ready.</p>
+
+        <hr class="gift-divider" />
+
+        <p class="please-read">Please read before submitting</p>
+        <div class="disclaimer">
+          <p>The 3-day digital detox is a wellness program grounded in behavioral psychology, nervous system regulation, and intentional technology use. It is not therapy, and Sophia Dias Peixoto is not a licensed therapist, counselor, or medical professional.</p>
+          <p>This program is designed to help you build awareness and develop a more intentional relationship with technology. It is not a substitute for professional mental health support. If you are experiencing significant distress, anxiety, depression, or any mental health concerns, we encourage you to seek support from a qualified professional alongside this program.</p>
+          <p>By registering, you acknowledge that you are participating voluntarily and that this program is educational and experiential in nature.</p>
+        </div>
+      </div>
 
       <hr class="section-divider" />
 
