@@ -1088,21 +1088,17 @@
     };
 
     try {
-      const res = await fetch('https://script.google.com/macros/s/AKfycbzciAVWqbW1DnpfqPKwQLamtQ6Wkjy7ZemSqJnjey42huJJJBF_7geJ-PkGaoDcqhubNg/exec', {
+      await fetch('https://script.google.com/macros/s/AKfycbzciAVWqbW1DnpfqPKwQLamtQ6Wkjy7ZemSqJnjey42huJJJBF_7geJ-PkGaoDcqhubNg/exec', {
         method: 'POST',
+        mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
 
-      const json = await res.json();
-
-      if (json.result === 'success') {
-        document.getElementById('form-wrap').style.display = 'none';
-        document.getElementById('success-message').style.display = 'block';
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        throw new Error(json.error || 'Unknown error');
-      }
+      // no-cors returns an opaque response — if fetch didn't throw, data was sent
+      document.getElementById('form-wrap').style.display = 'none';
+      document.getElementById('success-message').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } catch (err) {
       console.error('Submission error:', err);
       btn.disabled = false;
