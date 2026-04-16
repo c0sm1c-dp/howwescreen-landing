@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>3-Day Digital Detox — Register | How We Screen</title>
+  <script src="https://f.convertkit.com/ckjs/ck.5.js" async></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -1088,11 +1089,20 @@
     };
 
     try {
+      // 1. Send full registration data to Google Sheet
       await fetch('https://script.google.com/macros/s/AKfycbzciAVWqbW1DnpfqPKwQLamtQ6Wkjy7ZemSqJnjey42huJJJBF_7geJ-PkGaoDcqhubNg/exec', {
         method: 'POST',
         mode: 'no-cors',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
+      });
+
+      // 2. Subscribe to Kit via simple form POST (no CORS preflight)
+      fetch('https://app.kit.com/forms/9333505/subscriptions', {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({ email_address: email }).toString()
       });
 
       // no-cors returns an opaque response — if fetch didn't throw, data was sent
@@ -1107,6 +1117,7 @@
     }
   });
 </script>
+
 
 </body>
 </html>
